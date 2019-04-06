@@ -1,0 +1,15 @@
+/* Root styles go here
+  Styles that apply to body or anything.
+ */
+
+* {
+  @import url("https://use.typekit.net/ebh1hal.css");
+  font-family: futura-pt, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+}
