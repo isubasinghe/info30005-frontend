@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
+import './signin.css';
 
 class SignInForm extends Component {
 	constructor() {
@@ -57,7 +58,7 @@ class SignInForm extends Component {
 						<button className="FormField__Button mr-20">Sign In</button>
 					</div>
 					<div className="FormField">
-						<Link exact to="/sign-up" className="FormField__Link">Create an account</Link>
+						<Link to="/sign-up" className="FormField__Link">Create an account</Link>
 					</div>
 				</form>
 			</div>

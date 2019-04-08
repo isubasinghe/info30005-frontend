@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
-import SignUpForm from "./pages/SignUpForm";
-import SignInForm from "./pages/SignInForm";
+import SignUp from './pages/SignUp';
+import SignIn from './pages/Signin';
 import logo from './photos/logo.png';
 import './App.css';
 
@@ -14,15 +14,13 @@ class App extends Component {
             <img src={logo} className="App__Logo" alt = "Logo" />
           </Link>
             <div className="PageSwitcher">
-              <NavLink exact to="/sign-in" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
-              <NavLink exact to="/sign-up" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+              <NavLink to="/sign-in" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
+              <NavLink to="/sign-up" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
             </div>
         </div>
         <div className="App">
-            <Route exact path="/sign-up" component={SignUpForm}>
-            </Route>
-            <Route path="/sign-in" component={SignInForm}>
-            </Route>
+            <Route exact path="/sign-up" component={SignUp} />
+            <Route path="/sign-in" component={SignIn} />
         </div>
       </Router>
     );
