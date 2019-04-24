@@ -55,6 +55,9 @@ class SignInForm extends Component {
 						       placeholder="Enter your password" name ="password" value={this.state.password} onChange={this.handleChange} />
 					</div>
 					<div className="FormField">
+						<Link to="/forgot-password" className="FormField__Link__No__Underline">Forgot password?</Link>
+					</div>
+					<div className="FormField">
 						<button className="FormField__Button mr-20">Sign In</button>
 					</div>
 					<div className="FormField">
