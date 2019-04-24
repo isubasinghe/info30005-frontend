@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import SignUp from './UserAuth/SignUp';
-import SignIn from './UserAuth/Signin';
+import SignIn from './UserAuth/SignIn';
 import ForgotPassword from './UserAuth/ForgotPassword';
-import NavBar from './Components/NavBar'
+import NavBar from './Kitchen/NavBar'
 import logo from './photos/logo.png';
 import './App.css';
 

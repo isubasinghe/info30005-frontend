@@ -58,19 +58,19 @@ class SignUpForm extends Component {
 						<label className="FormField__Label" htmlFor="email">Email</label>
 						<input type="email" id="email" className="FormField__Input"
 						       placeholder="Enter your email" name ="email" onChange={this.handleChange}
-										value={this.state.email}/>
+										value={this.state.email} required/>
 					</div>
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="f_name">First Name</label>
 						<input type="text" id="f_name" className="FormField__Input"
 						       placeholder="Enter your first name" name ="f_name" onChange={this.handleChange}
-						       value={this.state.f_name} />
+						       value={this.state.f_name} required/>
 					</div>
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="l_name">Last Name</label>
 						<input type="text" id="l_name" className="FormField__Input"
 						       placeholder="Enter your last name" name ="l_name" onChange={this.handleChange}
-						       value={this.state.l_name}/>
+						       value={this.state.l_name} required/>
 					</div>
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="password">Password</label>
@@ -83,13 +83,13 @@ class SignUpForm extends Component {
 						<input type="password" id="confirm_password" className="FormField__Input"
 							onChange={this.handleChange}
 							placeholder="Verify your password" name="confirm_password"
-							value={this.state.confirm_password}/>
+							value={this.state.confirm_password} required/>
 					</div>
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="address"> Address</label>
 						<input type="address" id="address" className="FormField__Input"
 							onChange={this.handleChange} placeholder="Enter your address (number, streetname, postcode, area)"
-							name="address" value={this.state.address}/>
+							name="address" value={this.state.address} required/>
 					</div>
 					<div className="FormField">
 						<label className="FormField__CheckboxLabel">
