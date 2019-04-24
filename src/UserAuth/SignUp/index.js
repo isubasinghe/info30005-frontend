@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import './signup.css';
 
 class SignUpForm extends Component {
+	
 	constructor(){
 
 		super();
@@ -29,14 +30,21 @@ class SignUpForm extends Component {
 
 		this.setState({
 			[name]: value
+			
 		});
 	}
 
 	handleSubmit (e) {
 
 		e.preventDefault();
-
-		console.log('The form was submitted with the following data: ');
+		
+		if ((e.target.value===this.state.confirm_password) &&
+			(e.target.value!== this.state.password)) {
+			
+			alert("Passwords don't match");
+		}
+		
+		console.log('The form was submitted with the following data: ');		
 		console.log(this.state);
 	}
 
@@ -80,7 +88,7 @@ class SignUpForm extends Component {
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="address"> Address</label>
 						<input type="address" id="address" className="FormField__Input"
-							onChange={this.handleChange} placeholder="Enter your address including suburb"
+							onChange={this.handleChange} placeholder="Enter your address (number, streetname, postcode, area)"
 							name="address" value={this.state.address}/>
 					</div>
 					<div className="FormField">
