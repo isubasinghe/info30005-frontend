@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
-import './signup.css';
 
 class SignUpForm extends Component {
 	constructor(){
@@ -39,52 +38,48 @@ class SignUpForm extends Component {
 	}
 
 	render() {
-		return(
-			<div className="FormCenter">
-				<div className="FormTitle">Sign up</div>
-				<form className="ForField" onSubmit={this.handleSubmit}>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="email">Email</label>
-						<input type="email" id="email" className="FormField__Input"
-						       placeholder="Enter your email" name ="email" onChange={this.handleChange}
-										value={this.state.email}/>
-					</div>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="f_name">First Name</label>
-						<input type="text" id="f_name" className="FormField__Input"
-						       placeholder="Enter your first name" name ="f_name" onChange={this.handleChange}
-						       value={this.state.f_name} />
-					</div>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="l_name">Last Name</label>
-						<input type="text" id="l_name" className="FormField__Input"
-						       placeholder="Enter your last name" name ="l_name" onChange={this.handleChange}
-						       value={this.state.l_name}/>
-					</div>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="password">Password</label>
-						<input type="password" id="password" className="FormField__Input"
-						       placeholder="Enter your password" name ="password" onChange={this.handleChange}
-						       value={this.state.password} />
-					</div>
-					<div className="FormField">
-						<label className="FormField__CheckboxLabel">
-							<input className="FormField__Checkbox" type="checkbox" name="hasAgreed" onChange={this.handleChange}
-							       value={this.state.hasAgreed} />
-							I agree all statements in <a href="" className="FormField__TermsLink">
-							terms of service</a>
-						</label>
-					</div>
-					<div className="FormField">
-						<button className="FormField__Button mr-20">Sign Up</button>
-					</div>
-					<div className="FormField">
-						<Link to="/sign-in" className="FormField__Link"> I'm already a member</Link>
-					</div>
-				</form>
+		return (
+			<div className="row">
+				<div className="col-sm">
+				</div>
+				<div className="col-4 mt-5 pl-5 pr-5 bg-white">
+					<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign Up </h2>
+					<form>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Name</p>
+							<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="email" placeholder="Please enter you email" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
+							<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="email" placeholder="Please enter you email" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Password</p>
+							<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="password" placeholder="Please enter your password" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Address</p>
+							<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="address" placeholder="Please enter you address" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group text-center">
+							<button type="submit" className="btn text-center btn-white font-weight-light border-white
+							         bg-bground m-4">Sign Up</button>
+						</div>
+					</form>
+				</div>
+				<div className="col-sm">
+				</div>
 			</div>
-		);
-	}
+		)
+	};
 }
 
 export default SignUpForm;

@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
-import './signin.css';
 
 class SignInForm extends Component {
 	constructor() {
@@ -19,7 +18,7 @@ class SignInForm extends Component {
 
 	handleChange(e) {
 		let target = e.target;
-		let value = target.type === "checkbox"?target.checked : target.value;
+		let value = target.type === "checkbox" ? target.checked : target.value;
 		let name = target.name;
 
 		//When the value changes it will update the value above.
@@ -37,33 +36,36 @@ class SignInForm extends Component {
 
 	}
 
-
-
 	render() {
-		return(
-			<div className="FormCenter">
-				<div className="FormTitle">Sign in</div>
-				<form className="FormField" onSubmit={this.handleSubmit}>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="email">Email</label>
-						<input type="email" id="email" className="FormField__Input"
-						       placeholder="Enter your email" name ="email" value={this.state.email} onChange={this.handleChange} />
-					</div>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="password">Password</label>
-						<input type="password" id="password" className="FormField__Input"
-						       placeholder="Enter your password" name ="password" value={this.state.password} onChange={this.handleChange} />
-					</div>
-					<div className="FormField">
-						<button className="FormField__Button mr-20">Sign In</button>
-					</div>
-					<div className="FormField">
-						<Link to="/sign-up" className="FormField__Link">Create an account</Link>
-					</div>
-				</form>
+		return (
+			<div className="row">
+				<div className="col-sm">
+				</div>
+				<div className="col-4 mt-5 pl-5 pr-5 bg-white">
+					<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign In </h2>
+					<form>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Email </p>
+							<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="email" placeholder="Enter you email" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Password </p>
+							<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="password" placeholder="Enter your password" required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group text-center">
+							<button type="submit" className="btn text-center btn-white font-weight-light border-white
+							         bg-bground m-4">Sign In</button>
+						</div>
+					</form>
+				</div>
+				<div className="col-sm">
+				</div>
 			</div>
-		);
-	}
+		)
+	};
 }
-
 export default SignInForm;

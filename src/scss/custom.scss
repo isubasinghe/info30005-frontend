@@ -1,0 +1,15 @@
+/* Import required Bootstrap */
+@import "../../node_modules/bootstrap/scss/functions";
+@import "../../node_modules/bootstrap/scss/variables";
+@import "../../node_modules/bootstrap/scss/mixins";
+
+/* Change colours to match theme */
+$theme-colors: (
+  primary: #f2d16d,
+  secondary: #f17349,
+  blue: #4e74a6,
+  active: #f2aa69,
+  bground: #fbf0d2
+);
+
+@import "../../node_modules/bootstrap/scss/bootstrap";
