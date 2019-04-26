@@ -1,12 +1,13 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { Link } from 'react-router-dom';
 import './signup.css';
 
 class SignUpForm extends Component {
 	
-	constructor(){
+	constructor(props){
 
-		super();
+		super(props);
 
 		this.state = {
 			email:'',
@@ -36,13 +37,26 @@ class SignUpForm extends Component {
 
 	handleSubmit (e) {
 
+		// Prevents page from reloading
 		e.preventDefault();
 		
-		if ((e.target.value===this.state.confirm_password) &&
-			(e.target.value!== this.state.password)) {
+		//if ((e.target.value===this.state.confirm_password) &&
+		//	(e.target.value!== this.state.password)) {
 			
-			alert("Passwords don't match");
+		//	alert("Passwords don't match");
+		//}
+
+		// 
+		const user = {
+			[e.target.name]: e.target.value,
 		}
+
+		// Post user to API
+		axios.get('/auth/signup', {user})
+			.then(res => {
+				console.log(res);
+				console.log(res.data);
+			});
 		
 		console.log('The form was submitted with the following data: ');		
 		console.log(this.state);
@@ -88,7 +102,7 @@ class SignUpForm extends Component {
 					<div className="FormField">
 						<label className="FormField__Label" htmlFor="address"> Address</label>
 						<input type="address" id="address" className="FormField__Input"
-							onChange={this.handleChange} placeholder="Enter your address (number, streetname, postcode, area)"
+							onChange={this.handleChange} placeholder="Enter your address"
 							name="address" value={this.state.address} required/>
 					</div>
 					<div className="FormField">
@@ -100,7 +114,7 @@ class SignUpForm extends Component {
 						</label>
 					</div>
 					<div className="FormField">
-						<button className="FormField__Button mr-20">Sign Up</button>
+						<button className="FormField__Button mr-20" type="submit">Sign Up</button>
 					</div>
 					<div className="FormField">
 						<Link to="/sign-in" className="FormField__Link"> I'm already a member</Link>

@@ -6,9 +6,14 @@ import ForgotPassword from './UserAuth/ForgotPassword';
 import NavBar from './Kitchen/NavBar'
 import logo from './photos/logo.png';
 import './App.css';
+import axios from 'axios';
 
 class App extends Component {
+
+
   render() {
+
+
     return (
       <Router>
         <div className="Header__Cont">
@@ -18,17 +23,19 @@ class App extends Component {
           </Link>
 
           <div className="PageSwitcher">
-            <NavLink to="/sign-in" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
-            <NavLink to="/sign-up" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
+            <NavLink to="/signin" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign In</NavLink>
+            <NavLink to="/signup" activeClassName="PageSwitcher__Item--Active" className="PageSwitcher__Item">Sign Up</NavLink>
           </div>
 
         </div>
         <div className="App">
-            <Route exact path="/sign-up" component={SignUp} />
-            <Route path="/sign-in" component={SignIn} />
+            <Route exact path="/signup" component={SignUp} />
+            <Route path="/signin" component={SignIn} />
             <Route path="/forgot-password" component={ForgotPassword}/>
         </div>
+
       </Router>
+
     );
   }
 }
