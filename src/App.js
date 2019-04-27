@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
-import ForgotPassword from './UserAuth/ForgotPassword';
+import ForgotPassword from './pages/ForgotPassword';
 import logo from './photos/logo.png';
 
 class App extends Component {

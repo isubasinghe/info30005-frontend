@@ -3,20 +3,17 @@ import { Link } from 'react-router-dom';
 import axios from 'axios';
 
 class SignUpForm extends Component {
+	
 	constructor(){
-
 		super();
 
 		this.state = {
 			name:'',
 			email:'',
 			password:'',
-			//verify_pw: '',
 			address: ''
 		};
 
-		//this.handleChange = this.handleChange.bind(this);
-		//this.handleSubmit = this.handleSubmit.bind(this);
 	};
 
 	handleEmail = event => {
@@ -48,7 +45,6 @@ class SignUpForm extends Component {
 			name: this.state.name,
 			email: this.state.email,
 			password: this.state.password,
-			//verify_pw: this.state.verify_pw,
 			address: this.state.address
 		};
 
@@ -93,8 +89,7 @@ class SignUpForm extends Component {
 							<div className="invalid-tooltip"> </div>
 						</div>
 						<div className="form-group text-center">
-							<button type="submit" className="btn text-center btn-white font-weight-light border-white
-							         bg-bground m-4">Sign Up</button>
+							<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign Up</button>
 						</div>
 					</form>
 				</div>
