@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
-class SignUpForm extends Component {
+class SignInForm extends Component {
 
 	constructor(){
 		super();
@@ -32,10 +32,11 @@ class SignUpForm extends Component {
 			password: this.state.password
 		};
 
-		axios.get('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signin', user)
+		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signin', user)
 			.then(res => {
 				console.log(res.data);
-		}).catch(err => {
+		})
+			.catch(err => {
 			console.log(err);
 		});
 	};
@@ -60,6 +61,9 @@ class SignUpForm extends Component {
 							       id="password" placeholder="Please enter your password" onChange={this.handlePassword} required />
 							<div className="invalid-tooltip"> </div>
 						</div>
+						<div className="FormField">
+							<Link to="/forgot-password" className="btn text-center text-blue font-weight-light  m-4">Forgot password?</Link>
+						</div>
 						<div className="form-group text-center">
 							<button type="submit" className="btn text-center btn-white font-weight-light border-white
 							         bg-bground m-4">Sign In</button>
@@ -73,4 +77,4 @@ class SignUpForm extends Component {
 	};
 }
 
-export default SignUpForm;
+export default SignInForm;
