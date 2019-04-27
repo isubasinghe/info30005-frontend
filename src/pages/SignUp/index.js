@@ -71,7 +71,7 @@ class SignUpForm extends Component {
 						<div className="form-group pt-4">
 							<p className="text-center text-blue font-weight-lighter text-uppercase">Name</p>
 							<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-							       id="email" placeholder="Please enter you name" onChange={this.handleName} required />
+							       id="name" placeholder="Please enter you name" onChange={this.handleName} required />
 							<div className="invalid-tooltip"> </div>
 						</div>
 						<div className="form-group pt-4">
