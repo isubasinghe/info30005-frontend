@@ -28,15 +28,15 @@ class SignUpForm extends Component {
 	};
 
 	handlePassword = event => {
-		this.setState({password : event.target.vaue});
+		this.setState({password : event.target.value});
 	};
 
 	handleVerifyPW = event => {
-		this.setState({verify_pw : event.target.vaue});
+		this.setState({verify_pw : event.target.value});
 	};
 
 	handleAddress = event => {
-		this.setState({address : event.target.vaue});
+		this.setState({address : event.target.value});
 	};
 
 	handleSubmit = event => {
@@ -51,12 +51,12 @@ class SignUpForm extends Component {
 			//verify_pw: this.state.verify_pw,
 			address: this.state.address
 		};
-
-		// Submit details to database
-		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', {newUser})
+		
+		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', {...newUser})
 			.then(res => {
-				console.log(res);
 				console.log(res.data);
+		}).catch(err => {
+			console.log(err);
 		});
 	};
 
