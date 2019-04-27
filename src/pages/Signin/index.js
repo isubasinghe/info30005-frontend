@@ -1,72 +1,108 @@
 import React, { Component } from "react";
-import { Link }  from 'react-router-dom';
-import './signin.css';
+import { Link } from 'react-router-dom';
+import axios from 'axios';
 
-class SignInForm extends Component {
-	constructor() {
+class SignUpForm extends Component {
+	constructor(){
+
 		super();
 
-		//The default state of these values
 		this.state = {
-			email: "",
-			password: ""
+			name:'',
+			email:'',
+			password:'',
+			//verify_pw: '',
+			address: ''
 		};
 
-		this.handleChange = this.handleChange.bind(this); // When called this will cause the handleChange function with
-		// the event e = this.
-		this.handleSubmit = this.handleSubmit.bind(this);
-	}
+		//this.handleChange = this.handleChange.bind(this);
+		//this.handleSubmit = this.handleSubmit.bind(this);
+	};
 
-	handleChange(e) {
-		let target = e.target;
-		let value = target.type === "checkbox"?target.checked : target.value;
-		let name = target.name;
+	handleEmail = event => {
+		this.setState({email : event.target.value}); 
+	};
 
-		//When the value changes it will update the value above.
-		this.setState({
-			[name]: value
+	handleName = event => {
+		this.setState({name : event.target.value });
+	};
+
+	handlePassword = event => {
+		this.setState({password : event.target.value});
+	};
+
+	handleVerifyPW = event => {
+		this.setState({verify_pw : event.target.value});
+	};
+
+	handleAddress = event => {
+		this.setState({address : event.target.value});
+	};
+
+	handleSubmit = event => {
+
+		// Stop browser from reloading page
+		event.preventDefault();
+
+		const newUser = {
+			name: this.state.name,
+			email: this.state.email,
+			password: this.state.password,
+			//verify_pw: this.state.verify_pw,
+			address: this.state.address
+		};
+
+		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', newUser)
+			.then(res => {
+				console.log(res.data);
+		}).catch(err => {
+			console.log(err);
 		});
-	}
-
-	handleSubmit(e) {
-
-		e.preventDefault();
-
-		console.log("The form was submitted with the following data:");
-		console.log(this.state);
-
-	}
-
-
+	};
 
 	render() {
-		return(
-			<div className="FormCenter">
-				<div className="FormTitle">Sign in</div>
-				<form className="FormField" onSubmit={this.handleSubmit}>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="email">Email</label>
-						<input type="email" id="email" className="FormField__Input"
-						       placeholder="Enter your email" name ="email" value={this.state.email} onChange={this.handleChange} />
-					</div>
-					<div className="FormField">
-						<label className="FormField__Label" htmlFor="password">Password</label>
-						<input type="password" id="password" className="FormField__Input"
-						       placeholder="Enter your password" name ="password" value={this.state.password} onChange={this.handleChange} />
-					</div>
-					<div className="FormField">
-						<Link to="/forgot-password" className="FormField__Link__No__Underline">Forgot password?</Link>
-					</div>
-					<div className="FormField">
-						<button className="FormField__Button mr-20">Sign In</button>
-					</div>
-					<div className="FormField">
-						<Link to="/sign-up" className="FormField__Link">Create an account</Link>
-					</div>
-				</form>
+		return (
+			<div className="row">
+				<div className="col-sm">
+				</div>
+				<div className="col-4 mt-5 pl-5 pr-5 bg-white">
+					<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign Up </h2>
+					<form onSubmit={this.handleSubmit}>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Name</p>
+							<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="name" placeholder="Please enter you name" onChange={this.handleName} required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
+							<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="email" placeholder="Please enter you email" onChange={this.handleEmail} required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Password</p>
+							<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="password" placeholder="Please enter your password" onChange={this.handlePassword} required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group pt-4">
+							<p className="text-center text-blue font-weight-lighter text-uppercase">Address</p>
+							<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
+							       id="address" placeholder="Please enter you address" onChange={this.handleAddress} required />
+							<div className="invalid-tooltip"> </div>
+						</div>
+						<div className="form-group text-center">
+							<button type="submit" className="btn text-center btn-white font-weight-light border-white
+							         bg-bground m-4">Sign Up</button>
+						</div>
+					</form>
+				</div>
+				<div className="col-sm">
+				</div>
 			</div>
-		);
-	}
+		)
+	};
 }
 
-export default SignInForm;
+export default SignUpForm;

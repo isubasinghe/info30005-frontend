@@ -8,8 +8,8 @@
   font-style: normal;
   font-weight: 500;
 }
-
 body {
   margin: 0;
   padding: 0;
+  background-image: url("./photos/Backgroundv2.png");
 }
