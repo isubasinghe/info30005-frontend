@@ -43,11 +43,13 @@ class SignInForm extends Component {
 		})
 		.then(data => {
 			storeToken(data.data.token);
-			console.log("LOGGED IN");
+			console.log("LOGGED IN, now in my kitchen");
 
 		}).catch(err => {
 			console.log(err);
 		});
+
+		this.props.history.push('/my-kitchen');
 
 	}
 	render() {
