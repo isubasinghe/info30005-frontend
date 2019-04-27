@@ -70,7 +70,7 @@ class SignInForm extends Component {
 							       id="password" placeholder="Enter your password" required onChange={this.handlePasswordChange}/>
 							<div className="invalid-tooltip"> </div>
 						</div>
-						<div className="FormField">
+						<div className="form-group pt-4">
 							<Link to="/forgot-password" className="btn text-center text-blue font-weight-light m-4">Forgot password?</Link>
 						</div>
 						<div className="form-group text-center">

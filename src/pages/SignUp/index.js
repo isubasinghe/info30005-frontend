@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
+import { Redirect } from 'react-router';
 
 class SignUpForm extends Component {
 	
@@ -54,9 +55,15 @@ class SignUpForm extends Component {
 		}).catch(err => {
 			console.log(err);
 		});
+
+		// Redirect to page where it says to check user's email
+		this.setState({redirect: true});
 	};
 
 	render() {
+		if (this.state.redirect) {
+			return <Redirect push to="sign-up/check-email"/>;
+		}
 		return (
 			<div className="row">
 				<div className="col-sm">
