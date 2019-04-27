@@ -71,7 +71,7 @@ class SignInForm extends Component {
 							<div className="invalid-tooltip"> </div>
 						</div>
 						<div className="FormField">
-							<Link to="/forgot-password" className="btn text-center text-blue font-weight-light  m-4">Forgot password?</Link>
+							<Link to="/forgot-password" className="btn text-center text-blue font-weight-light m-4">Forgot password?</Link>
 						</div>
 						<div className="form-group text-center">
 							<button type="submit" className="btn text-center btn-white font-weight-light border-white
