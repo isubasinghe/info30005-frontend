@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
-import SignUp from './UserAuth/SignUp';
-import SignIn from './UserAuth/SignIn';
+import SignUp from './UserAuth/Signup';
+import SignIn from './UserAuth/Signin';
 import ForgotPassword from './UserAuth/ForgotPassword';
-import NavBar from './Kitchen/NavBar'
 import logo from './photos/logo.png';
 import './App.css';
-import axios from 'axios';
 
 class App extends Component {
 

@@ -1,10 +1,12 @@
 import React, { Component } from "react";
+import axios from 'axios';
 import { Link }  from 'react-router-dom';
 import './signin.css';
 
+
 class SignInForm extends Component {
-	constructor() {
-		super();
+	constructor(props) {
+		super(props);
 
 		//The default state of these values
 		this.state = {
@@ -15,6 +17,17 @@ class SignInForm extends Component {
 		this.handleChange = this.handleChange.bind(this); // When called this will cause the handleChange function with
 		// the event e = this.
 		this.handleSubmit = this.handleSubmit.bind(this);
+	}
+
+	//handleEmail(e) {
+	//	this.setState({email : e.target.value});
+	//}
+	componentDidMount() {
+		axios.get('https://').then(res=> {
+			console.log(res);
+			this.setState({ email: res.data });
+		})
+
 	}
 
 	handleChange(e) {
@@ -29,8 +42,20 @@ class SignInForm extends Component {
 	}
 
 	handleSubmit(e) {
-
+		// Stopping browser for reloading page
 		e.preventDefault();
+
+		// 
+		this.setState({
+			email: e.target.value,
+			password: e.target.value,
+		})
+
+		// Post to API
+		//axios.post('http://localhost:3000/sign-in', {}).then(res=> {
+		//	console.log(res);
+		//	console.log(res.data);
+		//})
 
 		console.log("The form was submitted with the following data:");
 		console.log(this.state);
@@ -59,12 +84,14 @@ class SignInForm extends Component {
 					</div>
 					<div className="FormField">
 						<button className="FormField__Button mr-20">Sign In</button>
+						<Link to="/my-kitchen"></Link>
 					</div>
 					<div className="FormField">
 						<Link to="/sign-up" className="FormField__Link">Create an account</Link>
 					</div>
 				</form>
 			</div>
+
 		);
 	}
 }
