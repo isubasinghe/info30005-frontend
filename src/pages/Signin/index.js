@@ -43,7 +43,7 @@ class SignInForm extends Component {
 		})
 		.then(data => {
 			storeToken(data.data.token);
-			this.props.history.push("/");
+			window.location = "/";
 
 		}).catch(err => {
 			alert("Failed to sign in");
