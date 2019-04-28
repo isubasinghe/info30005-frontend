@@ -1,27 +1,16 @@
 import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
 import { Redirect } from 'react-router';
+import InventoryList from '../../components/InventoryList';
 
 class MyKitchen extends Component {
 
-	constructor () {
-		super();
-		this.state = {
-			redirect: false
-		}
-	}
-
 	handleSubmit(e) {
 		console.log("Going to recipe");
-		//this.props.history.push('/my-kitchen/my-recipes');
-		this.setState({redirect: true});
+		this.props.history.push('/my-kitchen/my-recipes');
 	}
 
 	render() {
-
-		if (this.state.redirect) {
-			return <Redirect push to="my-recipes"/>
-		}
 
 		return (
 			<div className="row">
@@ -37,16 +26,14 @@ class MyKitchen extends Component {
 					<div className="card m-4 pl-5 pr-5 pt-3 pb-3 border-primary float-auto">
 						<h5 className="card-title bg-green p-1 font-weight-light text-white text-center bg-blue">
 							expiring soon</h5>
-						<div className="card-body mb-3 p-3">
-							<p> apple, pineapple, pear </p>
-						</div>
+						<InventoryList/>
 					</div>
 
 					<div className="card m-4 pl-5 pr-5 pt-3 pb-3 border-primary float-auto">
 						<h5 className="card-title bg-green p-1 font-weight-light text-white text-center bg-blue">
 							my inventory</h5>
 						<div className="card-body mb-3 p-3">
-							<p> appple, apple, pear, pineapple, salmon, egg, milk </p>
+							<InventoryList/>
 						</div>
 					</div>
 
@@ -62,8 +49,6 @@ class MyKitchen extends Component {
 							</form>
 						</div>
 					</div>
-
-					
 
 				</div>
 
