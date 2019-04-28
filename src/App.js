@@ -6,6 +6,9 @@ import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
 import Homepage from './pages/Homepage';
 import Verify from './pages/Verifypage';
+import CheckEmail from './pages/SignUp/CheckEmail';
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ForgotPassword/ResetPassword';
 
 
 class App extends Component {
