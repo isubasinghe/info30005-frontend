@@ -74,15 +74,9 @@ class SignUpForm extends Component {
 
 
 	render() {
-		let {name, email, password, address, valid} = this.state,
-			classes = 'input is-medium is-rounded'
-
-		valid && (classes += 'is-success')
-
-		!valid && (classes += 'is-danger')
 
 		if (this.state.redirect) {
-			return <Redirect push to="sign-up/check-email"/>;
+			return <Redirect push to="sign-up/check-email"/>
 		}
 
 		return (
