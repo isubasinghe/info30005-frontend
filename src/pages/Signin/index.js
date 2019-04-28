@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link }  from 'react-router-dom';
+import { Link, Redirect }  from 'react-router-dom';
 import axios from 'axios';
 import { getToken, storeToken, isLoggedIn } from '../../helpers/jwtHelper';
 
@@ -46,9 +46,10 @@ class SignInForm extends Component {
 		.then(data => {
 			storeToken(data.data.token);
 			console.log("LOGGED IN, now in my kitchen");
-			this.props.history.push('/my-kitchen');
+			window.location = "/";
 
 		}).catch(err => {
+			alert("Failed to sign in");
 			console.log(err);
 		});
 	

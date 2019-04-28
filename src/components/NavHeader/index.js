@@ -1,34 +1,34 @@
 import React, { Component } from "react";
-import { Link }  from 'react-router-dom';
+import { Link, NavLink }  from 'react-router-dom';
+import { isLoggedIn } from '../../helpers/jwtHelper';
 
-
-function loggedIn() {
-    return false;
-}
-
-
-function conditionalRender() {
-    if(loggedIn()) {
-        return (
-            <div/>
-        );
-    }else {
-        return (
-            <div/>
-        );
-    }
-}
 class NavHeader extends Component {
 
-    render() {
-        return (
-            <div className="SimpleHeader">
-                <div className="icon">
-
-                </div>
-                <h1>Foodspan</h1>
-                {conditionalRender()}
-            </div>
-        );
+  const conditionalRender = () => {
+  
+    if(isLoggedIn()) {
+      return (
+          <div/>
+      );
+    } else {
+      return (
+        <div className="btn-group" role="group" aria-label="Navigation bar">
+          <NavLink to="/sign-in" type="button" className="btn btn-secondary text-white"
+                    activeClassName="btn btn-active">Sign In</NavLink>
+          <NavLink to="/sign-up" type="button" className="btn btn-secondary text-white"
+                  activeClassName="btn btn-active">Sign Up</NavLink>
+        </div>
+      );
     }
+  } 
+
+  render() {
+    return (
+      <div className="SimpleHeader">
+        {conditionalRender()}
+      </div>
+    );
+  }
 }
+
+export default NavHeader;
