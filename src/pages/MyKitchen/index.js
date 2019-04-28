@@ -20,7 +20,7 @@ class MyKitchen extends Component {
 	render() {
 
 		if (this.state.redirect) {
-			return <Redirect push to="my-kitchen/my-recipes"/>
+			return <Redirect push to="my-recipes"/>
 		}
 
 		return (
