@@ -24,7 +24,7 @@ const conditionalRender = () => {
                    activeClassName="btn btn-active">my account</NavLink>
                    
           <NavLink to="/logout" type="button" className="btn btn-secondary text-white btn-logout"
-                   activeClassName="btn btn-active" onClick={handleLogoutButton}>Logout</NavLink>
+                   activeClassName="btn btn-active" onClick={handleLogoutButton}>logout</NavLink>
         </div>
       );
     } else {
