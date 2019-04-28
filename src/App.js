@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import logo from './photos/logo.png';
 import NavHeader from './components/NavHeader';
 import SignUp from './pages/SignUp';
@@ -9,11 +9,14 @@ import Verify from './pages/Verifypage';
 import CheckEmail from './pages/SignUp/CheckEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ForgotPassword/ResetPassword';
+import InventoryList from './components/InventoryList';
 
 
 class App extends Component {
+
   
   render() {
+
     return (
       <Router>
         <div className="container-fluid">
@@ -39,6 +42,7 @@ class App extends Component {
           <Route path="/forgot-password/reset-password" component={ResetPassword}/>
           
         </div>
+        <InventoryList/>
       </Router>
     );
   }
