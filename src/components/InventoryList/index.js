@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { isLoggedIn, removeToken } from '../../helpers/jwtHelper';
+import { isLoggedIn, removeToken, getToken } from '../../helpers/jwtHelper';
 
 
 class InventoryList extends Component {
@@ -14,11 +14,15 @@ class InventoryList extends Component {
   }
 
   componentDidMount() {
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems')
+    let token = getToken();
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
       .then (res => {
-          this.setState({items: res.data});
-          console.log(res);
+          this.setState({items: res.data[0].items});
+          console.log(res.data[0].items);
       })
+      .catch(err => {
+        
+      });
   }
   
   render() {
