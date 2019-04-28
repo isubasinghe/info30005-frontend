@@ -1,6 +1,13 @@
 import React, { Component } from "react";
-import { NavLink }  from 'react-router-dom';
-import { isLoggedIn } from '../../helpers/jwtHelper';
+import { Link, NavLink }  from 'react-router-dom';
+import { isLoggedIn, removeToken } from '../../helpers/jwtHelper';
+import './nav.scss';
+
+
+const handleLogoutButton = () => {
+  removeToken();
+  window.location = "/";
+}
 
 // Navigation bar depends on whether or not user has logged in
 const conditionalRender = () => {
@@ -15,6 +22,9 @@ const conditionalRender = () => {
                    activeClassName="btn btn-active">my kitchen</NavLink>
           <NavLink to="/my-account" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my account</NavLink>
+                   
+          <NavLink to="/logout" type="button" className="btn btn-secondary text-white btn-logout"
+                   activeClassName="btn btn-active" onClick={handleLogoutButton}>Logout</NavLink>
         </div>
       );
     } else {
@@ -35,7 +45,7 @@ class NavHeader extends Component {
 
   render() {
     return (
-      <div className="SimpleHeader">
+      <div className="nav-container">
         {conditionalRender()}
       </div>
     );

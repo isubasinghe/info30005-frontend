@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
-import './homepage.css';
+import './homepage.scss';
 
 class Homepage extends Component {
+
 	render() {
 		return(
 			<div className="Homepage">
