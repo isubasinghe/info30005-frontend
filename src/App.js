@@ -1,10 +1,15 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link, NavLink } from 'react-router-dom';
+import logo from './photos/logo.png';
+import NavHeader from './components/NavHeader';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
-import logo from './photos/logo.png';
+import Homepage from './pages/Homepage';
+import Verify from './pages/Verifypage';
+
 
 class App extends Component {
+  
   render() {
     return (
       <Router>
@@ -18,16 +23,15 @@ class App extends Component {
               </div>
             </div>
             <div className="col-">
-              <div className="btn-group" role="group" aria-label="Navigation bar">
-                <NavLink to="/sign-in" type="button" className="btn btn-secondary text-white"
-                          activeClassName="btn btn-active">Sign In</NavLink>
-                <NavLink to="/sign-up" type="button" className="btn btn-secondary text-white"
-                         activeClassName="btn btn-active">Sign Up</NavLink>
-              </div>
+              <NavHeader />
             </div>
           </div>
-              <Route exact path="/sign-up" component={SignUp} />
-              <Route path="/sign-in" component={SignIn} />
+          
+          <Route exact path="/" component = {Homepage} />
+          <Route exact path="/sign-up" component={SignUp} />
+          <Route exact path="/sign-in" component={SignIn} />
+          <Route path="/verify/:key" component={Verify} />
+          
         </div>
       </Router>
     );
