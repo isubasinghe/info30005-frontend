@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
 
 
-
 function loggedIn() {
     return false;
 }
