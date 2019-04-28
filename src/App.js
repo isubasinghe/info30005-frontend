@@ -40,9 +40,11 @@ class App extends Component {
           <Route path="/verify/:key" component={Verify} />
           <Route exact path="/forgot-password" component={ForgotPassword}/>
           <Route path="/forgot-password/reset-password" component={ResetPassword}/>
+
+          <Route exact path ="/my-kitchen" component={Homepage} />
           
         </div>
-        <InventoryList/>
+        
       </Router>
     );
   }
