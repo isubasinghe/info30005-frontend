@@ -8,7 +8,7 @@ class ForgotPWForm extends Component {
 
 		//Default state of these values
 		this.state = {
-			email: "",
+			email: '',
 		};
 	}
 
@@ -21,7 +21,7 @@ class ForgotPWForm extends Component {
 		e.preventDefault();
 
 		const userEmail = {
-			name: this.state.name
+			email: this.state.email
 		}
 
 

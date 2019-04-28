@@ -9,14 +9,16 @@ class SignInForm extends Component {
 		super();
 
 		this.state = {
-			name:'',
 			email:'',
+			password:'',
+
 		};
 
 		this.handleEmailChange = this.handleEmailChange.bind(this); // When called this will cause the handleChange function with
 		// the event e = this.
 		this.handlePasswordChange = this.handlePasswordChange.bind(this);
 		this.handleSubmit = this.handleSubmit.bind(this);
+
 		
 	}
 
@@ -44,14 +46,15 @@ class SignInForm extends Component {
 		.then(data => {
 			storeToken(data.data.token);
 			console.log("LOGGED IN, now in my kitchen");
+			this.props.history.push('/my-kitchen');
 
 		}).catch(err => {
 			console.log(err);
 		});
-
-		this.props.history.push('/my-kitchen');
-
+	
 	}
+
+
 	render() {
 		return (
 			<div className="row">
@@ -60,6 +63,7 @@ class SignInForm extends Component {
 				<div className="col-4 mt-5 pl-5 pr-5 bg-white">
 					<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign In </h2>
 					<form onSubmit={this.handleSubmit}>
+
 						<div className="form-group pt-4">
 							<p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
 							<input type="email" className="form-control border-primary text-center text-blue font-weight-light"

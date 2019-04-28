@@ -2,6 +2,7 @@ import React, { Component } from "react";
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 import { Redirect } from 'react-router';
+import ShowErrorMessage from './ErrorMessage';
 
 class SignUpForm extends Component {
 	
@@ -12,7 +13,8 @@ class SignUpForm extends Component {
 			name:'',
 			email:'',
 			password:'',
-			address: ''
+			address: '',
+			valid: false
 		};
 
 	};
@@ -38,7 +40,6 @@ class SignUpForm extends Component {
 	};
 
 	handleSubmit = event => {
-
 		// Stop browser from reloading page
 		event.preventDefault();
 
@@ -49,22 +50,43 @@ class SignUpForm extends Component {
 			address: this.state.address
 		};
 
+		// Create user in database
 		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', newUser)
 			.then(res => {
+				console.log(res);
+			
+			// Redirect to page where it says to check user's email only if user written in db
+			if (res.data.status == 200) {
+				this.setState({redirect: true});
+			} else if (res.data.status == 400){
+				// Already a user with that email
+				const valid = this.state.valid;
+				this.setState( { valid : !valid } );
 				console.log(res.data);
+			}
+			
 		}).catch(err => {
 			console.log(err);
 		});
 
-		// Redirect to page where it says to check user's email
-		this.setState({redirect: true});
+		
 	};
 
+
 	render() {
+		let {name, email, password, address, valid} = this.state,
+			classes = 'input is-medium is-rounded'
+
+		valid && (classes += 'is-success')
+
+		!valid && (classes += 'is-danger')
+
 		if (this.state.redirect) {
 			return <Redirect push to="sign-up/check-email"/>;
 		}
+
 		return (
+
 			<div className="row">
 				<div className="col-sm">
 				</div>
@@ -97,6 +119,7 @@ class SignUpForm extends Component {
 						</div>
 						<div className="form-group text-center">
 							<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign Up</button>
+							{this.state.valid && <ShowErrorMessage/>}
 						</div>
 					</form>
 				</div>
