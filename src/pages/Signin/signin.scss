@@ -1,14 +1,9 @@
-$xs: 0px;
-$sm: 576px;
 $md: 768px;
-$lg: 992px;
+
 
 .signin-container {
   width: 40%;
-  @media screen and (max-width: $sm) {
-    width: 100%;
-  }
   @media screen and (max-width: $md) {
-    width: 80%;
+    width: 100%;
   }
 }
