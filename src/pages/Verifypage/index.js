@@ -8,6 +8,7 @@ class Verify extends Component {
     super(props);
     this.state = {
       verified: null,
+      returnText: '',
     };
 
   }
@@ -18,9 +19,12 @@ class Verify extends Component {
       console.log(data.data);
       if(data.data.msg === "Verfied user") {
         this.setState({verified: true});
+      }else {
+        this.setState({verified: false, returnText: 'Invalid verify key was supplied'});
       }
     }).catch(err => {
-      alert(err);
+      // Internal server error
+      this.setState({verified: false, returnText: 'Internal server error occurred'});
     });
   }
 
@@ -41,7 +45,7 @@ class Verify extends Component {
     }else if(this.state.verified === false) {
       return (
         <div className="alert alert-danger" role="alert">
-          Either the key is invalid or an internal server error occurred
+          {this.state.returnText}
         </div>
       );
     }else {
