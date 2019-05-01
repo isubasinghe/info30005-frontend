@@ -2,8 +2,9 @@ import React, { Component } from "react";
 import { Link }  from 'react-router-dom';
 import axios from 'axios';
 import { storeToken } from '../../helpers/jwtHelper';
-
 import './signin.scss';
+import InvalidEmail from './ErrorMessages/InvalidEmail';
+import DetailsDontMatch from './ErrorMessages/DetailsDontMatch';
 
 class SignInForm extends Component {
 
@@ -13,7 +14,8 @@ class SignInForm extends Component {
       this.state = {
           email:'',
           password:'',
-
+          userValid: false,
+          detailsValid: false
       };
 
       this.handleEmailChange = this.handleEmailChange.bind(this); // When called this will cause the handleChange function with
@@ -45,10 +47,23 @@ class SignInForm extends Component {
           email: this.state.email,
           password: this.state.password,
       })
-      .then(data => {
-          storeToken(data.data.token);
-          console.log("LOGGED IN, now in my kitchen");
-          window.location = "/";
+      .then(res => {
+          // Only logged in if user is valid and password match user email
+          if (res.status === 200) {
+            storeToken(res.data.token);
+            console.log("LOGGED IN, now in my kitchen");
+            window.location = "/";
+          } else if (res.status === 400){
+            // Not a valid user email
+            const uValid = this.state.userValid;
+            this.setState( { userValid : !uValid } );
+            console.log(res.data);
+          } else if (res.status === 401) {
+            // email and password don't match
+            const dValid = this.state.detailsValid;
+            this.setState( { detailsValid : !dValid });
+            console.log(res.data);
+          }
 
       }).catch(err => {
           alert("Failed to sign in");
@@ -84,6 +99,7 @@ class SignInForm extends Component {
                     <div className="form-group text-center">
                         <button type="submit" className="btn text-center btn-white font-weight-light border-white
                                   bg-bground m-4">Sign In</button>
+                        {this.state.userValid && <InvalidEmail/> && this.state.detailsValid && <DetailsDontMatch/>}
                     </div>
                 </form>
             </div>

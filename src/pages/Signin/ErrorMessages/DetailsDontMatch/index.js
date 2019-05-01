@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Alert from 'react-bootstrap/Alert';
 
-class ShowErrorMessage extends Component {
+class DetailsDontMatch extends Component {
 
 	constructor(props) {
 		super(props);
@@ -17,8 +17,8 @@ class ShowErrorMessage extends Component {
 		return (
 			<>
 			<Alert show={this.state.show} variant="warning">
-				<Alert.Heading> Email already in use </Alert.Heading>
-				<p> Use another email to create your account </p>
+				<Alert.Heading> Invalid </Alert.Heading>
+				<p> Email and password don't match </p>
 				<div className="d-flex justify-content-end">
 					<button onClick={handleHide}
 						variant="outline-success"> Close
@@ -32,4 +32,4 @@ class ShowErrorMessage extends Component {
 	}
 }
 
-export default ShowErrorMessage;
+export default DetailsDontMatch;
