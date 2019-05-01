@@ -9,10 +9,10 @@ class MyKitchen extends Component {
 		return (
 			<>
 			<div className="row">
-				<div className="col-md">
+				<div className="col-sm">
 				</div>
 
-				<div className="col-lg">
+				<div className="col-md">
 					<h1 className="card-title bg-green p-1 font-weight-light mt-5 font-weight-light text-blue text-center">
 						welcome to foodspan</h1>
 
@@ -26,7 +26,7 @@ class MyKitchen extends Component {
 
 				</div>
 
-				<div className="col-md">
+				<div className="col-sm">
 				</div>
 			</div>
 
