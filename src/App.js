@@ -9,7 +9,7 @@ import Verify from './pages/Verifypage';
 import CheckEmail from './pages/SignUp/CheckEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ForgotPassword/ResetPassword';
-import InventoryList from './components/InventoryList';
+import MyRecipes from './pages/MyRecipes';
 
 
 class App extends Component {
@@ -40,8 +40,7 @@ class App extends Component {
           <Route path="/verify/:key" component={Verify} />
           <Route exact path="/forgot-password" component={ForgotPassword}/>
           <Route path="/forgot-password/reset-password" component={ResetPassword}/>
-
-          <Route exact path ="/my-kitchen" component={Homepage} />
+          <Route exact path ="/my-recipes" component={MyRecipes} />
           
         </div>
         

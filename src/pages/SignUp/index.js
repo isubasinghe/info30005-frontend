@@ -58,9 +58,9 @@ class SignUpForm extends Component {
 				console.log(res);
 			
 			// Redirect to page where it says to check user's email only if user written in db
-			if (res.data.status == 200) {
+			if (res.data.status === 200) {
 				this.setState({redirect: true});
-			} else if (res.data.status == 401){
+			} else if (res.data.status === 401){
 				// Already a user with that email
 				const valid = this.state.valid;
 				this.setState( { valid : !valid } );

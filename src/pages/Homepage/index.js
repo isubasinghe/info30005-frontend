@@ -1,10 +1,6 @@
 import React, { Component } from "react";
-import { Link }  from 'react-router-dom';
-
 import MyKitchen from '../MyKitchen';
-
 import { isLoggedIn } from '../../helpers/jwtHelper';
-
 import './homepage.scss';
 
 

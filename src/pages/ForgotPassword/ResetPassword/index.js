@@ -21,9 +21,9 @@ class ResetPWForm extends Component {
 		// Prevent page from reloading
 		e.preventDefault();
 
-		const newPassword = {
+		/*const newPassword = {
 			password: this.state.password
-		}
+		}*/
 
 
 		// Forgot password

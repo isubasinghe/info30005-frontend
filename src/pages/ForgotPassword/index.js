@@ -20,9 +20,9 @@ class ForgotPWForm extends Component {
 		// Prevent page from reloading
 		e.preventDefault();
 
-		const userEmail = {
+		/*const userEmail = {
 			email: this.state.email
-		}
+		}*/
 
 
 		// Forgot password

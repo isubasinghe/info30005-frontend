@@ -13,7 +13,7 @@ class ShowErrorMessage extends Component {
 	
 	render () {
 		const handleHide = () => this.setState({show:false});
-		const handleShow = () => this.setState({show:true})
+		//const handleShow = () => this.setState({show:true})
 
 		return (
 			<>

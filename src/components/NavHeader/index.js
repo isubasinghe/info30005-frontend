@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Link, NavLink }  from 'react-router-dom';
+import { NavLink }  from 'react-router-dom';
 import { isLoggedIn, removeToken } from '../../helpers/jwtHelper';
 import './nav.scss';
 
@@ -16,9 +16,9 @@ const conditionalRender = () => {
       // Logged in, user can access inventory, recipes and details of account
       return (
         <div className="btn-group" role="group" >
-          <NavLink to="/recipes" type="button" className="btn btn-secondary text-white"
+          <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my recipes</NavLink>
-          <NavLink to="/my-kitchen" type="button" className="btn btn-secondary text-white"
+          <NavLink to="/" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my kitchen</NavLink>
           <NavLink to="/my-account" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my account</NavLink>
