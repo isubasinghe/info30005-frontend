@@ -86,18 +86,18 @@ class SignUpForm extends Component {
 			<div className="d-flex justify-content-center">
 				<div className="signup-container">
 					<div className="col mt-5 pl-5 pr-5 pt-3 bg-white">
-						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign Up </h2>
+						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue rounded">Sign Up </h2>
 						<form onSubmit={this.handleSubmit}>
 							<div className="form-group pt-4">
 								<p className="text-center text-blue font-weight-lighter text-uppercase">Name</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="name" placeholder="Please enter you name" onChange={this.handleName} required />
+									id="name" placeholder="Please enter your name" onChange={this.handleName} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-4">
 								<p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
 								<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-									id="email" placeholder="Please enter you email" onChange={this.handleEmail} required />
+									id="email" placeholder="Please enter your email" onChange={this.handleEmail} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-4">
@@ -109,7 +109,7 @@ class SignUpForm extends Component {
 							<div className="form-group pt-4">
 								<p className="text-center text-blue font-weight-lighter text-uppercase">Address</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="address" placeholder="Please enter you address" onChange={this.handleAddress} required />
+									id="address" placeholder="Please enter your address" onChange={this.handleAddress} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group text-center">
