@@ -61,15 +61,16 @@ class SignInForm extends Component {
   render() {
       return (
         <div class="d-flex justify-content-center">
+            
             <div className="signin-container">
             <div className="col mt-5 pl-5 pr-5 pt-2 bg-white">
-                <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Sign In </h2>
+                <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue rounded">Sign In </h2>
                 <form onSubmit={this.handleSubmit}>
 
                     <div className="form-group pt-4">
                         <p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
                         <input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="email" placeholder="Enter you email" required onChange={this.handleEmailChange}/>
+                                id="email" placeholder="Enter your email" required onChange={this.handleEmailChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
                     <div className="form-group pt-4">
