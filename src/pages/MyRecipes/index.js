@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import { NavLink }  from 'react-router-dom';
-import RecipeList from '../../components/RecipeList'
+import RecipeList from '../../components/RecipeList';
 //import axios from 'axios';
-//import { getToken, storeToken, isLoggedIn } from '../../helpers/jwtHelper';
+
+import withAuth from '../../helpers/withAuth';
 
 class MyRecipes extends Component {
 
@@ -52,4 +53,4 @@ class MyRecipes extends Component {
 	};
 }
 
-export default MyRecipes;
+export default withAuth(MyRecipes);

@@ -10,7 +10,7 @@ import CheckEmail from './pages/SignUp/CheckEmail';
 import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ForgotPassword/ResetPassword';
 import MyRecipes from './pages/MyRecipes';
-
+import MyAccount from './pages/MyAccount';
 
 class App extends Component {
 
@@ -41,6 +41,7 @@ class App extends Component {
           <Route exact path="/forgot-password" component={ForgotPassword}/>
           <Route path="/forgot-password/reset-password" component={ResetPassword}/>
           <Route exact path ="/my-recipes" component={MyRecipes} />
+          <Route exact path ="/account" component={MyAccount} />
           
         </div>
         

@@ -33,3 +33,19 @@ export const isLoggedIn = () => {
   return currentTime < decoded.exp;
 
 }
+
+export const timeToLive = () => {
+  let token = localStorage.getItem(TOKEN_KEY);
+  if(token === null) {
+    return 0;
+  }
+
+  let decoded = jwtDecode(token);
+  console.log(decoded);
+  // CONVERT TO SECONDS
+  let currentTime = (new Date()).getTime()/1000;
+  console.log(currentTime);
+  
+  return decoded.exp - currentTime;
+
+}

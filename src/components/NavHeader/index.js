@@ -1,19 +1,20 @@
 import React, { Component } from "react";
 import { NavLink }  from 'react-router-dom';
 import { isLoggedIn, removeToken } from '../../helpers/jwtHelper';
+import withAuth from '../../helpers/withAuth';
 import './nav.scss';
 
 
-const handleLogoutButton = () => {
-  removeToken();
-  window.location = "/";
-}
-
-// Navigation bar depends on whether or not user has logged in
-const conditionalRender = () => {
+class NavHeader extends Component {
   
-    if(isLoggedIn()) {
-      // Logged in, user can access inventory, recipes and details of account
+  constructor(props) {
+    super(props);
+    console.log(this.state);
+    console.log(this.props);
+  }
+
+  getRender() {
+    if(this.props.loggedIn) {
       return (
         <div className="btn-group" role="group" >
           <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white"
@@ -24,10 +25,10 @@ const conditionalRender = () => {
                    activeClassName="btn btn-active">my account</NavLink>
                    
           <NavLink to="/logout" type="button" className="btn btn-secondary text-white btn-logout"
-                   activeClassName="btn btn-active" onClick={handleLogoutButton}>logout</NavLink>
+                   activeClassName="btn btn-active" onClick={this.props.handleLogOut}>logout</NavLink>
         </div>
       );
-    } else {
+    }else {
       // Not logged in, user must sign in or sign up
       return (
         <div className="btn-group" role="group" aria-label="Navigation bar">
@@ -38,18 +39,14 @@ const conditionalRender = () => {
         </div>
       );
     }
-  } 
-
-
-class NavHeader extends Component {
-
+  }
   render() {
     return (
       <div className="nav-container">
-        {conditionalRender()}
+        {this.getRender()}
       </div>
     );
   }
 }
 
-export default NavHeader;
+export default withAuth(NavHeader, false);
