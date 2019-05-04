@@ -60,7 +60,7 @@ class SignInForm extends Component {
 
   render() {
       return (
-        <div class="d-flex justify-content-center">
+        <div className="d-flex justify-content-center">
             
             <div className="signin-container">
             <div className="col mt-5 pl-5 pr-5 pt-2 bg-white">
