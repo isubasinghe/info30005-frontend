@@ -21,6 +21,11 @@ function withAuth(WrappedComponent, showSignIn=true) {
             removeToken();
         }
 
+        handleLogIn() {
+            this.setState({loggedIn: true});
+            setTimeout(() => {this.setState({loggedIn: isLoggedIn()})}, (timeToLive()*1000)+1000);
+        }
+
         render() {
             if(!this.state.loggedIn && showSignIn) {
                 return (
