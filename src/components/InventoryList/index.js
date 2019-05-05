@@ -14,18 +14,6 @@ const renderNotExpiredItem = (item) => {
   if (itemExpiryDate.getTime() > todaysDate.getTime()) {
     // Not expired, render the item
     return (
-      /*<div className="Item-container" >
-        <h1>
-          {item.name}
-        </h1>
-        <h2>
-          {item.category}
-        </h2>
-        <h3>
-          {Date(item.expiry)}
-        </h3>
-      </div>*/
-
       /*<div class="card-body">
           <a href="#" class="card-link">Card link</a>
           <a href="#" class="card-link">Another link</a>
@@ -61,8 +49,9 @@ const itemExpiringSoon = (item) => {
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is close to expire
-  if ((itemExpiryDate.getDate()-todaysDate.getDate()) <= 2) {
-    console.log(todaysDate.getDate() - itemExpiryDate.getDate());
+  if ((itemExpiryDate.getDate()-todaysDate.getDate()) <= 2 && itemExpiryDate.getYear()===todaysDate.getYear() 
+      && itemExpiryDate.getMonth() === todaysDate.getMonth()) {
+    console.log(itemExpiryDate.getDate()-todaysDate.getDate());
     return true;
   }
   return false;
@@ -88,6 +77,8 @@ class InventoryList extends Component {
           console.log(res);
       })
       .catch(err => {
+        alert("Could not retrieve data");
+        console.log(err);
       });
   }
 
