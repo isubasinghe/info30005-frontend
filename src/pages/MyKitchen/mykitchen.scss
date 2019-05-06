@@ -1,0 +1,9 @@
+$md: 768px;
+
+
+.mykitchen-container {
+  width: 40%;
+  @media screen and (max-width: $md) {
+    width: 100%;
+  }
+}

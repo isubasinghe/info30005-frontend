@@ -1,0 +1,35 @@
+import React, { Component } from "react";
+import Alert from 'react-bootstrap/Alert';
+
+class ErrorMessage extends Component {
+
+	constructor(props) {
+		super(props);
+
+		this.state = {
+			show: true
+		};
+	}
+	
+	render () {
+		const handleHide = () => this.setState({show:false});
+		
+		return (
+			<div className='alert-container'>
+			<Alert show={this.state.show} variant="warning">
+				<Alert.Heading> Invalid </Alert.Heading>
+				{this.props.msg}
+				<div className="d-flex justify-content-end">
+					<button onClick={handleHide}
+						variant="outline-success"> Close
+					</button>
+				</div>
+			</Alert>
+
+			{!this.state.show}
+			</div>
+		)	
+	}
+}
+
+export default ErrorMessage;

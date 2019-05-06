@@ -3,8 +3,8 @@ import { Link }  from 'react-router-dom';
 import axios from 'axios';
 import { storeToken } from '../../helpers/jwtHelper';
 import './signin.scss';
-import InvalidEmail from './ErrorMessages/InvalidEmail';
-import DetailsDontMatch from './ErrorMessages/DetailsDontMatch';
+import ErrorMessage from './ErrorMessage';
+
 
 class SignInForm extends Component {
 
@@ -15,15 +15,15 @@ class SignInForm extends Component {
           email:'',
           password:'',
           userValid: false,
-          detailsValid: false
+          valid: false,
+          msg: ''
       };
 
-      this.handleEmailChange = this.handleEmailChange.bind(this); // When called this will cause the handleChange function with
-      // the event e = this.
+      // When called this will cause the handleChange functions with the event e = this.
+      this.handleEmailChange = this.handleEmailChange.bind(this); 
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
-
-      
+ 
   }
 
   handleEmailChange(e) {
@@ -49,29 +49,17 @@ class SignInForm extends Component {
       })
       .then(res => {
           // Only logged in if user is valid and password match user email
-          if (res.status === 200) {
-            storeToken(res.data.token);
-            console.log("LOGGED IN, now in my kitchen");
-            window.location = "/";
-          } else if (res.status === 400){
-            // Not a valid user email
-            const uValid = this.state.userValid;
-            this.setState( { userValid : !uValid } );
-            console.log(res.data);
-          } else if (res.status === 401) {
-            // email and password don't match
-            const dValid = this.state.detailsValid;
-            this.setState( { detailsValid : !dValid });
-            console.log(res.data);
-          }
+          storeToken(res.data.token);
+          console.log("LOGGED IN, now in my kitchen");
+          window.location = "/";
 
       }).catch(err => {
-          alert("Failed to sign in");
-          console.log(err);
+          const valid = this.state.valid;
+          this.setState( { valid : !valid, msg: err.response.data.msg} );
+          console.log(err.response.data.msg);
       });
   
   }
-
 
   render() {
       return (
@@ -100,7 +88,7 @@ class SignInForm extends Component {
                     <div className="form-group text-center">
                         <button type="submit" className="btn text-center btn-white font-weight-light border-white
                                   bg-bground m-4">Sign In</button>
-                        {this.state.userValid && <InvalidEmail/> && this.state.detailsValid && <DetailsDontMatch/>}
+                        {this.state.valid && <ErrorMessage msg={this.state.msg}/>}
                     </div>
                 </form>
             </div>
