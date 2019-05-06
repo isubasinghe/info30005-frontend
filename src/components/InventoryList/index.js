@@ -73,8 +73,8 @@ class InventoryList extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
       .then (res => {
-          this.setState({items: res.data[0].items});
-          console.log(res);
+          this.setState({items: res.data.items});
+          console.log(res.data);
       })
       .catch(err => {
         alert("Could not retrieve data");
