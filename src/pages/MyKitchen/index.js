@@ -40,7 +40,7 @@ const getSliderResponsive = (device, data) => {
             <div className="card-body">
               <h5 className="card-title">{item.name}</h5>
               <hr />
-              <p>This is food item</p>
+              <p>This is food</p>
             </div>
           </div>
         );
