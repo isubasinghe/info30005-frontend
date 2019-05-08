@@ -2,7 +2,6 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
-import RecipeList from '../../components/RecipeList';
 
 
 import Slider from "react-slick";
@@ -178,7 +177,7 @@ const getJumbotron = () => {
     <div className="jumbotron-container">
       <div className="jumbotron">
         <h1 className="display-4">
-          {console.log(item)}
+          Recipe preview
         </h1>
         <hr className="my-4" />
       </div>

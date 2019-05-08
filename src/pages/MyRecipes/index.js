@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { Link }  from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
@@ -40,8 +39,8 @@ const getSliderResponsive = (device, data) => {
             <h5 className="card-title">{recipe.title}</h5>
             <hr />
             <h7>Publisher: {recipe.publisher}</h7>
-            <p><a href={recipe.f2f_url} target="_blank">Go to recipe</a></p>
-            <img className="d-block" src={recipe.image_url} alt="Recipe Image" />
+            <p><a href={recipe.f2f_url} >Go to recipe</a></p>
+            <img className="d-block" src={recipe.image_url} alt="A food recipe" />
           </div>
         </div>
         );
