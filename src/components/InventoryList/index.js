@@ -3,7 +3,7 @@ import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import Card from 'react-bootstrap/Card';
 import CardDeck from 'react-bootstrap/CardDeck';
-
+import Slider from "react-slick";
 
 // Only render item if not expired
 const renderNotExpiredItem = (item) => {
@@ -14,24 +14,21 @@ const renderNotExpiredItem = (item) => {
   if (itemExpiryDate.getTime() > todaysDate.getTime()) {
     // Not expired, render the item
     return (
-      /*<div class="card-body">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
-        </div>*/
+        <div className="card" key={item.index}>
+            <div className="card-body">
+              <h5 className="card-title">{item.name}</h5>
+              <hr />
+              <p>This is food</p>
+            </div>
+          </div>
 
-
-      /*<Card.Link href="#">Card Link</Card.Link>
-          <Card.Link href="#">Another Link</Card.Link>*/
-
-      // NB NB NB I HAVE USED REACT BOOTSTRAP - CAN WE DO THAT OR DO WE NEED TO USE BOOTSTRAP
-      <Card border="secondary" text="blue" bg-center style={{ width: '5rem' }}>
-        <Card.Body>
+        /*<Card.Body>
           <Card.Title>{item.name} </Card.Title>
           <Card.Subtitle className="mb-2 text-muted">{item.category}</Card.Subtitle>  
           <Card.Text> {item.expiry} </Card.Text>
           {renderExpiringSoonBadge(item)}
-        </Card.Body>
-      </Card>
+        </Card.Body>*/
+
     )
   }
 }
@@ -85,14 +82,8 @@ class InventoryList extends Component {
   
   render() {
     return (
-      <ul>
-        {this.state.items.map(item =>
-          <div key={item.index}>
-          <CardDeck>
-            {renderNotExpiredItem(item)}
-            </CardDeck>
-          </div>)}
-      </ul>
+      this.state.items.map(item =>
+        {renderNotExpiredItem(item)})
     )
   }
 }
