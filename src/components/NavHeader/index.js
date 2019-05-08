@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { NavLink }  from 'react-router-dom';
-import { isLoggedIn, removeToken } from '../../helpers/jwtHelper';
 import withAuth from '../../helpers/withAuth';
 import './nav.scss';
 

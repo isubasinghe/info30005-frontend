@@ -1,5 +1,4 @@
 import React, { Component, Fragment } from "react";
-import { NavLink }  from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
@@ -25,6 +24,14 @@ const sliderSettingsMobile = {
   slidesToScroll: 1,
   dots: true,
 };
+
+
+const isExpired  = (item) => {
+  let todaysDate = new Date();
+  let itemExpiryDate = new Date(item.expiry);
+
+  return itemExpiryDate.getTime() < todaysDate.getTime();
+}
 
 const renderExpiringSoonBadge = (item) => {
   if (itemExpiringSoon(item)) {
@@ -56,33 +63,13 @@ const renderNotExpiredItem = (item) => {
   if (itemExpiryDate.getTime() > todaysDate.getTime()) {
     // Not expired, render the item
     return (
-      <div className="card" key={item.index}>
+      <div className="card" >
           <div className="card-body">
-            <h5 className="card-title">{item.name}</h5>
+            <h3 className="card-title">{item.name}</h3>
             <hr />
-            <h7>{item.category}</h7>
+            <h5>{item.category}</h5>
             <p>{item.expiry}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
-          </div>
-        </div>
-    )
-  }
-}
-
-const renderExpiredItem = (item) => {
-  let todaysDate = new Date();
-  let itemExpiryDate = new Date(item.expiry);
-
-  // Check if item is expired
-  if (itemExpiryDate.getTime() < todaysDate.getTime()) {
-    // Expired, render the item
-    return (
-      <div className="card" key={item.index}>
-          <div className="card-body">
-            <h5 className="card-title">{item.name}</h5>
-            <hr />
-            <h7>{item.category}</h7>
-            <p>{item.expiry}</p>
           </div>
         </div>
     )
@@ -99,7 +86,9 @@ const getSliderResponsive = (device, data) => {
     <Slider {...sliderSettings}>
       {data.map((item, index) => {
         return (
-          renderNotExpiredItem(item)
+          <div className="slider-item-container" key={index}>
+            {renderNotExpiredItem(item)}
+          </div>
         );
       })}
     </Slider>
@@ -108,6 +97,13 @@ const getSliderResponsive = (device, data) => {
 
 
 const getSlider = (data) => {
+  if(data.length < 2) {
+    return (
+      <Fragment>
+        {getSliderResponsive('mobile', data)}
+      </Fragment>
+    );
+  }
   return (
     <Fragment>
       <MediaQuery query="(min-width: 1224px)">
@@ -124,20 +120,44 @@ const getSlider = (data) => {
 
 
 const getCarousel = (data) => {
+  if(data.length < 1) {
+    return (
+      <Fragment/>
+    )
+  }
+
+  let carouselControls = (
+    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+  )
+
+  let carouselItems = (
+    <div className="carousel-item active">
+      <img className="d-block w-100" src="https://placekitten.com/200/300" alt="Slide" />
+    </div>
+  );
+
+  data.shift();
+
   return (
     <div className="carousel-container">
       <div id="carouselExampleControls" className="carousel slide" data-ride="carousel">
+        <ol className="carousel-indicators">
+          {carouselControls}
+          {data.map( (item, index) => {
+            return (
+              <li key={index} data-target="#carouselExampleControls" data-slide-to={index+1}></li>
+            );
+          })}
+        </ol>
         <div className="carousel-inner">
-          <div className="carousel-item active">
-            <img className="d-block w-100" src="https://placekitten.com/400/200" alt="First slide" />
-            {renderExpiredItem}
-          </div>
-          <div className="carousel-item">
-            <img className="d-block w-100" src="https://placekitten.com/400/200" alt="Second slide" />
-          </div>
-          <div className="carousel-item">
-            <img className="d-block w-100" src="https://placekitten.com/400/200" alt="Third slide" />
-          </div>
+          {carouselItems}
+          {data.map((item, index)=>{
+            return (
+              <div className="carousel-item" key={index}>
+                <img className="d-block w-100" src="https://placekitten.com/200/300" alt="Slide" />
+              </div>
+            );
+          })}
         </div>
         <a className="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
           <span className="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -152,7 +172,7 @@ const getCarousel = (data) => {
   )
 }
 
-const getJumbatron = () => {
+const getJumbotron = () => {
   return (
     <div className="jumbotron-container">
       <div className="jumbotron">
@@ -165,13 +185,35 @@ const getJumbatron = () => {
   );
 }
 
+
+const getBottomRow = (expired) => {
+  if(expired.length > 0) {
+    return (
+      <Fragment>
+        <div className="col-md-6">
+          {getCarousel(expired)}
+        </div>
+        <div className="col-md-6">
+          {getJumbotron()}
+        </div>
+      </Fragment>
+    );
+  }else {
+    return (
+      <div className="col">
+        {getJumbotron()}
+      </div>
+    );
+  }
+}
 class MyKitchen extends Component {
 
   constructor (props) {
     super(props);
 
     this.state = {
-      items: []
+      inventory: [],
+      expired: []
     };
   }
 
@@ -179,32 +221,37 @@ class MyKitchen extends Component {
     let token = getToken();
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
-      .then (res => {
-          this.setState({items: res.data.items});
-          console.log(res.data);
-      })
-      .catch(err => {
-        alert("Could not retrieve data");
-        console.log(err);
+    .then (res => {
+      if(res.data.items === null || res.data.items === undefined) {
+        throw new Error("Unable to obtain data.items from fetch call");
+      }
+      let inventory = [];
+      let expired = [];
+      res.data.items.forEach((item) => {
+        if(isExpired(item)) {
+          expired.push(item);
+        }else {
+          inventory.push(item);
+        }
       });
+      this.setState({inventory: inventory, expired: expired});
+    })
+    .catch(err => {
+      alert("Could not retrieve data");
+      console.log(err);
+    });
   }
 
 	render() {
 		return (
-      
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getSlider(this.state.items)}
+              {getSlider(this.state.inventory)}
             </div>
           </div>
           <div className="row bottom-row">
-            <div className="col-md-6">
-              {getCarousel()}
-            </div>
-            <div className="col-md-6">
-              {getJumbatron()}
-            </div>
+            {getBottomRow(this.state.expired)}
           </div>
 			</div>
 		);
