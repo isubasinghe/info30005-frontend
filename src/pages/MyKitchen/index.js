@@ -3,6 +3,8 @@ import { NavLink }  from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
+import RecipeList from '../../components/RecipeList';
+
 
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
@@ -61,7 +63,7 @@ const renderNotExpiredItem = (item) => {
             <h5 className="card-title">{item.name}</h5>
             <hr />
             <h7>{item.category}</h7>
-            <p>{item.expiry}</p>
+            <p>Expiry date: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
           </div>
         </div>
@@ -82,7 +84,7 @@ const renderExpiredItem = (item) => {
             <h5 className="card-title">{item.name}</h5>
             <hr />
             <h7>{item.category}</h7>
-            <p>{item.expiry}</p>
+            <p>{itemExpiryDate}</p>
           </div>
         </div>
     )
@@ -95,7 +97,6 @@ const getSliderResponsive = (device, data) => {
     sliderSettings = sliderSettingsMobile;
   }
   return (
-    //<InventoryList/>
     <Slider {...sliderSettings}>
       {data.map((item, index) => {
         return (
@@ -152,14 +153,15 @@ const getCarousel = (data) => {
   )
 }
 
-const getJumbatron = () => {
+const getJumbotron = (item) => {
   return (
     <div className="jumbotron-container">
       <div className="jumbotron">
         <h1 className="display-4">
-          Recipe preview
+          {console.log(item)}
         </h1>
         <hr className="my-4" />
+        
       </div>
     </div>
   );
@@ -171,7 +173,8 @@ class MyKitchen extends Component {
     super(props);
 
     this.state = {
-      items: []
+      items: [],
+      recipes: []
     };
   }
 
@@ -181,7 +184,19 @@ class MyKitchen extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
       .then (res => {
           this.setState({items: res.data.items});
-          console.log(res.data);
+          //console.log(res.data);
+      })
+      .catch(err => {
+        alert("Could not retrieve data");
+        console.log(err);
+      });
+
+    // List recipes from API
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
+      .then (res => {
+          console.log(res);
+          this.setState({recipes: res.data.recipes});
+
       })
       .catch(err => {
         alert("Could not retrieve data");
@@ -190,6 +205,7 @@ class MyKitchen extends Component {
   }
 
 	render() {
+
 		return (
       
 			<div className="container">
@@ -200,10 +216,13 @@ class MyKitchen extends Component {
           </div>
           <div className="row bottom-row">
             <div className="col-md-6">
-              {getCarousel()}
+              {getCarousel(this.state.items)}
             </div>
             <div className="col-md-6">
-              {getJumbatron()}
+              
+              {getJumbotron(this.state.recipes[0])}
+
+              
             </div>
           </div>
 			</div>
