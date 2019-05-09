@@ -5,11 +5,20 @@
 
 /* Change colours to match theme */
 $theme-colors: (
-  primary: #f2d16d,
+/*  primary: #f2d16d,
+*/
+  primary: #7075A3,
+  secondary: #7075A3,
+  /*
   secondary: #f17349,
   blue: #4e74a6,
+*/
+  blue: #7075A3,
+/*
   active: #f2aa69,
-  bground: #fbf0d2
+*/
+  active: #fbf0d2,
+  bground: #FFFBDD
 );
 
 @import "../../node_modules/bootstrap/scss/bootstrap";

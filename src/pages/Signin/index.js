@@ -20,10 +20,10 @@ class SignInForm extends Component {
       };
 
       // When called this will cause the handleChange functions with the event e = this.
-      this.handleEmailChange = this.handleEmailChange.bind(this); 
+      this.handleEmailChange = this.handleEmailChange.bind(this);
       this.handlePasswordChange = this.handlePasswordChange.bind(this);
       this.handleSubmit = this.handleSubmit.bind(this);
- 
+
   }
 
   handleEmailChange(e) {
@@ -58,36 +58,36 @@ class SignInForm extends Component {
           this.setState( { valid : !valid, msg: err.response.data.msg} );
           console.log(err.response.data.msg);
       });
-  
+
   }
 
   render() {
       return (
         <div className="d-flex justify-content-center">
-            
+
             <div className="signin-container">
             <div className="col mt-5 pl-5 pr-5 pt-2 bg-white">
-                <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue rounded">Sign In </h2>
+                <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">Sign In </h2>
                 <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group pt-4">
-                        <p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
+                    <div className="form-group pt-4 pl-5 pr-5">
+                        <p className="text-center text-blue font-weight-lighter text-lowercase">Email</p>
                         <input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="email" placeholder="Enter your email" required onChange={this.handleEmailChange}/>
+                                id="email" placeholder="enter your email" required onChange={this.handleEmailChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
-                    <div className="form-group pt-4">
-                        <p className="text-center text-blue font-weight-lighter text-uppercase">Password</p>
+                    <div className="form-group pt-4 pl-5 pr-5">
+                        <p className="text-center text-blue font-weight-lighter text-lowercase">Password</p>
                         <input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="password" placeholder="Enter your password" required onChange={this.handlePasswordChange}/>
+                                id="password" placeholder="enter your password" required onChange={this.handlePasswordChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
-                    <div className="form-group pt-4">
-                        <Link to="/forgot-password" className="btn text-blue text-center font-weight-light m-4">Forgot password?</Link>
+                    <div className="form-group pl-5 pr-5">
+                        <Link to="/forgot-password" className="btn text-blue text-center font-weight-light m-4">forgot password?</Link>
                     </div>
                     <div className="form-group text-center">
-                        <button type="submit" className="btn text-center btn-white font-weight-light border-white
-                                  bg-bground m-4">Sign In</button>
+                        <button type="submit" className="btn text-center btn-white font-weight-light border-white text-dark
+                                  bg-bground m-1">Sign In</button>
                         {this.state.valid && <ErrorMessage msg={this.state.msg}/>}
                     </div>
                 </form>

@@ -6,7 +6,7 @@ import './nav.scss';
 
 
 class NavHeader extends Component {
-  
+
   constructor(props) {
     super(props);
     console.log(this.state);
@@ -20,10 +20,10 @@ class NavHeader extends Component {
           <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my recipes</NavLink>
           <NavLink to="/" type="button" className="btn btn-secondary text-white"
-                   activeClassName="btn btn-active">my kitchen</NavLink>
+                   activeClassName="btn btn-active text-">my kitchen</NavLink>
           <NavLink to="/my-account" type="button" className="btn btn-secondary text-white"
                    activeClassName="btn btn-active">my account</NavLink>
-                   
+
           <NavLink to="/logout" type="button" className="btn btn-secondary text-white btn-logout"
                    activeClassName="btn btn-active" onClick={this.props.handleLogOut}>logout</NavLink>
         </div>
@@ -33,9 +33,9 @@ class NavHeader extends Component {
       return (
         <div className="btn-group" role="group" aria-label="Navigation bar">
           <NavLink to="/sign-in" type="button" className="btn btn-secondary text-white"
-                    activeClassName="btn btn-active">sign in</NavLink>
+                    activeClassName="btn text-dark btn-active">sign in</NavLink>
           <NavLink to="/sign-up" type="button" className="btn btn-secondary text-white"
-                  activeClassName="btn btn-active">sign up</NavLink>
+                  activeClassName="btn text-dark btn-active">sign up</NavLink>
         </div>
       );
     }

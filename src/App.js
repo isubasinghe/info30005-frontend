@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import logo from './photos/logo.png';
+import logo from './photos/logo-01-01.png';
 import NavHeader from './components/NavHeader';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
@@ -14,7 +14,7 @@ import MyAccount from './pages/MyAccount';
 
 class App extends Component {
 
-  
+
   render() {
 
     return (
@@ -32,7 +32,7 @@ class App extends Component {
               <NavHeader />
             </div>
           </div>
-          
+
           <Route exact path="/" component = {Homepage} />
           <Route exact path="/sign-up" component={SignUp} />
           <Route exact path="/sign-up/check-email" component={CheckEmail}/>
@@ -42,9 +42,9 @@ class App extends Component {
           <Route path="/forgot-password/reset-password" component={ResetPassword}/>
           <Route exact path ="/my-recipes" component={MyRecipes} />
           <Route exact path ="/account" component={MyAccount} />
-          
+
         </div>
-        
+
       </Router>
     );
   }
