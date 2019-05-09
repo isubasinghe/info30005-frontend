@@ -3,7 +3,6 @@ import { NavLink }  from 'react-router-dom';
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
-import RecipeList from '../../components/RecipeList';
 
 
 import Slider from "react-slick";
