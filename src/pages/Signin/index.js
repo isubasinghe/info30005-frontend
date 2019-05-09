@@ -82,12 +82,9 @@ class SignInForm extends Component {
                                 id="password" placeholder="enter your password" required onChange={this.handlePasswordChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
-                    <div className="form-group pl-5 pr-5">
-                        <Link to="/forgot-password" className="btn text-blue text-center font-weight-light m-4">forgot password?</Link>
-                    </div>
                     <div className="form-group text-center">
                         <button type="submit" className="btn text-center btn-white font-weight-light border-white text-dark
-                                  bg-bground m-1">Sign In</button>
+                                  bg-bground m-3 mb-5">Sign In</button>
                         {this.state.valid && <ErrorMessage msg={this.state.msg}/>}
                     </div>
                 </form>

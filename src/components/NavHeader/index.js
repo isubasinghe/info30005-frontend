@@ -17,14 +17,14 @@ class NavHeader extends Component {
       return (
         <div className="btn-group" role="group" >
           <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white"
-                   activeClassName="btn btn-active">my recipes</NavLink>
-          <NavLink to="/" type="button" className="btn btn-secondary text-white"
-                   activeClassName="btn btn-active text-">my kitchen</NavLink>
+                   activeClassName="btn btn-active text-dark ">my recipes</NavLink>
+          <NavLink exact to="/" type="button" className="btn btn-secondary text-white"
+                   activeClassName="btn btn-active text-dark">my kitchen</NavLink>
           <NavLink to="/my-account" type="button" className="btn btn-secondary text-white"
-                   activeClassName="btn btn-active">my account</NavLink>
+                   activeClassName="btn btn-active text-dark">my account</NavLink>
 
           <NavLink to="/logout" type="button" className="btn btn-secondary text-white btn-logout"
-                   activeClassName="btn btn-active" onClick={this.props.handleLogOut}>logout</NavLink>
+                   activeClassName="btn btn-active text-dark" onClick={this.props.handleLogOut}>logout</NavLink>
         </div>
       );
     }else {
