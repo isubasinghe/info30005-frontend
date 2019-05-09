@@ -34,13 +34,13 @@ const getSliderResponsive = (device, data) => {
     <Slider {...sliderSettings}>
       {data.map((recipe, index) => {
         return (
-          <div className="card" key={recipe.index}>
+          <div className="card mt-5" key={recipe.index}>
           <div className="card-body">
             <h5 className="card-title">{recipe.title}</h5>
             <hr />
             <h7>Publisher: {recipe.publisher}</h7>
             <p><a href={recipe.f2f_url} >Go to recipe</a></p>
-            <img className="d-block" src={recipe.image_url} alt="A food recipe" />
+              <img className="d-block" src={recipe.image_url} alt="A food recipe" />
           </div>
         </div>
         );
@@ -63,7 +63,7 @@ const getSlider = (data) => {
       </MediaQuery>
     </Fragment>
   );
-} 
+}
 
 class MyRecipes extends Component {
 
@@ -73,7 +73,7 @@ class MyRecipes extends Component {
 	    this.state = {
 	      recipes: []
 	    };
-	  } 
+	  }
 
 	componentDidMount() {
     let token = getToken();
@@ -87,7 +87,7 @@ class MyRecipes extends Component {
         alert("Could not retrieve data");
         console.log(err);
       });
-  }  
+  }
 
 //{getCarousel(this.state.items)}
 //{getJumbotron(<RecipeList/>)}
@@ -102,10 +102,10 @@ class MyRecipes extends Component {
 	          </div>
 	          <div className="row bottom-row">
 	            <div className="col-md-6">
-	              
+
 	            </div>
 	            <div className="col-md-6">
-	              
+
 	            </div>
 	          </div>
 			</div>

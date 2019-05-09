@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import logo from './photos/logo-01-01.png';
+import logo from './photos/Logo_1.png';
 import NavHeader from './components/NavHeader';
 import SignUp from './pages/SignUp';
 import SignIn from './pages/Signin';
