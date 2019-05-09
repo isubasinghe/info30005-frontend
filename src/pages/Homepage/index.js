@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import MyKitchen from '../MyKitchen';
 import { isLoggedIn } from '../../helpers/jwtHelper';
 import './homepage.scss';
-import hpimage from '../../photos/Homepage.svg';
+import hpimage from '../../photos/Homepage.png';
 import './homepage.scss';
 
 const renderHomepage = () => {
@@ -10,13 +10,13 @@ const renderHomepage = () => {
 		return <MyKitchen />
 	}else {
 		return (
-			<div className='row'>
-						<div className="homepage-container">
-							<div className="media">
-								<img className="fluid-img" src={hpimage} alt="hompageimg"/>
-							</div>
-						</div>
-			</div>
+				 <div className="d-flex justify-content-center bg">
+					<div className='row'>
+								<div className="homepage-container">
+										<img className="img-fluid" src={hpimage} alt="hompageimg"/>
+								</div>
+					</div>
+				</div>
 		);
 	}
 }

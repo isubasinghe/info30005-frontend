@@ -16,14 +16,14 @@ class NavHeader extends Component {
     if(this.props.loggedIn) {
       return (
         <div className="btn-group" role="group" >
-          <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white m-1"
+          <NavLink to="/my-recipes" type="button" className="btn btn-secondary text-white mt-2"
                    activeClassName="btn btn-active text-dark ">my recipes</NavLink>
-          <NavLink exact to="/" type="button" className="btn btn-secondary text-white m-1"
+          <NavLink exact to="/" type="button" className="btn btn-secondary text-white mt-2"
                    activeClassName="btn btn-active text-dark">my kitchen</NavLink>
-          <NavLink to="/my-account" type="button" className="btn btn-secondary text-white m-1"
+          <NavLink to="/my-account" type="button" className="btn btn-secondary text-white mt-2"
                    activeClassName="btn btn-active text-dark">my account</NavLink>
 
-          <NavLink to="/logout" type="button" className="btn btn-secondary text-white m-1 btn-logout"
+          <NavLink to="/logout" type="button" className="btn btn-secondary text-white mt-2 btn-logout"
                    activeClassName="btn btn-active text-dark" onClick={this.props.handleLogOut}>logout</NavLink>
         </div>
       );
@@ -31,9 +31,9 @@ class NavHeader extends Component {
       // Not logged in, user must sign in or sign up
       return (
         <div className="btn-group" role="group" aria-label="Navigation bar">
-          <NavLink to="/sign-in" type="button" className="btn btn-secondary text-white m-1"
+          <NavLink to="/sign-in" type="button" className="btn btn-secondary text-white mt-2"
                     activeClassName="btn text-dark btn-active">sign in</NavLink>
-          <NavLink to="/sign-up" type="button" className="btn btn-secondary text-white m-1"
+          <NavLink to="/sign-up" type="button" className="btn btn-secondary text-white mt-2"
                   activeClassName="btn text-dark btn-active">sign up</NavLink>
         </div>
       );
