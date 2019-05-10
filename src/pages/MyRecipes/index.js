@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
@@ -52,7 +52,7 @@ const getSliderResponsive = (device, data) => {
 
 const getSlider = (data) => {
   return (
-    <Fragment>
+    <>
       <MediaQuery query="(min-width: 1224px)">
         {getSliderResponsive('desktop', data)}
       </MediaQuery>
@@ -61,7 +61,7 @@ const getSlider = (data) => {
           {getSliderResponsive('mobile', data)}
         </div>
       </MediaQuery>
-    </Fragment>
+    </>
   );
 }
 

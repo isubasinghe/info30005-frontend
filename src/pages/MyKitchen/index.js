@@ -1,4 +1,4 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
@@ -99,13 +99,13 @@ const getSliderResponsive = (device, data) => {
 const getSlider = (data) => {
   if(data.length < 2) {
     return (
-      <Fragment>
+      <>
         {getSliderResponsive('mobile', data)}
-      </Fragment>
+      </>
     );
   }
   return (
-    <Fragment>
+    <>
       <MediaQuery query="(min-width: 1224px)">
         {getSliderResponsive('desktop', data)}
       </MediaQuery>
@@ -114,7 +114,7 @@ const getSlider = (data) => {
           {getSliderResponsive('mobile', data)}
         </div>
       </MediaQuery>
-    </Fragment>
+    </>
   );
 } 
 
@@ -122,7 +122,7 @@ const getSlider = (data) => {
 const getCarousel = (data) => {
   if(data.length < 1) {
     return (
-      <Fragment/>
+      <div className="empty"/>
     )
   }
 
@@ -189,14 +189,14 @@ const getJumbotron = () => {
 const getBottomRow = (expired) => {
   if(expired.length > 0) {
     return (
-      <Fragment>
+      <>
         <div className="col-md-6">
           {getCarousel(expired)}
         </div>
         <div className="col-md-6">
           {getJumbotron()}
         </div>
-      </Fragment>
+      </>
     );
   }else {
     return (
