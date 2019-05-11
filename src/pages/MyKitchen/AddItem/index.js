@@ -32,7 +32,7 @@ class AddItem extends Component {
 
     let token = getToken();
     // List items from API 
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, items: item})
     .then (res => {
        console.log(res);
     })
@@ -86,8 +86,8 @@ class AddItem extends Component {
         </div>
         <div class="form-group">
           <label for="item-quantity" class="col-form-label">quantity</label>
-          <input type="number" class="form-control text-blue" id="item-quantity" required 
-              onChange={this.handleQuantityChange}></input>
+          <input type="number" class="form-control text-blue" id="item-quantity" onChange={this.handleQuantityChange}>
+          </input>
         </div>
         <div class="form-group">
           <label for="item-units" class="col-form-label">units</label>

@@ -2,8 +2,9 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
-import AddItem from './AddItem';
 
+import AddItem from './AddItem';
+import UpdateItem from './UpdateItem';
 
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
@@ -27,12 +28,12 @@ const sliderSettingsMobile = {
 };
 
 // Buttons to either enter a new item or update a new one
-const getButtonToolbar = () => {
+const getButtonToolbar = (data) => {
   return (
     <div class="btn-toolbar" btn-toolbar-center role="toolbar" aria-label="Toolbar with button groups">
       <div class="btn-group mr-2 btn-long" role="group">
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
-        {updateItemQuantity()}
+        {updateItemQuantity(data)}
         <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
         {addNewItem()}
       </div>
@@ -40,7 +41,7 @@ const getButtonToolbar = () => {
   );
 }
 
-const updateItemQuantity = () => {
+const updateItemQuantity = (data) => {
   return (
     <div class="modal fade bd-update-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div class="modal-dialog modal-lg">
@@ -52,26 +53,7 @@ const updateItemQuantity = () => {
             </button>
           </div>
           <div class="modal-body">
-            
-             <form>
-              <div class="form-group">
-                <label for="item-name" class="col-form-label">name of item</label>
-                <input type="text" class="form-control text-blue" id="item-name" required></input>
-              </div>
-
-              <div class="form-group">
-                <label for="item-quantity">select quantity</label>
-                  <select class="form-control text-blue" id="item-quantity">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-              </div>
-            </form>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">update</button>
+             <UpdateItem items={data}/>
           </div>
         </div>
       </div>
@@ -94,7 +76,6 @@ const addNewItem = () => {
           <div class="modal-body">
             <AddItem/>
           </div>
-          
         </div>
       </div>
     </div>
@@ -385,7 +366,7 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getButtonToolbar()}
+              {getButtonToolbar(this.state.inventory)}
             </div>
           </div>
           <div className="row">
