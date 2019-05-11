@@ -1,24 +1,8 @@
 import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
-
-
-
-
-const getFirstDescription = (data) => {
-  return (
-    <div className="jumbotron-container">
-        <div className="jumbotron">
-            <h1 className="display-4">
-            Recipe preview
-            </h1>
-            <hr className="my-4" />
-            <p>{data[0].title}</p>
-            <p><a className="button-bground"href={data[0].f2f_url} >Go to recipe</a></p>
-        </div>
-    </div>
-  );
-}
+import {Button} from 'react-bootstrap';
+import './preview.scss';
 
 class Preview extends Component {
 
@@ -26,16 +10,44 @@ class Preview extends Component {
 	    super(props);
 
 	    this.state = {
-	      recipes: []
+          recipes: [],
+          showSpinner: true
 	    };
-	  }
+    }
+    getFirstDescription(data){
+        console.log(data[0]);
+        if(this.state.showSpinner === true){
+            return(
+                <div className="spinner-container">
+                <div className="d-flex justify-content-center">
+                    <div className="spinner-border" role="status">
+                    <span className="sr-only">Loading...</span>
+                    </div>
+                </div>
+                </div>
+            )
+        }
+        else{
+            return (
+                <div className="jumbotron-container">
+                    <div className="jumbotron">
+                        <h1 className="display-4">
+                        Recipe preview
+                        </h1>
+                        <p>{data[0].title}</p>
+                        <Button className="previewButton" variant="primary" href={data[0].f2f_url} >Go to recipe</Button>
+                    </div>
+                </div>
+            );
+        }
+    }
 
 	componentDidMount() {
     let token = getToken();
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
       .then (res => {
           console.log(res);
-          this.setState({recipes: res.data.recipes});
+          this.setState({recipes: res.data.recipes, showSpinner: false});
 
       })
       .catch(err => {
@@ -46,7 +58,7 @@ class Preview extends Component {
 
 	render() {
 		return (
-			<div>{getFirstDescription(this.state.recipes)}
+			<div>{this.getFirstDescription(this.state.recipes)}
             </div>
 		)
 	};
