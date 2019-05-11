@@ -36,6 +36,12 @@
   width:100%;
   max-height: 200px !important;
   margin-top: 30px;
+  color: purple;
+  background-colour: purple !important;
+  .carousel-caption
+  {
+    top: 15%;
+  }
 }
 
 .jumbotron-container {

@@ -22,7 +22,7 @@ const sliderSettingsMobile = {
   infinite: false,
   slidesToShow: 1,
   slidesToScroll: 1,
-  dots: true,
+  dots: false,
 };
 
 const getSliderResponsive = (device, data) => {
