@@ -2,7 +2,7 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
-
+import Preview from './preview.js';
 
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
@@ -232,14 +232,7 @@ const getCarousel = (data) => {
 
 const getJumbotron = () => {
   return (
-    <div className="jumbotron-container">
-      <div className="jumbotron">
-        <h1 className="display-4">
-          Recipe preview
-        </h1>
-        <hr className="my-4" />
-      </div>
-    </div>
+    <Preview></Preview>
   );
 }
 
