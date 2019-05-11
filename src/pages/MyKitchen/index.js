@@ -29,11 +29,11 @@ const sliderSettingsMobile = {
 // Buttons to either enter a new item or update a new one
 const getButtonToolbar = () => {
   return (
-    <div class="btn-toolbar" btn-toolbar-center role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group mr-2 btn-long" role="group">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
+    <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="btn-group mr-2 btn-long" role="group">
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
         {updateItemQuantity()}
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
         {addNewItem()}
       </div>
     </div>
@@ -42,26 +42,26 @@ const getButtonToolbar = () => {
 
 const updateItemQuantity = () => {
   return (
-    <div class="modal fade bd-update-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">update item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div className="modal fade bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             
              <form>
-              <div class="form-group">
-                <label for="item-name" class="col-form-label">name of item</label>
-                <input type="text" class="form-control text-blue" id="item-name" required></input>
+              <div className="form-group">
+                <label htmlFor="item-name" className="col-form-label">name of item</label>
+                <input type="text" className="form-control text-blue" id="item-name" required></input>
               </div>
 
-              <div class="form-group">
-                <label for="item-quantity">select quantity</label>
-                  <select class="form-control text-blue" id="item-quantity">
+              <div className="form-group">
+                <label htmlFor="item-quantity">select quantity</label>
+                  <select className="form-control text-blue" id="item-quantity">
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -70,8 +70,8 @@ const updateItemQuantity = () => {
               </div>
             </form>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary">update</button>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary">update</button>
           </div>
         </div>
       </div>
@@ -82,16 +82,16 @@ const updateItemQuantity = () => {
 // Add new item to inventory
 const addNewItem = () => {
   return (
-    <div class="modal fade bd-add-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">add new item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
+          <div className="modal-body">
             <AddItem/>
           </div>
           
