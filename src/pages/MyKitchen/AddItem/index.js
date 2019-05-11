@@ -97,10 +97,10 @@ class AddItem extends Component {
           <label for="item-units" class="col-form-label">units</label>
           <select class="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
             <option>piece</option>
-            <option>kg</option>
             <option>g</option>
-            <option>l</option>
-            <option>ml</option>
+            <option>kg</option>
+            <option>mL</option>
+            <option>L</option>
           </select>
         </div>
         <div class="form-group">
