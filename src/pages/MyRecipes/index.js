@@ -39,7 +39,7 @@ const getSliderResponsive = (device, data) => {
             <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
             <hr />
             <h7>Publisher: {recipe.publisher}</h7>
-            <p><a className="button-bground"href={recipe.f2f_url} >Go to recipe</a></p>
+            <p><a className="button-bground"href={recipe.f2f_url} target="_blank" >Go to recipe</a></p>
               <div className="media">
                 <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
               </div>

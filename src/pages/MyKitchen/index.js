@@ -25,6 +25,130 @@ const sliderSettingsMobile = {
   dots: true,
 };
 
+// Buttons to either enter a new item or update a new one
+const getButtonToolbar = () => {
+  return (
+    <div class="btn-toolbar" btn-toolbar-center role="toolbar" aria-label="Toolbar with button groups">
+      <div class="btn-group mr-2 btn-long" role="group">
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
+        {updateItemQuantity()}
+        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
+        {addNewItem()}
+      </div>
+    </div>
+  );
+}
+
+const updateItemQuantity = () => {
+  return (
+    <div class="modal fade bd-update-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">update item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            
+             <form>
+              <div class="form-group">
+                <label for="item-name" class="col-form-label">name of item</label>
+                <input type="text" class="form-control text-blue" id="item-name" required></input>
+              </div>
+
+              <div class="form-group">
+                <label for="item-quantity">select quantity</label>
+                  <select class="form-control text-blue" id="item-quantity">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary">update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Add new item to inventory
+const addNewItem = () => {
+  return (
+    <div class="modal fade bd-add-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form>
+              <div class="form-group">
+                <label for="item-name" class="col-form-label">name of item</label>
+                <input type="text" class="form-control text-blue" id="item-name" required></input>
+              </div>
+              <div class="form-group">
+                <label for="item-category" class="col-form-label">category</label>
+                <select class="form-control text-blue" id="item-category">
+                  <option>FRUIT</option>
+                  <option>VEG</option>
+                  <option>MEAT</option>
+                  <option>FISH</option>
+                </select>
+              </div>
+              <div class="form-group">
+               <label for="expiry-date" class="col-form-label">expiry date</label>
+                <div>
+                  <input class="form-control text-blue" type="date" value="2019-05-11" id="expiry-date"></input>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="item-location" class="col-form-label">location</label>
+                <input type="text" class="form-control text-blue" id="item-name"></input>
+              </div>
+            </form>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary btn-center">add</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// Inserts new item to user's inventory in database
+const handleAdd = (item) => {
+  let token = getToken();
+  // List items from API 
+  axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem',{token: token, item: item})
+  .then (res => {
+     console.log(res);
+    /*if(res.data.items === null || res.data.items === undefined) {
+      throw new Error("Unable to obtain data.items from fetch call");
+    }
+    console.log(res);
+    let inventory = [];
+    res.data.items.forEach((item) => {
+      inventory.push(item);
+    });
+    this.setState({inventory: inventory});*/
+  })
+  .catch(err => {
+    alert("Could not add item to database");
+    console.log(err);
+  });
+}
+
 // Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
@@ -67,7 +191,7 @@ const renderNotExpiredItem = (item) => {
     return (
       <div className="card" >
           <div className="card-body">
-            <h3 className="card-title">{item.name}</h3>
+            <h3 className="card-title">{item.name.toLowerCase()}</h3>
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
@@ -307,6 +431,11 @@ class MyKitchen extends Component {
 
 		return (
 			<div className="container">
+          <div className="row">
+            <div className="col">
+              {getButtonToolbar()}
+            </div>
+          </div>
           <div className="row">
             <div className="col">
               {getSlider(this.state.inventory)}
