@@ -11,7 +11,6 @@ import 'slick-carousel/slick/slick-theme.css';
 import './mykitchen.scss';
 
 
-
 const sliderSettingsDesktop = {
   infinite: false,
   slidesToShow: 3,
@@ -26,7 +25,7 @@ const sliderSettingsMobile = {
   dots: true,
 };
 
-
+// Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
@@ -34,14 +33,16 @@ const isExpired  = (item) => {
   return itemExpiryDate.getTime() < todaysDate.getTime();
 }
 
+// Render a badge on items that are expiring soon
 const renderExpiringSoonBadge = (item) => {
   if (itemExpiringSoon(item)) {
     return (
-      <span class="badge badge-primary badge-pill" text-center>expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center>expiring soon</span>
       )
   }
 }
 
+// Check if an item is expiring soon
 const itemExpiringSoon = (item) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
@@ -69,7 +70,7 @@ const renderNotExpiredItem = (item) => {
             <h3 className="card-title">{item.name}</h3>
             <hr />
             <h5>{item.category}</h5>
-            <p>{item.expiry}</p>
+            <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
           </div>
         </div>
@@ -77,7 +78,7 @@ const renderNotExpiredItem = (item) => {
   }
 }
 
-
+// Make inventory slider responsive to different devices
 const getSliderResponsive = (device, data) => {
   let sliderSettings = sliderSettingsDesktop;
   if(device==='mobile') {
@@ -96,7 +97,7 @@ const getSliderResponsive = (device, data) => {
   );
 }
 
-
+// Slider with the user's items
 const getSlider = (data) => {
   if(data.length < 2) {
     return (
@@ -119,7 +120,55 @@ const getSlider = (data) => {
   );
 } 
 
+// Find how many days it has been since item expired
+const daysOverdue = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
 
+  // Double-checking if item is expired
+  if (isExpired(item)) {
+    let daysOverdue = todaysDate.getDate()-itemExpiryDate.getDate();
+    return daysOverdue;
+  }
+  else {
+    // Not expired yet, days overdue = 0
+    return 0;
+  }
+}
+
+// Find how many months it has been since item expired
+const monthsOverdue = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
+
+  // Double-checking if item is expired
+  if (isExpired(item)) {
+    let monthsOverdue = todaysDate.getMonth()-itemExpiryDate.getMonth();
+    return monthsOverdue;
+  }
+  else {
+    // Not expired yet, months overdue = 0
+    return 0;
+  }
+}
+
+// Find how many years it has been since item expired
+const yearsOverdue = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
+
+  // Double-checking if item is expired
+  if (isExpired(item)) {
+    let yearsOverdue = todaysDate.getYear() - itemExpiryDate.getYear();
+    return yearsOverdue;
+  }
+  else {
+    // Not expired yet, years overdue = 0
+    return 0;
+  }
+}
+
+// Carousel with items that has expired but has not been used by user
 const getCarousel = (data) => {
   if(data.length < 1) {
     return (
@@ -128,12 +177,16 @@ const getCarousel = (data) => {
   }
 
   let carouselControls = (
-    <li data-target="#carouselExampleControls" data-slide-to="0" class="active"></li>
+    <li data-target="#carouselExampleControls" data-slide-to="0" className="active"></li>
   )
 
   let carouselItems = (
     <div className="carousel-item active">
-      <img className="d-block w-100" src="https://placekitten.com/200/300" alt="Slide" />
+      <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+      <div className="carousel-caption">
+        <h5 className="h5-responsive">{data[0].name.toLowerCase()}</h5>
+        <p>expired {daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
+      </div>
     </div>
   );
 
@@ -155,7 +208,11 @@ const getCarousel = (data) => {
           {data.map((item, index)=>{
             return (
               <div className="carousel-item" key={index}>
-                <img className="d-block w-100" src="https://placekitten.com/200/300" alt="Slide" />
+                <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+                <div className="carousel-caption">
+                  <h5 className="h5-responsive">{item.name.toLowerCase()}</h5>
+                  <p>expired {daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
+                </div>
               </div>
             );
           })}
@@ -186,7 +243,7 @@ const getJumbotron = () => {
   );
 }
 
-
+// Determine if expired items carousel should be displayed or not, and how
 const getBottomRow = (expired) => {
   if(expired.length > 0) {
     return (
@@ -199,7 +256,8 @@ const getBottomRow = (expired) => {
         </div>
       </Fragment>
     );
-  }else {
+  } else {
+    // No expired items, only show suggested recipes
     return (
       <div className="col">
         {getJumbotron()}
