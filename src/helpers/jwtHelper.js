@@ -49,14 +49,3 @@ export const timeToLive = () => {
   return decoded.exp - currentTime;
 
 }
-
-export const getLocation = () => {
-  let token = localStorage.getItem(TOKEN_KEY);
-  if(token === null) {
-    return false;
-  }
-
-  let decoded = jwtDecode(token);
-
-  return decoded.defaultloc;
-}
