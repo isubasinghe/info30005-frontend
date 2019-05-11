@@ -17,7 +17,7 @@ class Verify extends Component {
     axios.get('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/verify/' + this.props.match.params.key)
     .then(data => {
       console.log(data.data);
-      if(data.data.msg === "Verfied user") {
+      if(data.data.msg === "Verified user") {
         this.setState({verified: true});
       }else {
         this.setState({verified: false, returnText: 'Invalid verify key was supplied'});

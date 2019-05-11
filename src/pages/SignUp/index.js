@@ -63,8 +63,8 @@ class SignUpForm extends Component {
 		}).catch(err => {
 			// Already a user with the inputted email
 			const valid = this.state.valid;
-			this.setState( { valid : !valid } );
-			console.log(err);
+			this.setState( { valid : !valid, errMsg: err.response.data.msg } );
+			console.log(err.response);
 		});
 
 
@@ -110,7 +110,7 @@ class SignUpForm extends Component {
 							</div>
 							<div className="form-group text-center">
 								<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign Up</button>
-								{this.state.valid && <ShowErrorMessage/>}
+								{this.state.valid && <ShowErrorMessage msg={this.state.errMsg}/>}
 							</div>
 						</form>
 					</div>
