@@ -86,12 +86,8 @@ class AddItem extends Component {
         </div>
         <div class="form-group">
           <label for="item-quantity" class="col-form-label">quantity</label>
-          <select class="form-control text-blue" id="item-quantity" onChange={this.handleQuantityChange}>
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-          </select>
+          <input type="number" class="form-control text-blue" id="item-quantity" required 
+              onChange={this.handleQuantityChange}></input>
         </div>
         <div class="form-group">
           <label for="item-units" class="col-form-label">units</label>
