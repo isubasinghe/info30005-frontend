@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
+import AddItem from './AddItem';
 
 
 import Slider from "react-slick";
@@ -91,62 +92,13 @@ const addNewItem = () => {
             </button>
           </div>
           <div class="modal-body">
-            <form>
-              <div class="form-group">
-                <label for="item-name" class="col-form-label">name of item</label>
-                <input type="text" class="form-control text-blue" id="item-name" required></input>
-              </div>
-              <div class="form-group">
-                <label for="item-category" class="col-form-label">category</label>
-                <select class="form-control text-blue" id="item-category">
-                  <option>FRUIT</option>
-                  <option>VEG</option>
-                  <option>MEAT</option>
-                  <option>FISH</option>
-                </select>
-              </div>
-              <div class="form-group">
-               <label for="expiry-date" class="col-form-label">expiry date</label>
-                <div>
-                  <input class="form-control text-blue" type="date" value="2019-05-11" id="expiry-date"></input>
-                </div>
-              </div>
-              <div class="form-group">
-                <label for="item-location" class="col-form-label">location</label>
-                <input type="text" class="form-control text-blue" id="item-name"></input>
-              </div>
-            </form>
+            <AddItem/>
           </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary btn-center">add</button>
-          </div>
+          
         </div>
       </div>
     </div>
   );
-}
-
-// Inserts new item to user's inventory in database
-const handleAdd = (item) => {
-  let token = getToken();
-  // List items from API 
-  axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem',{token: token, item: item})
-  .then (res => {
-     console.log(res);
-    /*if(res.data.items === null || res.data.items === undefined) {
-      throw new Error("Unable to obtain data.items from fetch call");
-    }
-    console.log(res);
-    let inventory = [];
-    res.data.items.forEach((item) => {
-      inventory.push(item);
-    });
-    this.setState({inventory: inventory});*/
-  })
-  .catch(err => {
-    alert("Could not add item to database");
-    console.log(err);
-  });
 }
 
 // Check if an item is expired
