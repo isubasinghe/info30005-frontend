@@ -36,11 +36,13 @@ const getSliderResponsive = (device, data) => {
         return (
           <div className="card mt-5" key={recipe.index}>
           <div className="card-body">
-            <h5 className="card-title">{recipe.title}</h5>
+            <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
             <hr />
             <h7>Publisher: {recipe.publisher}</h7>
-            <p><a href={recipe.f2f_url} >Go to recipe</a></p>
-              <img className="d-block" src={recipe.image_url} alt="A food recipe" />
+            <p><a className="button-bground"href={recipe.f2f_url} >Go to recipe</a></p>
+              <div className="media">
+                <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
+              </div>
           </div>
         </div>
         );
