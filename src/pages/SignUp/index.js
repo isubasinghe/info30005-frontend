@@ -7,7 +7,7 @@ import ShowErrorMessage from './ErrorMessage';
 import './signup.scss';
 
 class SignUpForm extends Component {
-	
+
 	constructor(){
 		super();
 
@@ -22,7 +22,7 @@ class SignUpForm extends Component {
 	};
 
 	handleEmail = event => {
-		this.setState({email : event.target.value}); 
+		this.setState({email : event.target.value});
 	};
 
 	handleName = event => {
@@ -56,18 +56,18 @@ class SignUpForm extends Component {
 		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', newUser)
 			.then(res => {
 				console.log(res);
-			
+
 			// Redirect to page where it says to check user's email only if user written in db
 			this.setState({redirect: true});
 
 		}).catch(err => {
 			// Already a user with the inputted email
 			const valid = this.state.valid;
-			this.setState( { valid : !valid } );
-			console.log(err);
+			this.setState( { valid : !valid, errMsg: err.response.data.msg } );
+			console.log(err.response);
 		});
 
-		
+
 	};
 
 
@@ -78,39 +78,39 @@ class SignUpForm extends Component {
 		}
 
 		return (
-			
+
 			<div className="d-flex justify-content-center">
 				<div className="signup-container">
 					<div className="col mt-5 pl-5 pr-5 pt-3 bg-white">
-						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue rounded">Sign Up </h2>
+						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">Sign Up </h2>
 						<form onSubmit={this.handleSubmit}>
-							<div className="form-group pt-4">
-								<p className="text-center text-blue font-weight-lighter text-uppercase">Name</p>
+							<div className="form-group pt-3 pl-5 pr-5">
+								<p className="text-center text-blue font-weight-lighter text-lowercase">Name</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="name" placeholder="Please enter your name" onChange={this.handleName} required />
+									id="name" placeholder="please enter your name" onChange={this.handleName} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
-							<div className="form-group pt-4">
-								<p className="text-center text-blue font-weight-lighter text-uppercase">Email</p>
+							<div className="form-group pt-3 pl-5 pr-5">
+								<p className="text-center text-blue font-weight-lighter text-lowercase">Email</p>
 								<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-									id="email" placeholder="Please enter your email" onChange={this.handleEmail} required />
+									id="email" placeholder="please enter your email" onChange={this.handleEmail} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
-							<div className="form-group pt-4">
-								<p className="text-center text-blue font-weight-lighter text-uppercase">Password</p>
+							<div className="form-group pt-3 pl-5 pr-5">
+								<p className="text-center text-blue font-weight-lighter text-lowercase">Password</p>
 								<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-									id="password" placeholder="Please enter your password" onChange={this.handlePassword} required />
+									id="password" placeholder="please enter your password" onChange={this.handlePassword} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
-							<div className="form-group pt-4">
-								<p className="text-center text-blue font-weight-lighter text-uppercase">Address</p>
+							<div className="form-group pt-3 pl-5 pr-5">
+								<p className="text-center text-blue font-weight-lighter text-lowercase">Address</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="address" placeholder="Please enter your address" onChange={this.handleAddress} required />
+									id="address" placeholder="please enter your address" onChange={this.handleAddress} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group text-center">
 								<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign Up</button>
-								{this.state.valid && <ShowErrorMessage/>}
+								{this.state.valid && <ShowErrorMessage msg={this.state.errMsg}/>}
 							</div>
 						</form>
 					</div>
