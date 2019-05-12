@@ -3,6 +3,8 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import Preview from './preview.js';
+import AddItem from './AddItem';
+
 
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
@@ -24,6 +26,81 @@ const sliderSettingsMobile = {
   slidesToScroll: 1,
   dots: true,
 };
+
+// Buttons to either enter a new item or update a new one
+const getButtonToolbar = (inventory, setInventory) => {
+  return (
+    <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="btn-group mr-2 btn-long" role="group">
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
+        {updateItemQuantity(inventory, setInventory)}
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
+        {addNewItem(inventory, setInventory)}
+      </div>
+    </div>
+  );
+}
+
+const updateItemQuantity = (inventory, setInventory) => {
+  return (
+    <div className="modal fade bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            
+             <form>
+              <div className="form-group">
+                <label htmlFor="item-name" className="col-form-label">name of item</label>
+                <input type="text" className="form-control text-blue" id="item-name" required></input>
+              </div>
+
+              <div className="form-group">
+                <label htmlFor="item-quantity">select quantity</label>
+                  <select className="form-control text-blue" id="item-quantity">
+                    <option>1</option>
+                    <option>2</option>
+                    <option>3</option>
+                    <option>4</option>
+                  </select>
+              </div>
+            </form>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary">update</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
+// Add new item to inventory
+const addNewItem = (inventory, setInventory) => {
+  return (
+    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <AddItem inventory={inventory} setInventory={setInventory} />
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  );
+}
 
 // Check if an item is expired
 const isExpired  = (item) => {
@@ -67,7 +144,7 @@ const renderNotExpiredItem = (item) => {
     return (
       <div className="card" >
           <div className="card-body">
-            <h3 className="card-title">{item.name}</h3>
+            <h3 className="card-title">{item.name.toLowerCase()}</h3>
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
@@ -237,7 +314,7 @@ const getJumbotron = () => {
 }
 
 // Determine if expired items carousel should be displayed or not, and how
-const getBottomRow = (expired) => {
+const getBottomRow = (expired, inventory) => {
   if(expired.length > 0) {
     return (
       <Fragment>
@@ -249,7 +326,7 @@ const getBottomRow = (expired) => {
         </div>
       </Fragment>
     );
-  } else {
+  } else if (inventory.length > 0) {
     // No expired items, only show suggested recipes
     return (
       <div className="col">
@@ -271,6 +348,14 @@ class MyKitchen extends Component {
     };
   }
 
+  setInventory = (newInventory) => {
+    this.setState({inventory: newInventory});
+  }
+
+  setExpired = (newExpired) => {
+    this.setState({expired: newExpired});
+  }
+
   componentDidMount() {
     let token = getToken();
     // List items from API 
@@ -288,6 +373,7 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
+      console.log(inventory.length);
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
@@ -302,11 +388,16 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
+              {getButtonToolbar(this.state.inventory, this.setInventory)}
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
               {getSlider(this.state.inventory)}
             </div>
           </div>
           <div className="row bottom-row">
-            {getBottomRow(this.state.expired)}
+            {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
 		);
