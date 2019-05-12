@@ -17,7 +17,7 @@ class DecreaseQuantity extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/decreaseQuantity',{token: token, id: this.props.item._id})
     .then (res => {
         console.log(res);
-        
+        window.location ="/";
     })
     .catch(err => {
         alert("Could not retrieve data");
@@ -26,7 +26,9 @@ class DecreaseQuantity extends Component {
 
 	render() {
 		return (
-			<button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleSubmit}></button>
+			<button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleSubmit}>
+                -
+            </button>
 		)
 	};
 }
