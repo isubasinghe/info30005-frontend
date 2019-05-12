@@ -87,7 +87,7 @@ class MyRecipes extends Component {
       })
       .catch(err => {
         alert("Could not retrieve data");
-        console.log(err);
+        console.log(err.response.data);
       });
   }
 

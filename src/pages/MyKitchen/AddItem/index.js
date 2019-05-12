@@ -36,7 +36,7 @@ class AddItem extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
-       console.log(res);
+       console.log(res.data);
     })
     .catch(err => {
       alert("Could not add item to database");
