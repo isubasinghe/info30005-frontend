@@ -15,12 +15,35 @@ import 'slick-carousel/slick/slick-theme.css';
 
 import './mykitchen.scss';
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{...style}}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style}}
+      onClick={onClick}
+    />
+  );
+}
 
 const sliderSettingsDesktop = {
   infinite: false,
   slidesToShow: 3,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 const sliderSettingsMobile = {
@@ -28,6 +51,8 @@ const sliderSettingsMobile = {
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 // Buttons to either enter a new item or update a new one
@@ -228,7 +253,7 @@ const getCarousel = (data) => {
 
   let carouselItems = (
     <div className="carousel-item active">
-      <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+      <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
         <h5 className="h5-responsive">{data[0].name.toLowerCase()}</h5>
         <p>expired {daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
@@ -254,7 +279,7 @@ const getCarousel = (data) => {
           {data.map((item, index)=>{
             return (
               <div className="carousel-item" key={index}>
-                <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+                <img className="d-block w-100" src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
                 <div className="carousel-caption">
                   <h5 className="h5-responsive">{item.name.toLowerCase()}</h5>
                   <p>expired {daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
