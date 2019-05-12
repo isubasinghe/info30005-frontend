@@ -4,6 +4,8 @@ import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import Preview from './preview.js';
 import AddItem from './AddItem';
+import IncreaseQuantity from './IncreaseQuantity';
+import DecreaseQuantity from './DecreaseQuantity';
 
 
 import Slider from "react-slick";
@@ -150,12 +152,9 @@ const renderNotExpiredItem = (item) => {
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
             <hr className="hr"/>
-            <div className="fixed-bottom">
-              <div className="d-flex justify-content-between" style={{margin: '5px'}}>
-                <button type="button" className="btn btn-danger" style={{width: '10%', backgroundColor: 'transparent', color: 'red'}}>-</button>
-                <button type="button" className="btn btn-success" style={{width: '10%', backgroundColor: 'transparent', color: 'green'}} >+</button>
-              </div>
-            </div>
+            <p>quantity: {item.quantity}</p>
+            <IncreaseQuantity item={item}></IncreaseQuantity>
+            <DecreaseQuantity item={item}></DecreaseQuantity>
           </div>
         </div>
     )
@@ -172,9 +171,9 @@ const getSliderResponsive = (device, data) => {
     <Slider {...sliderSettings}>
       {data.map((item, index) => {
         return (
-          <div className="slider-item-container" key={index}>
-            {renderNotExpiredItem(item)}
-          </div>
+            <div className="slider-item-container" key={index}>
+              {renderNotExpiredItem(item)}
+            </div>
         );
       })}
     </Slider>
@@ -328,19 +327,20 @@ const getBottomRow = (expired, inventory) => {
         <div className="col-md-6">
           {getCarousel(expired)}
         </div>
-        <div className="col-md-6">
+        {/* <div className="col-md-6">
           {getJumbotron()}
-        </div>
+        </div> */}
       </Fragment>
     );
-  } else if (inventory.length > 0) {
-    // No expired items, only show suggested recipes
-    return (
-      <div className="col">
-        {getJumbotron()}
-      </div>
-    );
-  }
+  } 
+  // else if (inventory.length != null) {
+  //   // No expired items, only show suggested recipes
+  //   return (
+  //     <div className="col">
+  //       {getJumbotron()}
+  //     </div>
+  //   );
+  // }
 }
 
 
