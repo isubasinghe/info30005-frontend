@@ -15,18 +15,18 @@ class ErrorMessage extends Component {
 		const handleHide = () => this.setState({show:false});
 		
 		return (
-			<div className='alert-container'>
-			<Alert show={this.state.show} variant="warning">
-				<Alert.Heading> Invalid </Alert.Heading>
-				{this.props.msg}
-				<div className="d-flex justify-content-end">
-					<button onClick={handleHide}
-						variant="outline-success"> Close
-					</button>
-				</div>
-			</Alert>
+			<div className="d-flex justify-content-center">
+				<Alert show={this.state.show} variant="warning">
+					<Alert.Heading> Invalid </Alert.Heading>
+					{this.props.msg}
+					<div className="d-flex justify-content-end">
+						<button onClick={handleHide}
+							variant="outline-success"> close
+						</button>
+					</div>
+				</Alert>
 
-			{!this.state.show}
+				{!this.state.show}
 			</div>
 		)	
 	}

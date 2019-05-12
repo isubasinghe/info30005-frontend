@@ -82,7 +82,7 @@ class SignUpForm extends Component {
 			<div className="d-flex justify-content-center">
 				<div className="signup-container">
 					<div className="col mt-5 pl-5 pr-5 pt-3 bg-white">
-						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">Sign Up </h2>
+						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">sign up </h2>
 						<form onSubmit={this.handleSubmit}>
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">Name</p>
@@ -91,27 +91,27 @@ class SignUpForm extends Component {
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">Email</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">email</p>
 								<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
 									id="email" placeholder="please enter your email" onChange={this.handleEmail} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">Password</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">password</p>
 								<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
 									id="password" placeholder="please enter a password" onChange={this.handlePassword} required />
 									<div className="help-block with-errors text-center text-blue">minimum of 6 characters + include a lowercase, uppercase and a special character</div>
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">Address</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">address</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
 									id="address" placeholder="please enter your address" onChange={this.handleAddress} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group text-center">
-								<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign Up</button>
-								{this.state.valid && <ShowErrorMessage msg={this.state.errMsg}/>}
+								<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">sign up</button>
+								{this.state.valid && <ShowErrorMessage msg={this.state.errMsg.toLowerCase()}/>}
 							</div>
 						</form>
 					</div>
