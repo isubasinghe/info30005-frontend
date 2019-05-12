@@ -148,6 +148,13 @@ const renderNotExpiredItem = (item) => {
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
+            <hr className="hr"/>
+            <div className="fixed-bottom">
+              <div className="d-flex justify-content-between" style={{margin: '5px'}}>
+                <button type="button" className="btn btn-danger" style={{width: '10%', backgroundColor: 'transparent', color: 'red'}}>-</button>
+                <button type="button" className="btn btn-success" style={{width: '10%', backgroundColor: 'transparent', color: 'green'}} >+</button>
+              </div>
+            </div>
           </div>
         </div>
     )
