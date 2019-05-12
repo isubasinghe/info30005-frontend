@@ -15,7 +15,6 @@ class Preview extends Component {
 	    };
     }
     getFirstDescription(data){
-        console.log(data[0]);
         if(this.state.showSpinner === true){
             return(
                 <div className="spinner-container">
