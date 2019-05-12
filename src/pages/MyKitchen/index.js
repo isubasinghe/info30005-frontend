@@ -288,20 +288,20 @@ const getBottomRow = (expired, inventory) => {
         <div className="col-md-6">
           {getCarousel(expired)}
         </div>
-        {/* <div className="col-md-6">
+        {<div className="col-md-6">
           {getJumbotron()}
-        </div> */}
+        </div>}
       </Fragment>
     );
   } 
-  // else if (inventory.length != null) {
-  //   // No expired items, only show suggested recipes
-  //   return (
-  //     <div className="col">
-  //       {getJumbotron()}
-  //     </div>
-  //   );
-  // }
+  else if (inventory.length != null) {
+    // No expired items, only show suggested recipes
+    return (
+      <div className="col">
+        {getJumbotron()}
+      </div>
+    );
+  }
 }
 
 
