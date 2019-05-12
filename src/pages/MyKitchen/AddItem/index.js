@@ -11,7 +11,7 @@ class AddItem extends Component {
     this.state = {
       showModal: true,
       name: '',
-      category: '',
+      category: 'FRUIT',
       expiry: '',
       location: getLocation(),
       quantity: 0,
@@ -28,7 +28,7 @@ class AddItem extends Component {
     const item = {
       name: this.state.name,
       // default category
-      category: 'FRUIT',
+      category: this.state.category,
       location: this.state.location,
       expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
