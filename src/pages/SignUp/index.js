@@ -99,7 +99,8 @@ class SignUpForm extends Component {
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">Password</p>
 								<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-									id="password" placeholder="please enter your password" onChange={this.handlePassword} required />
+									id="password" placeholder="please enter a password" onChange={this.handlePassword} required />
+									<div className="help-block with-errors text-center text-blue">minimum of 6 characters + include a lowercase, uppercase and a special character</div>
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
