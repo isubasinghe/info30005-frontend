@@ -20,7 +20,7 @@ class Preview extends Component {
           return (
             <div className="jumbotron-container">
                 <div className="jumbotron">
-                    <h5 className="previewUnavailable">
+                    <h5 className="display-4">
                       recipes unavailable at the moment
                     </h5>
                 </div>
@@ -42,11 +42,21 @@ class Preview extends Component {
             return (
                 <div className="jumbotron-container">
                     <div className="jumbotron">
-                        <h1 className="display-4">
-                          Recipe preview
-                        </h1>
-                        <p>{data[0].title}</p>
-                        <Button className="previewButton" variant="primary" href={data[0].f2f_url} target="_blank" >Go to recipe</Button>
+                        <div className="container">
+                            <div className="row">
+                                <div className="col">
+                                    <h1 className="display-4">
+                                    Recipe preview
+                                    </h1>
+                                    <p>{data[0].title}</p>
+                                </div>
+
+                                <div className="col">
+                                    <Button className="previewButton" variant="primary" href={data[0].f2f_url} >Go to recipe</Button>
+                                </div>
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             );
@@ -56,15 +66,14 @@ class Preview extends Component {
 	componentDidMount() {
     let token = getToken();
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
-      .then (res => {
-          console.log(res);
-          this.setState({recipes: res.data.recipes, showSpinner: false});
-
-      })
-      .catch(err => {
+    .then (res => {
+        console.log(res);
+        this.setState({recipes: res.data.recipes, showSpinner: false});
+        
+    })
+    .catch(err => {
         alert("Could not retrieve data");
-        console.log(err);
-      });
+    });
   }
 
 	render() {
