@@ -409,7 +409,7 @@ class MyKitchen extends Component {
             </div>
           </div>
           <div className="row bottom-row">
-            {/* {getBottomRow(this.state.expired, this.state.inventory)} */}
+            {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
 		);

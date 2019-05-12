@@ -78,7 +78,9 @@ class AddItem extends Component {
 	render() {
 
 		return (
+
 			<form onSubmit={(e) => {e.preventDefault()}}>
+
         <div className="form-group">
           <label htmlFor="item-name" className="col-form-label">name of item</label>
           <input type="text" className="form-control text-blue" id="item-name" required 
@@ -116,6 +118,7 @@ class AddItem extends Component {
         </div>
         <div className="modal-footer">
             <button type="submit" className="btn btn-primary btn-center" data-dismiss="modal" onClick={this.handleSubmit}>add</button>
+
           </div>
       </form>
 		);
