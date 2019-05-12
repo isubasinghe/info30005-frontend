@@ -27,20 +27,20 @@ const sliderSettingsMobile = {
 };
 
 // Buttons to either enter a new item or update a new one
-const getButtonToolbar = () => {
+const getButtonToolbar = (inventory, setInventory) => {
   return (
     <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
       <div className="btn-group mr-2 btn-long" role="group">
         <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
-        {updateItemQuantity()}
+        {updateItemQuantity(inventory, setInventory)}
         <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
-        {addNewItem()}
+        {addNewItem(inventory, setInventory)}
       </div>
     </div>
   );
 }
 
-const updateItemQuantity = () => {
+const updateItemQuantity = (inventory, setInventory) => {
   return (
     <div className="modal fade bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-lg">
@@ -80,7 +80,7 @@ const updateItemQuantity = () => {
 }
 
 // Add new item to inventory
-const addNewItem = () => {
+const addNewItem = (inventory, setInventory) => {
   return (
     <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-lg">
@@ -92,7 +92,7 @@ const addNewItem = () => {
             </button>
           </div>
           <div className="modal-body">
-            <AddItem/>
+            <AddItem inventory={inventory} setInventory={setInventory} />
           </div>
           
         </div>
@@ -354,6 +354,14 @@ class MyKitchen extends Component {
     };
   }
 
+  setInventory = (newInventory) => {
+    this.setState({inventory: newInventory});
+  }
+
+  setExpired = (newExpired) => {
+    this.setState({expired: newExpired});
+  }
+
   componentDidMount() {
     let token = getToken();
     // List items from API 
@@ -385,7 +393,7 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getButtonToolbar()}
+              {getButtonToolbar(this.state.inventory, this.setInventory)}
             </div>
           </div>
           <div className="row">

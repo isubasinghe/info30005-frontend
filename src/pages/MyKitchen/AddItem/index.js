@@ -16,6 +16,7 @@ class AddItem extends Component {
       quantity: 0,
       units: ''
     };
+    console.log(props);
   }
 
   handleSubmit = e => {
