@@ -110,7 +110,7 @@ const renderNotExpiredItem = (item) => {
             <p>{renderExpiringSoonBadge(item)}</p>
             <hr className="hr"/>
             
-            <div class="d-flex justify-content-between quantity-group">
+            <div className="d-flex justify-content-between quantity-group">
               <DecreaseQuantity item={item}></DecreaseQuantity>
               <p>quantity: {item.quantity}</p>
               <IncreaseQuantity item={item}></IncreaseQuantity> 
