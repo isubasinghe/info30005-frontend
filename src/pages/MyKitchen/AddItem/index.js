@@ -15,7 +15,7 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: ''
+      units: 'piece'
     };
     console.log(props);
     
@@ -33,7 +33,7 @@ class AddItem extends Component {
       expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
       // default unit
-      units: 'piece'
+      units: this.state.units
     }
 
     let token = getToken();
