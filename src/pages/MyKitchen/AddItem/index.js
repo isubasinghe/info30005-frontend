@@ -20,6 +20,7 @@ class AddItem extends Component {
   }
 
   handleSubmit = e => {
+    console.log("handle submit");
     e.preventDefault();
 
     const item = {
@@ -70,7 +71,7 @@ class AddItem extends Component {
 	render() {
 
 		return (
-			<form>
+			<form onSubmit={this.handleSubmit}>
         <div className="form-group">
           <label htmlFor="item-name" className="col-form-label">name of item</label>
           <input type="text" className="form-control text-blue" id="item-name" required 
@@ -107,7 +108,7 @@ class AddItem extends Component {
           </div>
         </div>
         <div className="modal-footer">
-            <button type="submit" className="btn btn-primary btn-center" onSubmit = {this.handleSubmit}>add</button>
+            <button type="submit" className="btn btn-primary btn-center" onClick={this.props.onHide}>add</button>
           </div>
       </form>
 		);
