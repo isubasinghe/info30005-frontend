@@ -81,10 +81,10 @@ const getSliderResponsive = (device, data) => {
   else{
     return (
       <div className="jumbotron">
-      <h1 className="display-4">hmm, looks like you don't have any items!</h1>
-      <p className="lead">to use our recipe generation, please ensure you have added some items</p>
+      <h1 className="display-4">we're having troubles generating recipes for now</h1>
+      <p className="lead">additionally, please ensure you have added some items in my kitchen</p>
       <hr className="my-4"></hr>
-      <p>head back over to my kitchen to get started.</p>
+      <p>head back over to my kitchen to see what items you have</p>
       <p className="lead">
         <a className="btn btn-primary btn-lg" href="/" role="button">my kitchen</a>
       </p>

@@ -128,13 +128,12 @@ const renderNotExpiredItem = (item) => {
     return (
       <div className="card" >
           <div className="card-body">
-            <h3 className="card-title">{item.name.toLowerCase()}</h3>
+            <h3 className="card-title text-center">{item.name.toLowerCase()} {renderExpiringSoonBadge(item)}</h3>
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>quantity: {item.quantity}</p>
             <p>units: {item.units}</p>
-            <p>{renderExpiringSoonBadge(item)}</p>
             <hr className="hr"/>
             
             <div className="d-flex justify-content-between quantity-group">
