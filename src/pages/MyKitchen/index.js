@@ -2,6 +2,7 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
+import Preview from './preview.js';
 import AddItem from './AddItem';
 
 
@@ -315,19 +316,12 @@ const getCarousel = (data) => {
 
 const getJumbotron = () => {
   return (
-    <div className="jumbotron-container">
-      <div className="jumbotron">
-        <h1 className="display-4">
-          Recipe preview
-        </h1>
-        <hr className="my-4" />
-      </div>
-    </div>
+    <Preview></Preview>
   );
 }
 
 // Determine if expired items carousel should be displayed or not, and how
-const getBottomRow = (expired) => {
+const getBottomRow = (expired, inventory) => {
   if(expired.length > 0) {
     return (
       <Fragment>
@@ -339,7 +333,7 @@ const getBottomRow = (expired) => {
         </div>
       </Fragment>
     );
-  } else {
+  } else if (inventory.length > 0) {
     // No expired items, only show suggested recipes
     return (
       <div className="col">
@@ -386,6 +380,7 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
+      console.log(inventory.length);
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
@@ -409,7 +404,7 @@ class MyKitchen extends Component {
             </div>
           </div>
           <div className="row bottom-row">
-            {getBottomRow(this.state.expired)}
+            {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
 		);

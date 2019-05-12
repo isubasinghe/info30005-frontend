@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { getToken } from '../../../helpers/jwtHelper';
+import { getToken, getLocation } from '../../../helpers/jwtHelper';
 
 
 class AddItem extends Component {
@@ -12,7 +12,7 @@ class AddItem extends Component {
       name: '',
       category: '',
       expiry: '',
-      location: '',
+      location: getLocation(),
       quantity: 0,
       units: ''
     };
@@ -24,11 +24,13 @@ class AddItem extends Component {
 
     const item = {
       name: this.state.name,
-      category: this.state.category,
-      expiry: this.state.expiry,
+      // default category
+      category: 'FRUIT',
       location: this.state.location,
+      expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
-      units: this.state.units
+      // default unit
+      units: 'piece'
     }
 
     let token = getToken();
@@ -57,10 +59,6 @@ class AddItem extends Component {
     this.setState({expiry: e.target.value});
   }
 
-  handleLocationChange = e => {
-    this.setState({location: e.target.value});
-  }
-
   handleQuantityChange = e => {
     this.setState({quantity: e.target.value});
   }
@@ -72,7 +70,7 @@ class AddItem extends Component {
 	render() {
 
 		return (
-			<form onSubmit = {this.handleSubmit}>
+			<form>
         <div className="form-group">
           <label htmlFor="item-name" className="col-form-label">name of item</label>
           <input type="text" className="form-control text-blue" id="item-name" required 
@@ -103,17 +101,13 @@ class AddItem extends Component {
           </select>
         </div>
         <div className="form-group">
-         <label htmlFor="expiry-date" className="col-form-label" onChange={this.handleExpiryChange}>expiry date</label>
+         <label htmlFor="expiry-date" className="col-form-label">expiry date</label>
           <div>
-            <input className="form-control text-blue" type="date" id="expiry-date"></input>
+            <input className="form-control text-blue" type="date" id="expiry-date" onChange={this.handleExpiryChange}></input>
           </div>
         </div>
-        <div className="form-group">
-          <label htmlFor="item-location" className="col-form-label" onChange={this.handleLocationChange}>location</label>
-          <input type="text" className="form-control text-blue" id="item-name"></input>
-        </div>
         <div className="modal-footer">
-            <button type="submit" className="btn btn-primary btn-center">add</button>
+            <button type="submit" className="btn btn-primary btn-center" onSubmit = {this.handleSubmit}>add</button>
           </div>
       </form>
 		);
