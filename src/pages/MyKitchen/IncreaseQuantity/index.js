@@ -17,7 +17,11 @@ class IncreaseQuantity extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/increaseQuantity',{token: token, id: this.props.item._id})
     .then (res => {
         console.log(res);
-        window.location = "/";
+        let item = this.props.item;
+        item.quantity += 1;
+        let inventory = this.props.inventory;
+        inventory[this.props.index] = item;
+        this.props.setInventory(inventory);
         
     })
     .catch(err => {
