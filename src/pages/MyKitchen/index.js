@@ -3,6 +3,7 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 
+import Preview from './preview.js';
 import AddItem from './AddItem';
 import UpdateItem from './UpdateItem';
 
@@ -28,32 +29,36 @@ const sliderSettingsMobile = {
 };
 
 // Buttons to either enter a new item or update a new one
-const getButtonToolbar = (data) => {
+const getButtonToolbar = (inventory, setInventory) => {
   return (
-    <div class="btn-toolbar" btn-toolbar-center role="toolbar" aria-label="Toolbar with button groups">
-      <div class="btn-group mr-2 btn-long" role="group">
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
-        {updateItemQuantity(data)}
-        <button type="button" class="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
-        {addNewItem()}
+    <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
+      <div className="btn-group mr-2 btn-long" role="group">
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
+        {updateItemQuantity(inventory, setInventory)}
+        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
+        {addNewItem(inventory, setInventory)}
       </div>
     </div>
   );
 }
 
-const updateItemQuantity = (data) => {
+const updateItemQuantity = (inventory, setInventory) => {
+
   return (
-    <div class="modal fade bd-update-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">update item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div className="modal fade bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-             <UpdateItem items={data}/>
+          <div className="modal-body">
+             <UpdateItem items={inventory}/>
+          </div>
+          <div className="modal-footer">
+            <button type="button" className="btn btn-primary">update</button>
           </div>
         </div>
       </div>
@@ -62,19 +67,19 @@ const updateItemQuantity = (data) => {
 }
 
 // Add new item to inventory
-const addNewItem = () => {
+const addNewItem = (inventory, setInventory) => {
   return (
-    <div class="modal fade bd-add-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div class="modal-dialog modal-lg">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalScrollableTitle">add new item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div class="modal-body">
-            <AddItem/>
+          <div className="modal-body">
+            <AddItem inventory={inventory} setInventory={setInventory} />
           </div>
         </div>
       </div>
@@ -128,7 +133,16 @@ const renderNotExpiredItem = (item) => {
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
+            <p>quantity: {item.quantity}</p>
+            <p>units: {item.units}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
+            <hr className="hr"/>
+            <div className="fixed-bottom">
+              <div className="d-flex justify-content-between" style={{margin: '5px'}}>
+                <button type="button" className="btn btn-danger" style={{width: '10%', backgroundColor: 'transparent', color: 'red'}}>-</button>
+                <button type="button" className="btn btn-success" style={{width: '10%', backgroundColor: 'transparent', color: 'green'}} >+</button>
+              </div>
+            </div>
           </div>
         </div>
     )
@@ -289,19 +303,12 @@ const getCarousel = (data) => {
 
 const getJumbotron = () => {
   return (
-    <div className="jumbotron-container">
-      <div className="jumbotron">
-        <h1 className="display-4">
-          Recipe preview
-        </h1>
-        <hr className="my-4" />
-      </div>
-    </div>
+    <Preview></Preview>
   );
 }
 
 // Determine if expired items carousel should be displayed or not, and how
-const getBottomRow = (expired) => {
+const getBottomRow = (expired, inventory) => {
   if(expired.length > 0) {
     return (
       <Fragment>
@@ -313,7 +320,7 @@ const getBottomRow = (expired) => {
         </div>
       </Fragment>
     );
-  } else {
+  } else if (inventory.length > 0) {
     // No expired items, only show suggested recipes
     return (
       <div className="col">
@@ -335,6 +342,14 @@ class MyKitchen extends Component {
     };
   }
 
+  setInventory = (newInventory) => {
+    this.setState({inventory: newInventory});
+  }
+
+  setExpired = (newExpired) => {
+    this.setState({expired: newExpired});
+  }
+
   componentDidMount() {
     let token = getToken();
     // List items from API 
@@ -352,6 +367,7 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
+      console.log(inventory.length);
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
@@ -366,7 +382,7 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getButtonToolbar(this.state.inventory)}
+              {getButtonToolbar(this.state.inventory, this.setInventory)}
             </div>
           </div>
           <div className="row">
@@ -375,7 +391,7 @@ class MyKitchen extends Component {
             </div>
           </div>
           <div className="row bottom-row">
-            {getBottomRow(this.state.expired)}
+            {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
 		);

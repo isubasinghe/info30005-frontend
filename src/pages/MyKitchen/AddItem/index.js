@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import axios from 'axios';
-import { getToken } from '../../../helpers/jwtHelper';
+import { getToken, getLocation } from '../../../helpers/jwtHelper';
 
 
 class AddItem extends Component {
@@ -12,10 +12,11 @@ class AddItem extends Component {
       name: '',
       category: '',
       expiry: '',
-      location: '',
+      location: getLocation(),
       quantity: 0,
       units: ''
     };
+    console.log(props);
   }
 
   handleSubmit = e => {
@@ -23,22 +24,27 @@ class AddItem extends Component {
 
     const item = {
       name: this.state.name,
-      category: this.state.category,
-      expiry: this.state.expiry,
+      // default category
+      category: 'FRUIT',
       location: this.state.location,
-      quantity: this.state.quantity,
-      units: this.state.units
+      expiry: this.state.expiry,
+      quantity: parseInt(this.state.quantity, 10),
+      // default unit
+      units: 'piece'
     }
 
     let token = getToken();
+
+    console.log(item);
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, items: item})
     .then (res => {
-       console.log(res);
+      console.log("testing add");
+       console.log(res.data);
     })
     .catch(err => {
       alert("Could not add item to database");
-      console.log(err);
+      console.log(err.response.data);
     });
   }
 
@@ -54,10 +60,6 @@ class AddItem extends Component {
     this.setState({expiry: e.target.value});
   }
 
-  handleLocationChange = e => {
-    this.setState({location: e.target.value});
-  }
-
   handleQuantityChange = e => {
     this.setState({quantity: e.target.value});
   }
@@ -69,29 +71,29 @@ class AddItem extends Component {
 	render() {
 
 		return (
-			<form onSubmit = {this.handleSubmit}>
-        <div class="form-group">
-          <label for="item-name" class="col-form-label">name of item</label>
-          <input type="text" class="form-control text-blue" id="item-name" required 
+			<form>
+        <div className="form-group">
+          <label htmlFor="item-name" className="col-form-label">name of item</label>
+          <input type="text" className="form-control text-blue" id="item-name" required 
               onChange={this.handleNameChange}></input>
         </div>
-        <div class="form-group">
-          <label for="item-category" class="col-form-label">category</label>
-          <select class="form-control text-blue" id="item-category" onChange={this.handleCategoryChange}>
+        <div className="form-group">
+          <label htmlFor="item-category" className="col-form-label">category</label>
+          <select className="form-control text-blue" id="item-category" onChange={this.handleCategoryChange}>
             <option>FRUIT</option>
             <option>VEG</option>
             <option>MEAT</option>
             <option>FISH</option>
           </select>
         </div>
-        <div class="form-group">
-          <label for="item-quantity" class="col-form-label">quantity</label>
-          <input type="number" class="form-control text-blue" id="item-quantity" onChange={this.handleQuantityChange}>
-          </input>
+        <div className="form-group">
+          <label htmlFor="item-quantity" className="col-form-label">quantity</label>
+          <input type="number" className="form-control text-blue" id="item-quantity" required 
+              onChange={this.handleQuantityChange}></input>
         </div>
-        <div class="form-group">
-          <label for="item-units" class="col-form-label">units</label>
-          <select class="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
+        <div className="form-group">
+          <label htmlor="item-units" className="col-form-label">units</label>
+          <select className="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
             <option>piece</option>
             <option>g</option>
             <option>kg</option>
@@ -99,18 +101,14 @@ class AddItem extends Component {
             <option>L</option>
           </select>
         </div>
-        <div class="form-group">
-         <label for="expiry-date" class="col-form-label" onChange={this.handleExpiryChange}>expiry date</label>
+        <div className="form-group">
+         <label htmlFor="expiry-date" className="col-form-label">expiry date</label>
           <div>
-            <input class="form-control text-blue" type="date" id="expiry-date"></input>
+            <input className="form-control text-blue" type="date" id="expiry-date" onChange={this.handleExpiryChange}></input>
           </div>
         </div>
-        <div class="form-group">
-          <label for="item-location" class="col-form-label" onChange={this.handleLocationChange}>location</label>
-          <input type="text" class="form-control text-blue" id="item-name"></input>
-        </div>
-        <div class="modal-footer">
-            <button type="submit" class="btn btn-primary btn-center">add</button>
+        <div className="modal-footer">
+            <button type="submit" className="btn btn-primary btn-center" onSubmit = {this.handleSubmit}>add</button>
           </div>
       </form>
 		);

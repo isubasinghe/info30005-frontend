@@ -11,11 +11,35 @@ import withAuth from '../../helpers/withAuth';
 
 import './myrecipes.scss';
 
+function CustNextArrow (props) {
+  const {className, style, onClick} = props;
+  return (
+    <div
+      className = {className}
+      style = {{...style, display: "block", background: "#7075A3"}}
+      onClick = {onClick}
+      />
+  );
+}
+
+function CustPrevArrow (props) {
+  const {className, style, onClick} = props;
+  return (
+    <div
+      className = {className}
+      style = {{...style, display: "block", background: "#7075A3" }}
+      onClick = {onClick}
+      />
+  );
+}
+
 const sliderSettingsDesktop = {
   infinite: false,
   slidesToShow: 3,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <CustNextArrow/>,
+  prevArrow: <CustPrevArrow/>
 };
 
 const sliderSettingsMobile = {
@@ -23,6 +47,8 @@ const sliderSettingsMobile = {
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: false,
+  nextArrow: <CustNextArrow/>,
+  prevArrow: <CustPrevArrow/>
 };
 
 const getSliderResponsive = (device, data) => {
@@ -30,25 +56,40 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
-  return (
-    <Slider {...sliderSettings}>
-      {data.map((recipe, index) => {
-        return (
-          <div className="card mt-5" key={recipe.index}>
-          <div className="card-body">
-            <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
-            <hr />
-            <h7>Publisher: {recipe.publisher}</h7>
-            <p><a className="button-bground"href={recipe.f2f_url} target="_blank" >Go to recipe</a></p>
-              <div className="media">
-                <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
-              </div>
+  if (data.length > 0){
+    return (
+      <Slider {...sliderSettings}>
+        {data.map((recipe, index) => {
+          return (
+            <div className="card mt-5" key={recipe.index}>
+            <div className="card-body">
+              <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
+              <hr />
+              <h7>Publisher: {recipe.publisher}</h7>
+              <p><a className="button-bground"href={recipe.f2f_url} target="_blank" >Go to recipe</a></p>
+                <div className="media">
+                  <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
+                </div>
+            </div>
           </div>
-        </div>
-        );
-      })}
-    </Slider>
-  );
+          );
+        })}
+      </Slider>
+    );
+  }
+  else{
+    return (
+      <div class="jumbotron">
+      <h1 class="display-4">Hmmm, looks like you don't have any items!</h1>
+      <p class="lead">To use our recipe generation, please ensure you have added some items</p>
+      <hr class="my-4"></hr>
+      <p>Head back over to My Kitchen to get started.</p>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/" role="button">My Kitchen</a>
+      </p>
+      </div>
+    )
+  }
 }
 
 
@@ -87,7 +128,7 @@ class MyRecipes extends Component {
       })
       .catch(err => {
         alert("Could not retrieve data");
-        console.log(err);
+        console.log(err.response.data);
       });
   }
 

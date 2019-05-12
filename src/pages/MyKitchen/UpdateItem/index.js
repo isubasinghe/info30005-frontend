@@ -62,8 +62,10 @@ class UpdateItem extends Component {
 		return (
 			<form onSubmit={this.handleSubmit}>
         <div class="form-group">
-          <label for="item-name" class="col-form-label">name of item</label>
-          {renderListOfItems(this.props.items)}
+          <label for="item-name" class="col-form-label">select item to update</label>
+          <select>
+            {renderListOfItems(this.props.items)}
+          </select>
         </div>
         <div class="form-group">
           <label for="item-quantity" class="col-form-label">quantity</label>
