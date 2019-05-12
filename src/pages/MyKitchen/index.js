@@ -32,54 +32,11 @@ const sliderSettingsMobile = {
 // Buttons to either enter a new item or update a new one
 const getButtonToolbar = (inventory, setInventory, showModal, setShowModal) => {
   return (
-    <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
-      <div className="btn-group mr-2 btn-long" role="group">
-        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
-        {updateItemQuantity(inventory, setInventory)}
-        <button type="button" onClick={()=>{setShowModal(true)}} className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
-        {showModal && addNewItem(inventory, setInventory, setShowModal)}
-      </div>
-    </div>
+    <Fragment>
+      <button type="button" onClick={()=>{setShowModal(true)}} className="btn btn-secondary add-button" data-toggle="modal" data-target=".bd-add-modal-lg">+</button>
+      {showModal && addNewItem(inventory, setInventory, setShowModal)}
+    </Fragment>
   );
-}
-
-const updateItemQuantity = (inventory, setInventory) => {
-  return (
-    <div className="modal fade bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            
-             <form>
-              <div className="form-group">
-                <label htmlFor="item-name" className="col-form-label">name of item</label>
-                <input type="text" className="form-control text-blue" id="item-name" required></input>
-              </div>
-
-              <div className="form-group">
-                <label htmlFor="item-quantity">select quantity</label>
-                  <select className="form-control text-blue" id="item-quantity">
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                  </select>
-              </div>
-            </form>
-          </div>
-          <div className="modal-footer">
-            <button type="button" className="btn btn-primary">update</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  )
 }
 
 // Add new item to inventory
@@ -152,9 +109,13 @@ const renderNotExpiredItem = (item) => {
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
             <hr className="hr"/>
-            <p>quantity: {item.quantity}</p>
-            <IncreaseQuantity item={item}></IncreaseQuantity>
-            <DecreaseQuantity item={item}></DecreaseQuantity>
+            
+            <div class="d-flex justify-content-between quantity-group">
+              <DecreaseQuantity item={item}></DecreaseQuantity>
+              <p>quantity: {item.quantity}</p>
+              <IncreaseQuantity item={item}></IncreaseQuantity> 
+            </div>
+            
           </div>
         </div>
     )
@@ -327,20 +288,20 @@ const getBottomRow = (expired, inventory) => {
         <div className="col-md-6">
           {getCarousel(expired)}
         </div>
-        {/* <div className="col-md-6">
+        {<div className="col-md-6">
           {getJumbotron()}
-        </div> */}
+        </div>}
       </Fragment>
     );
   } 
-  // else if (inventory.length != null) {
-  //   // No expired items, only show suggested recipes
-  //   return (
-  //     <div className="col">
-  //       {getJumbotron()}
-  //     </div>
-  //   );
-  // }
+  else if (inventory.length != null && inventory.length > 0) {
+    // No expired items, only show suggested recipes
+    return (
+      <div className="col">
+        {getJumbotron()}
+      </div>
+    );
+  }
 }
 
 
@@ -397,10 +358,12 @@ class MyKitchen extends Component {
 	render() {
 
 		return (
+      <Fragment>
+      {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
+              
             </div>
           </div>
           <div className="row">
@@ -412,6 +375,7 @@ class MyKitchen extends Component {
             {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
+      </Fragment>
 		);
 	};
 }
