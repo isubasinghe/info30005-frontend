@@ -294,7 +294,7 @@ const getBottomRow = (expired, inventory) => {
       </Fragment>
     );
   } 
-  else if (inventory.length != null) {
+  else if (inventory.length != null && inventory.length > 0) {
     // No expired items, only show suggested recipes
     return (
       <div className="col">
