@@ -11,11 +11,35 @@ import withAuth from '../../helpers/withAuth';
 
 import './myrecipes.scss';
 
+function CustNextArrow (props) {
+  const {className, style, onClick} = props;
+  return (
+    <div
+      className = {className}
+      style = {{...style, display: "block", background: "#7075A3"}}
+      onClick = {onClick}
+      />
+  );
+}
+
+function CustPrevArrow (props) {
+  const {className, style, onClick} = props;
+  return (
+    <div
+      className = {className}
+      style = {{...style, display: "block", background: "#7075A3" }}
+      onClick = {onClick}
+      />
+  );
+}
+
 const sliderSettingsDesktop = {
   infinite: false,
   slidesToShow: 3,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <CustNextArrow/>,
+  prevArrow: <CustPrevArrow/>
 };
 
 const sliderSettingsMobile = {
@@ -23,6 +47,8 @@ const sliderSettingsMobile = {
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: false,
+  nextArrow: <CustNextArrow/>,
+  prevArrow: <CustPrevArrow/>
 };
 
 const getSliderResponsive = (device, data) => {
