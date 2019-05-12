@@ -16,7 +16,8 @@ class Preview extends Component {
     }
     getFirstDescription(data){
       console.log(data);
-        if (data == null) {
+        if (!data) {
+            // no data, aka no API calls left
           return (
             <div className="jumbotron-container">
                 <div className="jumbotron">
@@ -46,7 +47,7 @@ class Preview extends Component {
                             <div className="row">
                                 <div className="col">
                                     <h1 className="display-4">
-                                    Recipe preview
+                                    recipe preview
                                     </h1>
                                     <p>{data[0].title}</p>
                                 </div>

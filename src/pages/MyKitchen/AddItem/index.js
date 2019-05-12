@@ -40,7 +40,7 @@ class AddItem extends Component {
 
     console.log(item);
     // List items from API 
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, items: item})
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
       console.log("testing add");
        console.log(res.data);
