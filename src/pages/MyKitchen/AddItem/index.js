@@ -7,8 +7,9 @@ class AddItem extends Component {
 
   constructor (props) {
     super(props);
-
+    
     this.state = {
+      showModal: true,
       name: '',
       category: '',
       expiry: '',
@@ -17,9 +18,11 @@ class AddItem extends Component {
       units: ''
     };
     console.log(props);
+    
   }
 
   handleSubmit = e => {
+    console.log("handle submit");
     e.preventDefault();
 
     const item = {
@@ -40,11 +43,16 @@ class AddItem extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
        console.log(res.data);
+       let inventory = this.props.inventory;
+       inventory.push(item);
+       this.props.setInventory(inventory);
     })
     .catch(err => {
       alert("Could not add item to database");
       console.log(err.response.data);
     });
+
+    this.props.setShowModal(false);
   }
 
   handleNameChange = e => {
@@ -70,7 +78,9 @@ class AddItem extends Component {
 	render() {
 
 		return (
-			<form>
+
+			<form onSubmit={(e) => {e.preventDefault()}}>
+
         <div className="form-group">
           <label htmlFor="item-name" className="col-form-label">name of item</label>
           <input type="text" className="form-control text-blue" id="item-name" required 
@@ -107,7 +117,8 @@ class AddItem extends Component {
           </div>
         </div>
         <div className="modal-footer">
-            <button type="submit" className="btn btn-primary btn-center" onSubmit = {this.handleSubmit}>add</button>
+            <button type="submit" className="btn btn-primary btn-center" data-dismiss="modal" onClick={this.handleSubmit}>add</button>
+
           </div>
       </form>
 		);

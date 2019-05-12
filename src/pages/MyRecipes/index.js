@@ -56,7 +56,15 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
+
+  if (data != null || data == undefined){
+    return (
+      <div/>
+     );
+  }
+
   if (data.length > 0){
+
     return (
       <Slider {...sliderSettings}>
         {data.map((recipe, index) => {
@@ -79,6 +87,7 @@ const getSliderResponsive = (device, data) => {
   }
   else{
     return (
+
       <div class="jumbotron">
       <h1 class="display-4">Hmmm, looks like you don't have any items!</h1>
       <p class="lead">To use our recipe generation, please ensure you have added some items</p>
@@ -128,7 +137,6 @@ class MyRecipes extends Component {
       })
       .catch(err => {
         alert("Could not retrieve data");
-        console.log(err.response.data);
       });
   }
 

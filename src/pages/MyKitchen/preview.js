@@ -31,6 +31,7 @@ class Preview extends Component {
             return (
                 <div className="jumbotron-container">
                     <div className="jumbotron">
+
                         <div className="container">
                             <div className="row">
                                 <div className="col">
@@ -45,7 +46,6 @@ class Preview extends Component {
                                 </div>
                             </div>
                         </div>
-                        
                         
                     </div>
                 </div>
