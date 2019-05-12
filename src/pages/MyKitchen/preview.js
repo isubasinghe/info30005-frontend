@@ -21,9 +21,9 @@ class Preview extends Component {
           return (
             <div className="jumbotron-container">
                 <div className="jumbotron">
-                    <h5 className="display-4">
+                    <h1 className="d-flex justify-content-end">
                       recipes unavailable at the moment
-                    </h5>
+                    </h1>
                 </div>
             </div>
           )
@@ -46,7 +46,7 @@ class Preview extends Component {
                         <div className="container">
                             <div className="row">
                                 <div className="col">
-                                    <h1 className="display-4">
+                                    <h1 className="d-flex justify-content-end">
                                     recipe preview
                                     </h1>
                                     <p>{data[0].title}</p>

@@ -12,6 +12,9 @@ class DecreaseQuantity extends Component {
     }
 
 	handleSubmit = e => {
+    // prevent page from reloading
+    e.preventDefault();
+    
     let token = getToken();
     console.log(this.props.item._id);
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/decreaseQuantity',{token: token, id: this.props.item._id})
