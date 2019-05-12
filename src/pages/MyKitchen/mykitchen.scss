@@ -67,3 +67,23 @@
   }
 }
 
+.add-button {
+  margin-top: 20px;
+  margin-left: 90%;
+  height: 3em;
+  width: 3em;
+  border-radius: 100%;
+  background-color: transparent;
+  color: black;
+  border: 2px solid #7075A3;
+}
+
+.add-button:hover {
+  background-color: #7074B2;
+  height: 3.1em;
+  width: 3.1em;
+  right: 0.1em;
+  top: 0.1em;
+  
+}
+
