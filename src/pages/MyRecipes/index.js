@@ -56,7 +56,15 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
-  if (data != null){
+
+  if (data != null || data == undefined){
+    return (
+      <div/>
+     );
+  }
+
+  if (data.length > 0){
+
     return (
       <Slider {...sliderSettings}>
         {data.map((recipe, index) => {
@@ -79,13 +87,14 @@ const getSliderResponsive = (device, data) => {
   }
   else{
     return (
-      <div className="jumbotron">
-      <h1 className="display-4">Hmmm, looks like you don't have any items!</h1>
-      <p className="lead">To use our recipe generation, please ensure you have added some items</p>
-      <hr className="my-4"></hr>
+
+      <div class="jumbotron">
+      <h1 class="display-4">Hmmm, looks like you don't have any items!</h1>
+      <p class="lead">To use our recipe generation, please ensure you have added some items</p>
+      <hr class="my-4"></hr>
       <p>Head back over to My Kitchen to get started.</p>
-      <p className="lead">
-        <a className="btn btn-primary btn-lg" href="/" role="button">My Kitchen</a>
+      <p class="lead">
+        <a class="btn btn-primary btn-lg" href="/" role="button">My Kitchen</a>
       </p>
       </div>
     )

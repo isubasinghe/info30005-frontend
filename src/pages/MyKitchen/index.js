@@ -30,14 +30,14 @@ const sliderSettingsMobile = {
 };
 
 // Buttons to either enter a new item or update a new one
-const getButtonToolbar = (inventory, setInventory) => {
+const getButtonToolbar = (inventory, setInventory, showModal, setShowModal) => {
   return (
     <div className="btn-toolbar" btn-toolbar-center="true" role="toolbar" aria-label="Toolbar with button groups">
       <div className="btn-group mr-2 btn-long" role="group">
         <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-update-modal-lg">update item</button>
         {updateItemQuantity(inventory, setInventory)}
-        <button type="button" className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
-        {addNewItem(inventory, setInventory)}
+        <button type="button" onClick={()=>{setShowModal(true)}} className="btn btn-secondary" data-toggle="modal" data-target=".bd-add-modal-lg">add new item</button>
+        {showModal && addNewItem(inventory, setInventory, setShowModal)}
       </div>
     </div>
   );
@@ -83,7 +83,7 @@ const updateItemQuantity = (inventory, setInventory) => {
 }
 
 // Add new item to inventory
-const addNewItem = (inventory, setInventory) => {
+const addNewItem = (inventory, setInventory, setShowModal) => {
   return (
     <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-lg">
@@ -95,7 +95,7 @@ const addNewItem = (inventory, setInventory) => {
             </button>
           </div>
           <div className="modal-body">
-            <AddItem inventory={inventory} setInventory={setInventory} />
+            <AddItem setShowModal={setShowModal} inventory={inventory} setInventory={setInventory} />
           </div>
           
         </div>
@@ -351,7 +351,8 @@ class MyKitchen extends Component {
 
     this.state = {
       inventory: [],
-      expired: []
+      expired: [],
+      showModal: true,
     };
   }
 
@@ -361,6 +362,10 @@ class MyKitchen extends Component {
 
   setExpired = (newExpired) => {
     this.setState({expired: newExpired});
+  }
+
+  setShowModal = (show) => {
+    this.setState({showModal: show});
   }
 
   componentDidMount() {
@@ -395,7 +400,7 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getButtonToolbar(this.state.inventory, this.setInventory)}
+              {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
             </div>
           </div>
           <div className="row">
