@@ -54,14 +54,7 @@ class AddItem extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
-       console.log(res.data);
-       let inventory = this.props.inventory;
-       inventory.push(item);
-       this.props.setInventory(inventory);
-       toast("Added item to inventory");
-       document.getElementById("close-modal").click();
-       
-       this.props.setShowModal(false);
+       window.location = "/";
        
     })
     .catch(err => {
