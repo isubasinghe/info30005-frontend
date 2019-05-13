@@ -1,3 +1,4 @@
+
 import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
@@ -56,25 +57,40 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
-  return (
-    <Slider {...sliderSettings}>
-      {data.map((recipe, index) => {
-        return (
-          <div className="card mt-5" key={recipe.index}>
-          <div className="card-body">
-            <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
-            <hr />
-            <h7>Publisher: {recipe.publisher}</h7>
-            <p><a className="button-bground"href={recipe.f2f_url} >Go to recipe</a></p>
-              <div className="media">
-                <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
-              </div>
+  if (data != null){
+    return (
+      <Slider {...sliderSettings}>
+        {data.map((recipe, index) => {
+          return (
+            <div className="card mt-5" key={recipe.index}>
+            <div className="card-body">
+              <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
+              <hr />
+              <h7>Publisher: {recipe.publisher}</h7>
+              <p><a className="button-bground"href={recipe.f2f_url}  >Go to recipe</a></p>
+                <div className="media">
+                  <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
+                </div>
+            </div>
           </div>
-        </div>
-        );
-      })}
-    </Slider>
-  );
+          );
+        })}
+      </Slider>
+    );
+  }
+  else{
+    return (
+      <div className="jumbotron">
+      <h1 className="display-4">Hmmm, looks like you don't have any items!</h1>
+      <p className="lead">To use our recipe generation, please ensure you have added some items</p>
+      <hr className="my-4"></hr>
+      <p>Head back over to My Kitchen to get started.</p>
+      <p className="lead">
+        <a className="btn btn-primary btn-lg" href="/" role="button">My Kitchen</a>
+      </p>
+      </div>
+    )
+  }
 }
 
 
@@ -113,7 +129,6 @@ class MyRecipes extends Component {
       })
       .catch(err => {
         alert("Could not retrieve data");
-        console.log(err);
       });
   }
 

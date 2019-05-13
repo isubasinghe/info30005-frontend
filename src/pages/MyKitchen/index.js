@@ -2,6 +2,10 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
+import Preview from './preview.js';
+import AddItem from './AddItem';
+import IncreaseQuantity from './IncreaseQuantity';
+import DecreaseQuantity from './DecreaseQuantity';
 
 
 import Slider from "react-slick";
@@ -25,6 +29,38 @@ const sliderSettingsMobile = {
   dots: true,
 };
 
+// Buttons to either enter a new item or update a new one
+const getButtonToolbar = (inventory, setInventory, showModal, setShowModal) => {
+  return (
+    <Fragment>
+      <button type="button" onClick={()=>{setShowModal(true)}} className="btn btn-secondary add-button" data-toggle="modal" data-target=".bd-add-modal-lg">+</button>
+      {showModal && addNewItem(inventory, setInventory, setShowModal)}
+    </Fragment>
+  );
+}
+
+// Add new item to inventory
+const addNewItem = (inventory, setInventory, setShowModal) => {
+  return (
+    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <AddItem setShowModal={setShowModal} inventory={inventory} setInventory={setInventory} />
+          </div>
+          
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
@@ -37,7 +73,7 @@ const isExpired  = (item) => {
 const renderExpiringSoonBadge = (item) => {
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center>expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center="true">expiring soon</span>
       )
   }
 }
@@ -57,7 +93,7 @@ const itemExpiringSoon = (item) => {
 }
 
 // Only render item if not expired
-const renderNotExpiredItem = (item) => {
+const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
@@ -67,11 +103,19 @@ const renderNotExpiredItem = (item) => {
     return (
       <div className="card" >
           <div className="card-body">
-            <h3 className="card-title">{item.name}</h3>
+            <h3 className="card-title">{item.name.toLowerCase()}</h3>
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
             <p>{renderExpiringSoonBadge(item)}</p>
+            <hr className="hr"/>
+            
+            <div className="d-flex justify-content-between quantity-group">
+              <DecreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></DecreaseQuantity>
+              <p>quantity: {item.quantity}</p>
+              <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
+            </div>
+            
           </div>
         </div>
     )
@@ -79,7 +123,7 @@ const renderNotExpiredItem = (item) => {
 }
 
 // Make inventory slider responsive to different devices
-const getSliderResponsive = (device, data) => {
+const getSliderResponsive = (device, data, setInventory) => {
   let sliderSettings = sliderSettingsDesktop;
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
@@ -88,9 +132,9 @@ const getSliderResponsive = (device, data) => {
     <Slider {...sliderSettings}>
       {data.map((item, index) => {
         return (
-          <div className="slider-item-container" key={index}>
-            {renderNotExpiredItem(item)}
-          </div>
+            <div className="slider-item-container" key={index}>
+              {renderNotExpiredItem(item, index, data, setInventory)}
+            </div>
         );
       })}
     </Slider>
@@ -98,22 +142,22 @@ const getSliderResponsive = (device, data) => {
 }
 
 // Slider with the user's items
-const getSlider = (data) => {
+const getSlider = (data, setInventory) => {
   if(data.length < 2) {
     return (
       <Fragment>
-        {getSliderResponsive('mobile', data)}
+        {getSliderResponsive('mobile', data, setInventory)}
       </Fragment>
     );
   }
   return (
     <Fragment>
       <MediaQuery query="(min-width: 1224px)">
-        {getSliderResponsive('desktop', data)}
+        {getSliderResponsive('desktop', data, setInventory)}
       </MediaQuery>
       <MediaQuery  query="(max-width: 1224px)">
         <div className="slick-mobile">
-          {getSliderResponsive('mobile', data)}
+          {getSliderResponsive('mobile', data, setInventory)}
         </div>
       </MediaQuery>
     </Fragment>
@@ -232,31 +276,25 @@ const getCarousel = (data) => {
 
 const getJumbotron = () => {
   return (
-    <div className="jumbotron-container">
-      <div className="jumbotron">
-        <h1 className="display-4">
-          Recipe preview
-        </h1>
-        <hr className="my-4" />
-      </div>
-    </div>
+    <Preview></Preview>
   );
 }
 
 // Determine if expired items carousel should be displayed or not, and how
-const getBottomRow = (expired) => {
+const getBottomRow = (expired, inventory) => {
   if(expired.length > 0) {
     return (
       <Fragment>
         <div className="col-md-6">
           {getCarousel(expired)}
         </div>
-        <div className="col-md-6">
-          {getJumbotron()}
-        </div>
+        {<div className="col-md-6">
+          {(inventory.length > 0) && getJumbotron()}
+        </div>}
       </Fragment>
     );
-  } else {
+  } 
+  else if (inventory.length != null && inventory.length > 0) {
     // No expired items, only show suggested recipes
     return (
       <div className="col">
@@ -274,8 +312,21 @@ class MyKitchen extends Component {
 
     this.state = {
       inventory: [],
-      expired: []
+      expired: [],
+      showModal: true,
     };
+  }
+
+  setInventory = (newInventory) => {
+    this.setState({inventory: newInventory});
+  }
+
+  setExpired = (newExpired) => {
+    this.setState({expired: newExpired});
+  }
+
+  setShowModal = (show) => {
+    this.setState({showModal: show});
   }
 
   componentDidMount() {
@@ -295,6 +346,7 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
+      console.log(inventory.length);
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
@@ -306,16 +358,24 @@ class MyKitchen extends Component {
 	render() {
 
 		return (
+      <Fragment>
+      {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
 			<div className="container">
           <div className="row">
             <div className="col">
-              {getSlider(this.state.inventory)}
+              
+            </div>
+          </div>
+          <div className="row">
+            <div className="col">
+              {getSlider(this.state.inventory, this.setInventory)}
             </div>
           </div>
           <div className="row bottom-row">
-            {getBottomRow(this.state.expired)}
+            {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
 			</div>
+      </Fragment>
 		);
 	};
 }
