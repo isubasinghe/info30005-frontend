@@ -12,8 +12,6 @@ class DecreaseQuantity extends Component {
     }
 
 	handleSubmit = e => {
-    // prevent page from reloading
-    e.preventDefault();
     
     let token = getToken();
     console.log(this.props.item._id);
