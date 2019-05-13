@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import axios from 'axios';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { getToken } from '../../helpers/jwtHelper';
 import {Button} from 'react-bootstrap';
 import './preview.scss';
@@ -78,6 +80,7 @@ class Preview extends Component {
         
     })
     .catch(err => {
+        toast(err.response.data.msg);
         console.log(err.data)
         console.log(err)
     });

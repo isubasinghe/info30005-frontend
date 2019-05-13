@@ -5,6 +5,7 @@ import ShowErrorMessage from './ErrorMessage';
 
 
 import './signup.scss';
+import { toast } from "react-toastify";
 
 class SignUpForm extends Component {
 
@@ -59,6 +60,7 @@ class SignUpForm extends Component {
 
 			// Redirect to page where it says to check user's email only if user written in db
 			this.setState({redirect: true});
+			toast("Please check your email");
 
 		}).catch(err => {
 			// Already a user with the inputted email

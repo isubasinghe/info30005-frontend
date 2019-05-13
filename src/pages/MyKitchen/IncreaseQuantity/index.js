@@ -26,6 +26,7 @@ class IncreaseQuantity extends Component {
         let inventory = this.props.inventory;
         inventory[this.props.index] = item;
         this.props.setInventory(inventory);
+        toast("Increased quanity for item " + item.name);
         
     })
     .catch(err => {

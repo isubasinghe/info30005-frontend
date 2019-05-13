@@ -51,6 +51,7 @@ class AddItem extends Component {
        let inventory = this.props.inventory;
        inventory.push(item);
        this.props.setInventory(inventory);
+       toast("Added item to inventory");
     })
     .catch(err => {
       toast(err.response.data.msg);
