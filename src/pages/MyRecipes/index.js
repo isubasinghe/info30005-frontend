@@ -8,6 +8,9 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import withAuth from '../../helpers/withAuth';
 
 import './myrecipes.scss';
@@ -128,7 +131,7 @@ class MyRecipes extends Component {
 
       })
       .catch(err => {
-        alert("Could not retrieve data");
+        toast(err.response.data.msg);
       });
   }
 
