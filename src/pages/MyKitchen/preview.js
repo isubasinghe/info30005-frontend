@@ -19,19 +19,7 @@ class Preview extends Component {
     }
     getFirstDescription(data){
       console.log(data);
-        if (!data) {
-            // no data, aka no API calls left
-          return (
-            <div className="jumbotron-container">
-                <div className="jumbotron">
-                    <h1 className="d-flex justify-content-end">
-                      recipes unavailable at the moment
-                    </h1>
-                </div>
-            </div>
-          )
-        }
-        else if(this.state.showSpinner === true){
+        if(this.state.showSpinner === true){
             return(
                 <div className="spinner-container">
                 <div className="d-flex justify-content-center">
