@@ -70,8 +70,11 @@ class Preview extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
     .then (res => {
         console.log(res);
-        this.setState({recipes: res.data.recipes, showSpinner: false});
-        this.setState({loaded: true});
+        if(res.data.recipes.length > 0) {
+            this.setState({recipes: res.data.recipes, showSpinner: false});
+            this.setState({loaded: true});
+        }
+        
         
     })
     .catch(err => {
