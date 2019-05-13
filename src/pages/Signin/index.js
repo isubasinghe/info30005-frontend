@@ -4,6 +4,7 @@ import axios from 'axios';
 import { storeToken } from '../../helpers/jwtHelper';
 import './signin.scss';
 import ErrorMessage from './ErrorMessage';
+import { toast } from "react-toastify";
 
 
 class SignInForm extends Component {
@@ -52,11 +53,12 @@ class SignInForm extends Component {
           storeToken(res.data.token);
           console.log("LOGGED IN, now in my kitchen");
           window.location = "/";
+          toast("Signed in");
 
       }).catch(err => {
           const valid = this.state.valid;
           this.setState( { valid : !valid, msg: err.response.data.msg} );
-          console.log(err.response.data.msg);
+          toast(err.response.data.msg);
       });
 
   }

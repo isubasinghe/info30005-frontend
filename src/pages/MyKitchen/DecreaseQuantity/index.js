@@ -2,6 +2,8 @@ import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import { getToken } from '../../../helpers/jwtHelper';
 import {Button} from 'react-bootstrap';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 class DecreaseQuantity extends Component {
 
 	constructor (props) {
@@ -27,8 +29,10 @@ class DecreaseQuantity extends Component {
         }
         
         this.props.setInventory(inventory);
+        toast("Removed quanitity for item " + item.name);
     })
     .catch(err => {
+        toast(err.response.data.msg);
         console.log(err.data);
         console.log(err);
     });
