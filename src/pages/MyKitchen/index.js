@@ -6,6 +6,7 @@ import { getToken } from '../../helpers/jwtHelper';
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
+import UpdateItem from './UpdateItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
@@ -89,6 +90,27 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
   );
 }
 
+// Update item quantity and units to inventory
+const updateItem = (inventory, setInventory, setShowUpdateModal) => {
+  return (
+    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+      <div className="modal-dialog modal-lg">
+        <div className="modal-content">
+          <div className="modal-header">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div className="modal-body">
+            <UpdateItem setShowUpdateModal={setShowUpdateModal} inventory={inventory} setInventory={setInventory}/>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
@@ -121,7 +143,7 @@ const itemExpiringSoon = (item) => {
 }
 
 // Only render item if not expired
-const renderNotExpiredItem = (item, index, inventory, setInventory) => {
+const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateModal, setShowUpdateModal) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
@@ -144,7 +166,15 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
               <p>quantity: {item.quantity}</p>
               <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
-            
+
+             <Fragment>
+              <button type="button" onClick={()=>{setShowUpdateModal(true)}} className="btn btn-success"
+                style={{backgroundColor: 'transparent', color: 'green'}} data-toggle="modal" data-target=".bd-update-modal-lg">
+                update</button>
+              {showUpdateModal && updateItem(inventory, setInventory, setShowUpdateModal)}
+            </Fragment>
+
+
           </div>
         </div>
     )
@@ -152,7 +182,7 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
 }
 
 // Make inventory slider responsive to different devices
-const getSliderResponsive = (device, data, setInventory) => {
+const getSliderResponsive = (device, data, setInventory, showUpdateModal, setShowUpdateModal) => {
   let sliderSettings = sliderSettingsDesktop;
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
@@ -162,7 +192,7 @@ const getSliderResponsive = (device, data, setInventory) => {
       {data.map((item, index) => {
         return (
             <div className="slider-item-container" key={index}>
-              {renderNotExpiredItem(item, index, data, setInventory)}
+              {renderNotExpiredItem(item, index, data, setInventory, showUpdateModal, setShowUpdateModal)}
             </div>
         );
       })}
@@ -171,22 +201,22 @@ const getSliderResponsive = (device, data, setInventory) => {
 }
 
 // Slider with the user's items
-const getSlider = (data, setInventory) => {
+const getSlider = (data, setInventory, showUpdateModal, setShowUpdateModal) => {
   if(data.length < 2) {
     return (
       <Fragment>
-        {getSliderResponsive('mobile', data, setInventory)}
+        {getSliderResponsive('mobile', data, setInventory, showUpdateModal, setShowUpdateModal)}
       </Fragment>
     );
   }
   return (
     <Fragment>
       <MediaQuery query="(min-width: 1224px)">
-        {getSliderResponsive('desktop', data, setInventory)}
+        {getSliderResponsive('desktop', data, setInventory, showUpdateModal, setShowUpdateModal)}
       </MediaQuery>
       <MediaQuery  query="(max-width: 1224px)">
         <div className="slick-mobile">
-          {getSliderResponsive('mobile', data, setInventory)}
+          {getSliderResponsive('mobile', data, setInventory, showUpdateModal, setShowUpdateModal)}
         </div>
       </MediaQuery>
     </Fragment>
@@ -343,6 +373,7 @@ class MyKitchen extends Component {
       inventory: [],
       expired: [],
       showModal: true,
+      showUpdateModal: true
     };
   }
 
@@ -356,6 +387,10 @@ class MyKitchen extends Component {
 
   setShowModal = (show) => {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
+  }
+
+  setShowUpdateModal = (show) => {
+    setTimeout(() => {this.setState({showUpdateModal: show})}, 300);
   }
 
   componentDidMount() {
@@ -397,7 +432,7 @@ class MyKitchen extends Component {
           </div>
           <div className="row">
             <div className="col">
-              {getSlider(this.state.inventory, this.setInventory)}
+              {getSlider(this.state.inventory, this.setInventory, this.state.showUpdateModal, this.state.setShowUpdateModal)}
             </div>
           </div>
           <div className="row bottom-row">
