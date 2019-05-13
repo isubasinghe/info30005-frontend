@@ -4,13 +4,21 @@ import { getToken } from '../../../helpers/jwtHelper';
 import {Button} from 'react-bootstrap';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import SweetAlert from "react-bootstrap-sweetalert";
 class DecreaseQuantity extends Component {
 
 	constructor (props) {
         super(props);
         
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = {
+            showConfirm: false,
+        }
 
+    }
+
+    handleConfirm = () => {
+        this.setState({showConfirm: true});
     }
 
 	handleSubmit = e => {
@@ -29,6 +37,7 @@ class DecreaseQuantity extends Component {
         }
         
         this.props.setInventory(inventory);
+        this.setState({showConfirm: false});
         toast("Removed quanitity for item " + item.name);
     })
     .catch(err => {
@@ -37,12 +46,29 @@ class DecreaseQuantity extends Component {
         console.log(err);
     });
   }
+  cancelDelete = e =>{
+      this.setState({showConfirm: false});
+  }
 
 	render() {
 		return (
-			<button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleSubmit}>
+            <Fragment>
+            <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleConfirm}>
                 -
             </button>
+            {this.state.showConfirm && <SweetAlert
+            warning
+            showCancel
+            confirmBtnText="Yes, update it!"
+            confirmBtnBsStyle="danger"
+            cancelBtnBsStyle="default"
+            title="Are you sure?"
+            onConfirm={this.handleSubmit}
+            onCancel={this.cancelDelete}
+            >
+            </SweetAlert>}
+            </Fragment>
+			
 		)
 	};
 }
