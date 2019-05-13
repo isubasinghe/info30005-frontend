@@ -90,15 +90,26 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
   );
 }
 
+const getUpdateButton = (inventory, setInventory, showUpdateModal, setShowUpdateModal) => {
+  return (
+    <Fragment>
+      <button type="button" onClick={()=>{setShowUpdateModal(true)}} className="btn btn-success"
+        style={{backgroundColor: 'transparent', color: 'green'}} data-toggle="modal" data-target=".bd-update-modal-lg">
+        update</button>
+      {showUpdateModal && updateItem(inventory, setInventory, setShowUpdateModal)}
+    </Fragment>
+  );
+}
+
 // Update item quantity and units to inventory
 const updateItem = (inventory, setInventory, setShowUpdateModal) => {
   return (
-    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+    <div className="update-modal bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
       <div className="modal-dialog modal-lg">
         <div className="modal-content">
           <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
+            <button type="button" className="close" data-dismiss="modal" aria-label="close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
@@ -167,14 +178,7 @@ const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateMo
               <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
 
-             <Fragment>
-              <button type="button" onClick={()=>{setShowUpdateModal(true)}} className="btn btn-success"
-                style={{backgroundColor: 'transparent', color: 'green'}} data-toggle="modal" data-target=".bd-update-modal-lg">
-                update</button>
-              {showUpdateModal && updateItem(inventory, setInventory, setShowUpdateModal)}
-            </Fragment>
-
-
+            {getUpdateButton(inventory, setInventory, showUpdateModal, setShowUpdateModal)}
           </div>
         </div>
     )
@@ -390,7 +394,7 @@ class MyKitchen extends Component {
   }
 
   setShowUpdateModal = (show) => {
-    setTimeout(() => {this.setState({showUpdateModal: show})}, 300);
+    setTimeout(()=> {this.setState({showUpdateModal: show})}, 300);
   }
 
   componentDidMount() {
@@ -432,7 +436,7 @@ class MyKitchen extends Component {
           </div>
           <div className="row">
             <div className="col">
-              {getSlider(this.state.inventory, this.setInventory, this.state.showUpdateModal, this.state.setShowUpdateModal)}
+              {getSlider(this.state.inventory, this.setInventory, this.state.showUpdateModal, this.setShowUpdateModal)}
             </div>
           </div>
           <div className="row bottom-row">
