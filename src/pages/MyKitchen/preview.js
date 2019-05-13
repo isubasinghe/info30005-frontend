@@ -11,7 +11,8 @@ class Preview extends Component {
 
 	    this.state = {
           recipes: [],
-          showSpinner: true
+          showSpinner: true,
+          loaded: false,
 	    };
     }
     getFirstDescription(data){
@@ -58,16 +59,19 @@ class Preview extends Component {
     .then (res => {
         console.log(res);
         this.setState({recipes: res.data.recipes, showSpinner: false});
+        this.setState({loaded: false});
         
     })
     .catch(err => {
-        alert("Could not retrieve data");
+        console.log(err.data)
+        console.log(err)
     });
   }
 
 	render() {
+        console.log("RENDERING PREVIEW");
 		return (
-			<div>{this.getFirstDescription(this.state.recipes)}
+			<div>{this.state.loaded && this.getFirstDescription(this.state.recipes)}
             </div>
 		)
 	};

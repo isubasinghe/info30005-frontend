@@ -17,10 +17,20 @@ class DecreaseQuantity extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/decreaseQuantity',{token: token, id: this.props.item._id})
     .then (res => {
         console.log(res);
-        window.location ="/";
+        let item = this.props.item;
+        item.quantity -= 1;
+        let inventory = this.props.inventory;
+        if(item.quantity == 0) {
+            inventory.splice(this.props.index, 1);
+        }else {
+            inventory[this.props.index] = item;
+        }
+        
+        this.props.setInventory(inventory);
     })
     .catch(err => {
-        alert("Could not retrieve data");
+        console.log(err.data);
+        console.log(err);
     });
   }
 
