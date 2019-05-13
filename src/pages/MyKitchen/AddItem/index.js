@@ -23,7 +23,6 @@ class AddItem extends Component {
 
   handleSubmit = e => {
     console.log("handle submit");
-    e.preventDefault();
 
     const item = {
       name: this.state.name,
