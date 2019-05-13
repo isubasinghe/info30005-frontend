@@ -26,6 +26,11 @@
   }
 }
 
+.slick-prev:before,
+.slick-next:before {
+  color: black;
+}
+
 .btn-toolbar{
   margin: auto;
   display: flex;

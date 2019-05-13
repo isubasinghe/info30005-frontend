@@ -18,6 +18,7 @@ class Preview extends Component {
 	    };
     }
     getFirstDescription(data){
+      console.log(data);
         if(this.state.showSpinner === true){
             return(
                 <div className="spinner-container">
@@ -33,12 +34,11 @@ class Preview extends Component {
             return (
                 <div className="jumbotron-container">
                     <div className="jumbotron">
-
                         <div className="container">
                             <div className="row">
                                 <div className="col">
-                                    <h1 className="display-4">
-                                    Recipe preview
+                                    <h1 className="d-flex justify-content-end">
+                                    recipe preview
                                     </h1>
                                     <p>{data[0].title}</p>
                                 </div>
@@ -48,7 +48,7 @@ class Preview extends Component {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             );
