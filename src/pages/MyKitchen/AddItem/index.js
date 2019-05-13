@@ -5,10 +5,6 @@ import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 
-
-
-
-
 class AddItem extends Component {
 
   constructor (props) {
@@ -21,9 +17,10 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: '',
+      units: 'piece',
       failed: false,
       errMsg: ''
+
     };
     console.log(props);
     
@@ -31,7 +28,6 @@ class AddItem extends Component {
 
   handleSubmit = e => {
     console.log("handle submit");
-    e.preventDefault();
 
     const item = {
       name: this.state.name,
@@ -41,7 +37,7 @@ class AddItem extends Component {
       expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
       // default unit
-      units: 'piece'
+      units: this.state.units
     }
 
     let token = getToken();
@@ -50,6 +46,7 @@ class AddItem extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
+      console.log("testing add");
        console.log(res.data);
        let inventory = this.props.inventory;
        inventory.push(item);
