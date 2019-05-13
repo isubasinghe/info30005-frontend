@@ -59,7 +59,7 @@ class Preview extends Component {
     .then (res => {
         console.log(res);
         this.setState({recipes: res.data.recipes, showSpinner: false});
-        this.setState({loaded: false});
+        this.setState({loaded: true});
         
     })
     .catch(err => {
