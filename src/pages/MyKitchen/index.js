@@ -98,7 +98,7 @@ const isExpired  = (item) => {
 const renderExpiringSoonBadge = (item) => {
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center>expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center="true">expiring soon</span>
       )
   }
 }
@@ -118,7 +118,7 @@ const itemExpiringSoon = (item) => {
 }
 
 // Only render item if not expired
-const renderNotExpiredItem = (item) => {
+const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
@@ -137,9 +137,9 @@ const renderNotExpiredItem = (item) => {
             <hr className="hr"/>
             
             <div className="d-flex justify-content-between quantity-group">
-              <DecreaseQuantity item={item}></DecreaseQuantity>
+              <DecreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></DecreaseQuantity>
               <p>quantity: {item.quantity}</p>
-              <IncreaseQuantity item={item}></IncreaseQuantity> 
+              <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
             
           </div>
@@ -149,7 +149,7 @@ const renderNotExpiredItem = (item) => {
 }
 
 // Make inventory slider responsive to different devices
-const getSliderResponsive = (device, data) => {
+const getSliderResponsive = (device, data, setInventory) => {
   let sliderSettings = sliderSettingsDesktop;
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
@@ -159,7 +159,7 @@ const getSliderResponsive = (device, data) => {
       {data.map((item, index) => {
         return (
             <div className="slider-item-container" key={index}>
-              {renderNotExpiredItem(item)}
+              {renderNotExpiredItem(item, index, data, setInventory)}
             </div>
         );
       })}
@@ -168,22 +168,22 @@ const getSliderResponsive = (device, data) => {
 }
 
 // Slider with the user's items
-const getSlider = (data) => {
+const getSlider = (data, setInventory) => {
   if(data.length < 2) {
     return (
       <Fragment>
-        {getSliderResponsive('mobile', data)}
+        {getSliderResponsive('mobile', data, setInventory)}
       </Fragment>
     );
   }
   return (
     <Fragment>
       <MediaQuery query="(min-width: 1224px)">
-        {getSliderResponsive('desktop', data)}
+        {getSliderResponsive('desktop', data, setInventory)}
       </MediaQuery>
       <MediaQuery  query="(max-width: 1224px)">
         <div className="slick-mobile">
-          {getSliderResponsive('mobile', data)}
+          {getSliderResponsive('mobile', data, setInventory)}
         </div>
       </MediaQuery>
     </Fragment>
@@ -315,7 +315,7 @@ const getBottomRow = (expired, inventory) => {
           {getCarousel(expired)}
         </div>
         {<div className="col-md-6">
-          {getJumbotron()}
+          {(inventory.length > 0) && getJumbotron()}
         </div>}
       </Fragment>
     );
@@ -394,7 +394,7 @@ class MyKitchen extends Component {
           </div>
           <div className="row">
             <div className="col">
-              {getSlider(this.state.inventory)}
+              {getSlider(this.state.inventory, this.setInventory)}
             </div>
           </div>
           <div className="row bottom-row">
