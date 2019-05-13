@@ -57,7 +57,7 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
-  if (data != null){
+  if (data.length > 0 ){
     return (
       <Slider {...sliderSettings}>
         {data.map((recipe, index) => {
