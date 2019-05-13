@@ -9,6 +9,9 @@ import AddItem from './AddItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -352,7 +355,7 @@ class MyKitchen extends Component {
   }
 
   setShowModal = (show) => {
-    this.setState({showModal: show});
+    setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
   componentDidMount() {
@@ -376,7 +379,7 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      alert("Could not retrieve data");
+      toast(err.response.data.msg);
       console.log(err);
     });
   }
@@ -400,7 +403,7 @@ class MyKitchen extends Component {
           <div className="row bottom-row">
             {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
-			</div>
+			</div> 
       </Fragment>
 		);
 	};
