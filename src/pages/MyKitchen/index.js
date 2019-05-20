@@ -127,14 +127,19 @@ const isExpired  = (item) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
+
   return itemExpiryDate.getTime() < todaysDate.getTime();
 }
 
 // Render a badge on items that are expiring soon
 const renderExpiringSoonBadge = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
+  let daysToExpire = itemExpiryDate.getDate()-todaysDate.getDate();
+
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center="true">expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
       )
   }
 }
@@ -159,7 +164,7 @@ const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateMo
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is expired
-  if (itemExpiryDate.getTime() > todaysDate.getTime()) {
+  if (daysOverdue(item)==0 && monthsOverdue(item)==0 && yearsOverdue(item)==0) {
     // Not expired, render the item
     return (
       <div className="card" >
@@ -377,7 +382,7 @@ class MyKitchen extends Component {
       inventory: [],
       expired: [],
       showModal: true,
-      showUpdateModal: true
+      showUpdateModal: false
     };
   }
 
