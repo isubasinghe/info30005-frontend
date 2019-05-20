@@ -4,6 +4,14 @@ import { getToken, getLocation } from '../../../helpers/jwtHelper';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+import $ from 'jquery';
+
+
+
+
+
+
+
 
 class AddItem extends Component {
 
@@ -17,10 +25,9 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: 'piece',
+      units: '',
       failed: false,
       errMsg: ''
-
     };
     console.log(props);
     
@@ -28,6 +35,7 @@ class AddItem extends Component {
 
   handleSubmit = e => {
     console.log("handle submit");
+    e.preventDefault();
 
     const item = {
       name: this.state.name,
@@ -37,7 +45,7 @@ class AddItem extends Component {
       expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
       // default unit
-      units: this.state.units
+      units: 'piece'
     }
 
     let token = getToken();
@@ -46,18 +54,14 @@ class AddItem extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
-      console.log("testing add");
-       console.log(res.data);
-       let inventory = this.props.inventory;
-       inventory.push(item);
-       this.props.setInventory(inventory);
-       toast("Added item to inventory");
+       window.location = "/";
+       
     })
     .catch(err => {
       toast(err.response.data.msg);
     });
 
-    this.props.setShowModal(false);
+    
   }
 
   handleNameChange = e => {
@@ -123,7 +127,7 @@ class AddItem extends Component {
             </div>
           </div>
           <div className="modal-footer">
-              <button type="submit" className="btn btn-primary btn-center" data-dismiss="modal" onClick={this.handleSubmit}>add</button>
+              <button type="submit" className="btn btn-primary btn-center" onClick={this.handleSubmit}>add</button>
             </div>
         </form>
       </Fragment>
