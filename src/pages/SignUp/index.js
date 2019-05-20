@@ -89,26 +89,26 @@ class SignUpForm extends Component {
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">Name</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="name" placeholder="please enter your name" onChange={this.handleName} required />
+									id="name" placeholder="enter a name with alphabetic characters" onChange={this.handleName} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">email</p>
 								<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-									id="email" placeholder="please enter your email" onChange={this.handleEmail} required />
+									id="email" placeholder="enter a valid email" onChange={this.handleEmail} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">password</p>
 								<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-									id="password" placeholder="please enter a password" onChange={this.handlePassword} required />
-									<div className="help-block with-errors text-center text-blue">minimum of 6 characters + include a lowercase, uppercase and a special character</div>
+									id="password" placeholder="max 6 char + incl. special char and lower- & uppercase" onChange={this.handlePassword} required />
+									
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
 								<p className="text-center text-blue font-weight-lighter text-lowercase">address</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
-									id="address" placeholder="please enter your address" onChange={this.handleAddress} required />
+									id="address" placeholder="enter a valid address" onChange={this.handleAddress} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group text-center">
