@@ -3,6 +3,8 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 
+import AutSuggest from '../../components/AutoSuggest';
+
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
@@ -17,6 +19,7 @@ import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import './mykitchen.scss';
+import AutoSuggest from "../../components/AutoSuggest";
 
 function SampleNextArrow(props) {
   const { className, style, onClick } = props;
@@ -129,7 +132,7 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   if (itemExpiryDate.getTime() > todaysDate.getTime()) {
     // Not expired, render the item
     return (
-      <div className="card" >
+      <div className="card card-inventory" >
           <div className="card-body">
             <h3 className="card-title text-center">{item.name.toLowerCase()} {renderExpiringSoonBadge(item)}</h3>
             <hr />
@@ -151,23 +154,43 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   }
 }
 
-// Make inventory slider responsive to different devices
-const getSliderResponsive = (device, data, setInventory) => {
+const SliderFC = (props) => {
+  let [sliderRef, setRef] = React.useState(React.createRef());
   let sliderSettings = sliderSettingsDesktop;
-  if(device==='mobile') {
+  if(props.device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
+
   return (
-    <Slider {...sliderSettings}>
-      {data.map((item, index) => {
-        return (
-            <div className="slider-item-container" key={index}>
-              {renderNotExpiredItem(item, index, data, setInventory)}
-            </div>
-        );
-      })}
-    </Slider>
+    <div className="container">
+      <div className="row">
+        <div className="col d-flex justify-content-center" style={{marginBottom: '10px'}}>
+          <AutoSuggest slider={sliderRef} inventory={props.data} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <Slider ref={slider => setRef(slider)} {...sliderSettings}>
+            {props.data.map((item, index) => {
+              return (
+                  <div className="slider-item-container" key={index}>
+                    {renderNotExpiredItem(item, index, props.data, props.setInventory)}
+                  </div>
+              );
+            })}
+          </Slider>
+        </div>
+      </div>
+    </div>
+    
   );
+}
+
+// Make inventory slider responsive to different devices
+const getSliderResponsive = (device, data, setInventory) => {
+  return (
+    <SliderFC device={device} data={data} setInventory={setInventory} />
+  )
 }
 
 // Slider with the user's items
@@ -344,6 +367,7 @@ class MyKitchen extends Component {
       expired: [],
       showModal: true,
     };
+
   }
 
   setInventory = (newInventory) => {
@@ -390,11 +414,6 @@ class MyKitchen extends Component {
       <Fragment>
       {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
 			<div className="container">
-          <div className="row">
-            <div className="col">
-              
-            </div>
-          </div>
           <div className="row">
             <div className="col">
               {getSlider(this.state.inventory, this.setInventory)}
