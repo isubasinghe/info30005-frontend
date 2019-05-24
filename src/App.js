@@ -11,6 +11,7 @@ import ForgotPassword from './pages/ForgotPassword';
 import ResetPassword from './pages/ForgotPassword/ResetPassword';
 import MyRecipes from './pages/MyRecipes';
 import MyAccount from './pages/MyAccount';
+import Marketplace from './pages/Marketplace';
 class App extends Component {
 
 
@@ -42,6 +43,7 @@ class App extends Component {
           <Route exact path ="/my-recipes" component={MyRecipes} />
           <Route exact path ="/account" component={MyAccount} />
           <Route exact path="/logout" component={Homepage} />
+          <Route exact path="/marketplace" component={Marketplace} />
 
         </div>
 
