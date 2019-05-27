@@ -284,8 +284,8 @@ const getCarousel = (data) => {
     <div className="carousel-item active">
       <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
-        <h5 className="h5-responsive">{data[0].name.toLowerCase()}</h5>
-        <p>expired {daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
+        <h2 className="h2-responsive">{data[0].name.toLowerCase()} expired</h2>
+        <p>{daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
       </div>
     </div>
   );
@@ -310,8 +310,8 @@ const getCarousel = (data) => {
               <div className="carousel-item" key={index}>
                 <img className="d-block w-100" src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
                 <div className="carousel-caption">
-                  <h5 className="h5-responsive">{item.name.toLowerCase()}</h5>
-                  <p>expired {daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
+                  <h2 className="h2-responsive">{item.name.toLowerCase()} expired</h2>
+                  <p>{daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
                 </div>
               </div>
             );
