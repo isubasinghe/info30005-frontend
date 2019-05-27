@@ -8,7 +8,6 @@ import AutSuggest from '../../components/AutoSuggest';
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
-import UpdateItem from './UpdateItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
@@ -93,38 +92,6 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
   );
 }
 
-const getUpdateButton = (inventory, setInventory, showUpdateModal, setShowUpdateModal) => {
-  return (
-    <Fragment>
-      <button type="button" onClick={()=>{setShowUpdateModal(true)}} className="btn btn-success"
-        style={{backgroundColor: 'transparent', color: 'green'}} data-toggle="modal" data-target=".bd-update-modal-lg">
-        update</button>
-      {showUpdateModal && updateItem(inventory, setInventory, setShowUpdateModal)}
-    </Fragment>
-  );
-}
-
-// Update item quantity and units to inventory
-const updateItem = (inventory, setInventory, setShowUpdateModal) => {
-  return (
-    <div className="update-modal bd-update-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalScrollableTitle">update item</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div className="modal-body">
-            <UpdateItem setShowUpdateModal={setShowUpdateModal} inventory={inventory} setInventory={setInventory}/>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
@@ -185,8 +152,6 @@ const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateMo
               <p>quantity: {item.quantity}</p>
               <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
-
-            {getUpdateButton(inventory, setInventory, showUpdateModal, setShowUpdateModal)}
           </div>
         </div>
     )
@@ -406,8 +371,7 @@ class MyKitchen extends Component {
     this.state = {
       inventory: [],
       expired: [],
-      showModal: true,
-      showUpdateModal: false
+      showModal: true
     };
 
   }
@@ -424,9 +388,6 @@ class MyKitchen extends Component {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
-  setShowUpdateModal = (show) => {
-    setTimeout(()=> {this.setState({showUpdateModal: show})}, 300);
-  }
 
   componentDidMount() {
     let token = getToken();
