@@ -8,7 +8,6 @@ import AutSuggest from '../../components/AutoSuggest';
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
-//import UpdateItem from './UpdateItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
@@ -93,42 +92,24 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
   );
 }
 
-/*<div className="modal-body">
-            <UpdateItem setShowUpdateModal={setShowUpdateModal} inventory={inventory} setInventory={setInventory}/>
-          </div>*/
-
-// Update item quantity and units to inventory
-const updateItem = (inventory, setInventory, setShowUpdateModal) => {
-  return (
-    <div className="modal fade bd-add-modal-lg" tabIndex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-      <div className="modal-dialog modal-lg">
-        <div className="modal-content">
-          <div className="modal-header">
-            <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          
-        </div>
-      </div>
-    </div>
-  );
-}
-
 // Check if an item is expired
 const isExpired  = (item) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
+
 
   return itemExpiryDate.getTime() < todaysDate.getTime();
 }
 
 // Render a badge on items that are expiring soon
 const renderExpiringSoonBadge = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
+  let daysToExpire = itemExpiryDate.getDate()-todaysDate.getDate();
+
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center="true">expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
       )
   }
 }
@@ -153,7 +134,7 @@ const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateMo
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is expired
-  if (itemExpiryDate.getTime() > todaysDate.getTime()) {
+  if (daysOverdue(item)==0 && monthsOverdue(item)==0 && yearsOverdue(item)==0) {
     // Not expired, render the item
     return (
       <div className="card card-inventory" >
@@ -171,15 +152,6 @@ const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateMo
               <p>quantity: {item.quantity}</p>
               <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
-
-             <Fragment>
-              <button type="button" onClick={()=>{setShowUpdateModal(true)}} className="btn btn-success"
-                style={{backgroundColor: 'transparent', color: 'green'}} data-toggle="modal" data-target=".bd-update-modal-lg">
-                update</button>
-              {showUpdateModal && updateItem(inventory, setInventory, setShowUpdateModal)}
-            </Fragment>
-
-
           </div>
         </div>
     )
@@ -399,8 +371,7 @@ class MyKitchen extends Component {
     this.state = {
       inventory: [],
       expired: [],
-      showModal: true,
-      showUpdateModal: true
+      showModal: true
     };
 
   }
@@ -417,9 +388,6 @@ class MyKitchen extends Component {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
-  setShowUpdateModal = (show) => {
-    setTimeout(() => {this.setState({showUpdateModal: show})}, 300);
-  }
 
   componentDidMount() {
     let token = getToken();

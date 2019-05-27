@@ -75,13 +75,13 @@ class SignInForm extends Component {
                     <div className="form-group pt-4 pl-5 pr-5">
                         <p className="text-center text-blue font-weight-lighter text-lowercase">email</p>
                         <input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="email" placeholder="enter your email" required onChange={this.handleEmailChange}/>
+                                id="email" placeholder="enter a valid user email" required onChange={this.handleEmailChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
                     <div className="form-group pt-4 pl-5 pr-5">
                         <p className="text-center text-blue font-weight-lighter text-lowercase">password</p>
                         <input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="password" placeholder="enter your password" required onChange={this.handlePasswordChange}/>
+                                id="password" placeholder="enter the corresponding password" required onChange={this.handlePasswordChange}/>
                         <div className="invalid-tooltip"> </div>
                     </div>
                     <div className="form-group text-center">

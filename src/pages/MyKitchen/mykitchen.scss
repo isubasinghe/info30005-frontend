@@ -96,3 +96,19 @@
   
 }
 
+.update-modal {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  bottom: 0;
+  left: 0;
+  z-index: 10040;
+  overflow: auto;
+  overflow-y: auto;
+  backdrop: true;
+  keyboard: true;
+  focus: true;
+  show: true;
+  fade: true;
+}
+
