@@ -69,13 +69,15 @@ class Marketplace extends Component {
             console.log(err);
         });
     }
+    
 
     render() {
         return (
             <div>
-                <div className="marketplace-search">
+                <div className="marketplace-search search form-inline">
                     <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter items"></input>
-                    <Button className="button" onClick={this.handleSubmit}>Search</Button>
+                    <Button className="button" onClick={this.handleSubmit}>search</Button>
+
                 </div>
                 <div className="cards">
                     {this.state.users.map((users, index) => {
@@ -83,7 +85,7 @@ class Marketplace extends Component {
                         <Card className="card">
                             <Card.Body>
                             <Card.Title>{users.name}</Card.Title>
-                            <Card.Text>Hi there, I have {this.state.items[index].quantity} {this.state.items[index].name}'s </Card.Text>
+                            <Card.Text>Hi there, I have {this.state.items[index].quantity} {this.state.items[index].name}(s) </Card.Text>
                             <Button onClick={() => this.handleTradeCommunication(users.email)} value={users.email}>Contact Me</Button>
                             
                             </Card.Body>

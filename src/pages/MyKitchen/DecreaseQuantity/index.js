@@ -57,16 +57,16 @@ class DecreaseQuantity extends Component {
             <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleConfirm}>
                 -
             </button>
-            {this.state.showConfirm && <SweetAlert
-            warning
-            showCancel
-            confirmBtnText="Yes, update it!"
-            confirmBtnBsStyle="danger"
-            cancelBtnBsStyle="default"
-            title="Are you sure?"
-            onConfirm={this.handleSubmit}
-            onCancel={this.cancelDelete}
-            >
+                {this.state.showConfirm && <SweetAlert
+                    warning
+                    showCancel
+                    confirmBtnText="Yes, update it!"
+                    confirmBtnBsStyle="danger"
+                    cancelBtnBsStyle="default"
+                    title="Are you sure?"
+                    onConfirm={this.handleSubmit}
+                    onCancel={this.cancelDelete}
+                >
             </SweetAlert>}
             </Fragment>
 			
