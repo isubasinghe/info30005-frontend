@@ -3,9 +3,15 @@ import './scss/custom.scss';
 import 'bootstrap/dist/js/bootstrap.bundle.min';
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
+
+toast.configure();
+
+
 
 ReactDOM.render(<App />, document.getElementById('root'));
 

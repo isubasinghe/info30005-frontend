@@ -2,24 +2,54 @@ import React, { Component, Fragment } from "react";
 import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
+
+import AutSuggest from '../../components/AutoSuggest';
+
 import Preview from './preview.js';
+
 import AddItem from './AddItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
 import './mykitchen.scss';
+import AutoSuggest from "../../components/AutoSuggest";
 
+function SampleNextArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{...style}}
+      onClick={onClick}
+    />
+  );
+}
+
+function SamplePrevArrow(props) {
+  const { className, style, onClick } = props;
+  return (
+    <div
+      className={className}
+      style={{ ...style}}
+      onClick={onClick}
+    />
+  );
+}
 
 const sliderSettingsDesktop = {
   infinite: false,
   slidesToShow: 3,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 const sliderSettingsMobile = {
@@ -27,6 +57,8 @@ const sliderSettingsMobile = {
   slidesToShow: 1,
   slidesToScroll: 1,
   dots: true,
+  nextArrow: <SampleNextArrow />,
+  prevArrow: <SamplePrevArrow />
 };
 
 // Buttons to either enter a new item or update a new one
@@ -47,14 +79,13 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
         <div className="modal-content">
           <div className="modal-header">
             <h5 className="modal-title" id="exampleModalScrollableTitle">add new item</h5>
-            <button type="button" className="close" data-dismiss="modal" aria-label="Close">
+            <button id="close-modal" type="button" className="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div className="modal-body">
             <AddItem setShowModal={setShowModal} inventory={inventory} setInventory={setInventory} />
           </div>
-          
         </div>
       </div>
     </div>
@@ -101,13 +132,14 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   if (itemExpiryDate.getTime() > todaysDate.getTime()) {
     // Not expired, render the item
     return (
-      <div className="card" >
+      <div className="card card-inventory" >
           <div className="card-body">
-            <h3 className="card-title">{item.name.toLowerCase()}</h3>
+            <h3 className="card-title text-center">{item.name.toLowerCase()} {renderExpiringSoonBadge(item)}</h3>
             <hr />
             <h5>{item.category}</h5>
             <p>expiring on: {itemExpiryDate.toDateString()}</p>
-            <p>{renderExpiringSoonBadge(item)}</p>
+            <p>quantity: {item.quantity}</p>
+            <p>units: {item.units}</p>
             <hr className="hr"/>
             
             <div className="d-flex justify-content-between quantity-group">
@@ -122,23 +154,43 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   }
 }
 
-// Make inventory slider responsive to different devices
-const getSliderResponsive = (device, data, setInventory) => {
+const SliderFC = (props) => {
+  let [sliderRef, setRef] = React.useState(React.createRef());
   let sliderSettings = sliderSettingsDesktop;
-  if(device==='mobile') {
+  if(props.device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
+
   return (
-    <Slider {...sliderSettings}>
-      {data.map((item, index) => {
-        return (
-            <div className="slider-item-container" key={index}>
-              {renderNotExpiredItem(item, index, data, setInventory)}
-            </div>
-        );
-      })}
-    </Slider>
+    <div className="container">
+      <div className="row">
+        <div className="col d-flex justify-content-center" style={{marginBottom: '10px'}}>
+          <AutoSuggest slider={sliderRef} inventory={props.data} />
+        </div>
+      </div>
+      <div className="row">
+        <div className="col">
+          <Slider ref={slider => setRef(slider)} {...sliderSettings}>
+            {props.data.map((item, index) => {
+              return (
+                  <div className="slider-item-container" key={index}>
+                    {renderNotExpiredItem(item, index, props.data, props.setInventory)}
+                  </div>
+              );
+            })}
+          </Slider>
+        </div>
+      </div>
+    </div>
+    
   );
+}
+
+// Make inventory slider responsive to different devices
+const getSliderResponsive = (device, data, setInventory) => {
+  return (
+    <SliderFC device={device} data={data} setInventory={setInventory} />
+  )
 }
 
 // Slider with the user's items
@@ -226,7 +278,7 @@ const getCarousel = (data) => {
 
   let carouselItems = (
     <div className="carousel-item active">
-      <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+      <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
         <h5 className="h5-responsive">{data[0].name.toLowerCase()}</h5>
         <p>expired {daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
@@ -252,7 +304,7 @@ const getCarousel = (data) => {
           {data.map((item, index)=>{
             return (
               <div className="carousel-item" key={index}>
-                <img className="d-block w-100" src="https://png.pngtree.com/thumb_back/fw800/back_pic/04/07/90/255812d2d24fd5a.jpg" alt="Slide" />
+                <img className="d-block w-100" src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
                 <div className="carousel-caption">
                   <h5 className="h5-responsive">{item.name.toLowerCase()}</h5>
                   <p>expired {daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
@@ -315,6 +367,7 @@ class MyKitchen extends Component {
       expired: [],
       showModal: true,
     };
+
   }
 
   setInventory = (newInventory) => {
@@ -326,7 +379,7 @@ class MyKitchen extends Component {
   }
 
   setShowModal = (show) => {
-    this.setState({showModal: show});
+    setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
   componentDidMount() {
@@ -350,7 +403,7 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      alert("Could not retrieve data");
+      toast(err.response.data.msg);
       console.log(err);
     });
   }
@@ -363,18 +416,13 @@ class MyKitchen extends Component {
 			<div className="container">
           <div className="row">
             <div className="col">
-              
-            </div>
-          </div>
-          <div className="row">
-            <div className="col">
               {getSlider(this.state.inventory, this.setInventory)}
             </div>
           </div>
           <div className="row bottom-row">
             {getBottomRow(this.state.expired, this.state.inventory)}
           </div>
-			</div>
+			</div> 
       </Fragment>
 		);
 	};

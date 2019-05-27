@@ -1,5 +1,7 @@
 import React, { Component, Fragment } from "react";
 import axios from 'axios';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import { getToken } from '../../helpers/jwtHelper';
 import {Button} from 'react-bootstrap';
 import './preview.scss';
@@ -16,6 +18,7 @@ class Preview extends Component {
 	    };
     }
     getFirstDescription(data){
+      console.log(data);
         if(this.state.showSpinner === true){
             return(
                 <div className="spinner-container">
@@ -31,12 +34,11 @@ class Preview extends Component {
             return (
                 <div className="jumbotron-container">
                     <div className="jumbotron">
-
                         <div className="container">
                             <div className="row">
                                 <div className="col">
-                                    <h1 className="display-4">
-                                    Recipe preview
+                                    <h1 className="d-flex justify-content-end">
+                                    recipe preview
                                     </h1>
                                     <p>{data[0].title}</p>
                                 </div>
@@ -46,7 +48,7 @@ class Preview extends Component {
                                 </div>
                             </div>
                         </div>
-                        
+
                     </div>
                 </div>
             );
@@ -58,11 +60,15 @@ class Preview extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
     .then (res => {
         console.log(res);
-        this.setState({recipes: res.data.recipes, showSpinner: false});
-        this.setState({loaded: false});
+        if(res.data.recipes.length > 0) {
+            this.setState({recipes: res.data.recipes, showSpinner: false});
+            this.setState({loaded: true});
+        }
+        
         
     })
     .catch(err => {
+        toast(err.response.data.msg);
         console.log(err.data)
         console.log(err)
     });

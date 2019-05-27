@@ -19,8 +19,8 @@ class ShowErrorMessage extends Component {
 				<Alert show={this.state.show} variant="warning">
 					<Alert.Heading> Error signing up </Alert.Heading>
 					<p> {this.props.msg} </p>
-					<div className="d-flex justify-content-center">
-						<button className="btn-primary" onClick={handleHide}
+					<div className="d-flex justify-content-end">
+						<button onClick={handleHide}
 							variant="outline-success">
 							close
 						</button>

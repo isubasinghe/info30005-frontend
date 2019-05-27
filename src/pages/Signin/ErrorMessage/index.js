@@ -19,14 +19,14 @@ class ErrorMessage extends Component {
 				<Alert show={this.state.show} variant="warning">
 					<Alert.Heading> Invalid </Alert.Heading>
 					{this.props.msg}
-					<div className="d-flex justify-content-center">
-						<button className="btn-primary" onClick={handleHide}
+					<div className="d-flex justify-content-end">
+						<button onClick={handleHide}
 							variant="outline-success"> close
 						</button>
 					</div>
 				</Alert>
 
-			{!this.state.show}
+				{!this.state.show}
 			</div>
 		)
 	}

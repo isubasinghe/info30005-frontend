@@ -8,6 +8,9 @@ import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
 import withAuth from '../../helpers/withAuth';
 
 import './myrecipes.scss';
@@ -17,7 +20,7 @@ function CustNextArrow (props) {
   return (
     <div
       className = {className}
-      style = {{...style, display: "block", background: "#7075A3"}}
+      style = {{...style}}
       onClick = {onClick}
       />
   );
@@ -28,7 +31,7 @@ function CustPrevArrow (props) {
   return (
     <div
       className = {className}
-      style = {{...style, display: "block", background: "#7075A3" }}
+      style = {{...style}}
       onClick = {onClick}
       />
   );
@@ -57,7 +60,7 @@ const getSliderResponsive = (device, data) => {
   if(device==='mobile') {
     sliderSettings = sliderSettingsMobile;
   }
-  if (data != null){
+  if (data.length > 0 ){
     return (
       <Slider {...sliderSettings}>
         {data.map((recipe, index) => {
@@ -66,10 +69,10 @@ const getSliderResponsive = (device, data) => {
             <div className="card-body">
               <h5 className="card-title bg-primary text-white p-3">{recipe.title}</h5>
               <hr />
-              <h7>Publisher: {recipe.publisher}</h7>
-              <p><a className="button-bground"href={recipe.f2f_url}  >Go to recipe</a></p>
+              <h7>publisher: {recipe.publisher}</h7>
+              <p><a className="button-bground"href={recipe.f2f_url} target="_blank">go to recipe</a></p>
                 <div className="media">
-                  <img className="d-block bg-bground" src={recipe.image_url} alt="A food recipe" />
+                  <img className="d-flex bg-bground justify-content-center" src={recipe.image_url} alt="a food recipe" />
                 </div>
             </div>
           </div>
@@ -81,12 +84,12 @@ const getSliderResponsive = (device, data) => {
   else{
     return (
       <div className="jumbotron">
-      <h1 className="display-4">Hmmm, looks like you don't have any items!</h1>
-      <p className="lead">To use our recipe generation, please ensure you have added some items</p>
+      <h1 className="display-4">we're having troubles generating recipes for now</h1>
+      <p className="lead">additionally, please ensure you have added some items in my kitchen</p>
       <hr className="my-4"></hr>
-      <p>Head back over to My Kitchen to get started.</p>
+      <p>head back over to my kitchen to see what items you have</p>
       <p className="lead">
-        <a className="btn btn-primary btn-lg" href="/" role="button">My Kitchen</a>
+        <a className="btn btn-primary btn-lg" href="/" role="button">my kitchen</a>
       </p>
       </div>
     )
@@ -128,12 +131,9 @@ class MyRecipes extends Component {
 
       })
       .catch(err => {
-        alert("Could not retrieve data");
+        toast(err.response.data.msg);
       });
   }
-
-//{getCarousel(this.state.items)}
-//{getJumbotron(<RecipeList/>)}
 
 	render() {
 		return (
@@ -141,14 +141,6 @@ class MyRecipes extends Component {
 	          <div className="row">
 	            <div className="col">
 	              {getSlider(this.state.recipes)}
-	            </div>
-	          </div>
-	          <div className="row bottom-row">
-	            <div className="col-md-6">
-
-	            </div>
-	            <div className="col-md-6">
-
 	            </div>
 	          </div>
 			</div>

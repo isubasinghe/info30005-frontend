@@ -1,6 +1,16 @@
-import React, { Component } from "react";
+import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import { getToken, getLocation } from '../../../helpers/jwtHelper';
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+import $ from 'jquery';
+
+
+
+
+
+
 
 
 class AddItem extends Component {
@@ -15,7 +25,9 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: ''
+      units: '',
+      failed: false,
+      errMsg: ''
     };
     console.log(props);
     
@@ -42,17 +54,14 @@ class AddItem extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
-       console.log(res.data);
-       let inventory = this.props.inventory;
-       inventory.push(item);
-       this.props.setInventory(inventory);
+       window.location = "/";
+       
     })
     .catch(err => {
-      alert("Could not add item to database");
-      console.log(err.response.data);
+      toast(err.response.data.msg);
     });
 
-    this.props.setShowModal(false);
+    
   }
 
   handleNameChange = e => {
@@ -74,52 +83,54 @@ class AddItem extends Component {
   handleUnitsChange = e => {
     this.setState({units: e.target.value});
   }
-
+  
 	render() {
 
 		return (
 
 
-			<form onSubmit={(e) => {e.preventDefault()}}>
-        <div className="form-group">
-          <label htmlFor="item-name" className="col-form-label">name of item</label>
-          <input type="text" className="form-control text-blue" id="item-name" required 
-              onChange={this.handleNameChange}></input>
-        </div>
-        <div className="form-group">
-          <label htmlFor="item-category" className="col-form-label">category</label>
-          <select className="form-control text-blue" id="item-category" onChange={this.handleCategoryChange}>
-            <option>FRUIT</option>
-            <option>VEG</option>
-            <option>MEAT</option>
-            <option>FISH</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="item-quantity" className="col-form-label">quantity</label>
-          <input type="number" className="form-control text-blue" id="item-quantity" required 
-              onChange={this.handleQuantityChange}></input>
-        </div>
-        <div className="form-group">
-          <label htmlor="item-units" className="col-form-label">units</label>
-          <select className="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
-            <option>piece</option>
-            <option>g</option>
-            <option>kg</option>
-            <option>mL</option>
-            <option>L</option>
-          </select>
-        </div>
-        <div className="form-group">
-         <label htmlFor="expiry-date" className="col-form-label">expiry date</label>
-          <div>
-            <input className="form-control text-blue" type="date" id="expiry-date" onChange={this.handleExpiryChange}></input>
+			<Fragment>
+        <form onSubmit={(e) => {e.preventDefault()}}>
+          <div className="form-group">
+            <label htmlFor="item-name" className="col-form-label">name of item</label>
+            <input type="text" className="form-control text-blue" id="item-name" required 
+                onChange={this.handleNameChange}></input>
           </div>
-        </div>
-        <div className="modal-footer">
-            <button type="submit" className="btn btn-primary btn-center" data-dismiss="modal" onClick={this.handleSubmit}>add</button>
+          <div className="form-group">
+            <label htmlFor="item-category" className="col-form-label">category</label>
+            <select className="form-control text-blue" id="item-category" onChange={this.handleCategoryChange}>
+              <option>FRUIT</option>
+              <option>VEG</option>
+              <option>MEAT</option>
+              <option>FISH</option>
+            </select>
           </div>
-      </form>
+          <div className="form-group">
+            <label htmlFor="item-quantity" className="col-form-label">quantity</label>
+            <input type="number" className="form-control text-blue" id="item-quantity" required 
+                onChange={this.handleQuantityChange}></input>
+          </div>
+          <div className="form-group">
+            <label htmlor="item-units" className="col-form-label">units</label>
+            <select className="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
+              <option>piece</option>
+              <option>g</option>
+              <option>kg</option>
+              <option>mL</option>
+              <option>L</option>
+            </select>
+          </div>
+          <div className="form-group">
+          <label htmlFor="expiry-date" className="col-form-label">expiry date</label>
+            <div>
+              <input className="form-control text-blue" type="date" id="expiry-date" onChange={this.handleExpiryChange}></input>
+            </div>
+          </div>
+          <div className="modal-footer">
+              <button type="submit" className="btn btn-primary btn-center" onClick={this.handleSubmit}>add</button>
+            </div>
+        </form>
+      </Fragment>
 		);
 	};
 }

@@ -7,6 +7,10 @@
   height: 20em;
 }
 
+.card-inventory {
+  height: 20em !important;
+}
+
 
 .slick-mobile {
   .card {
@@ -24,6 +28,11 @@
       height: 37em;
     }
   }
+}
+
+.slick-prev:before,
+.slick-next:before {
+  color: black;
 }
 
 .btn-toolbar{
