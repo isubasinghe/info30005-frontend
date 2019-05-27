@@ -3,8 +3,6 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import { Button, Card} from 'react-bootstrap';
-import { toast } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
 import SweetAlert from "react-bootstrap-sweetalert";
 import './marketplace.scss';
 class Marketplace extends Component {
@@ -80,7 +78,7 @@ class Marketplace extends Component {
                 <div className="cards">
                     {this.state.users.map((users, index) => {
                     return (
-                        <Card className="card">
+                        <Card>
                             <Card.Body>
                             <Card.Title>{users.name}</Card.Title>
                             <Card.Text>Hi there, I have {this.state.items[index].quantity} {this.state.items[index].name}'s </Card.Text>
