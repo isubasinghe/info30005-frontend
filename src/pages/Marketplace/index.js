@@ -73,14 +73,14 @@ class Marketplace extends Component {
     render() {
         return (
             <div>
-                <div id="marketplace-search">
-                    <input type="text" onChange={this.handleNameChange} placeholder="Enter items"></input>
-                    <Button onClick={this.handleSubmit}>Search</Button>
+                <div className="marketplace-search">
+                    <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter items"></input>
+                    <Button className="button" onClick={this.handleSubmit}>Search</Button>
                 </div>
-                <cards>
+                <div className="cards">
                     {this.state.users.map((users, index) => {
                     return (
-                        <Card>
+                        <Card className="card">
                             <Card.Body>
                             <Card.Title>{users.name}</Card.Title>
                             <Card.Text>Hi there, I have {this.state.items[index].quantity} {this.state.items[index].name}'s </Card.Text>
@@ -90,7 +90,7 @@ class Marketplace extends Component {
                         </Card>
                     );
                 })}
-                </cards>
+                </div>
                 {this.state.showConfirmation && <SweetAlert success title="Email sent!" onConfirm={this.handleConfirmation}>
                 The requested user should be in contact soon!
                 </SweetAlert>}
