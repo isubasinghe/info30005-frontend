@@ -8,7 +8,7 @@ import AutSuggest from '../../components/AutoSuggest';
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
-import UpdateItem from './UpdateItem';
+//import UpdateItem from './UpdateItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
@@ -93,6 +93,10 @@ const addNewItem = (inventory, setInventory, setShowModal) => {
   );
 }
 
+/*<div className="modal-body">
+            <UpdateItem setShowUpdateModal={setShowUpdateModal} inventory={inventory} setInventory={setInventory}/>
+          </div>*/
+
 // Update item quantity and units to inventory
 const updateItem = (inventory, setInventory, setShowUpdateModal) => {
   return (
@@ -105,9 +109,7 @@ const updateItem = (inventory, setInventory, setShowUpdateModal) => {
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
-          <div className="modal-body">
-            <UpdateItem setShowUpdateModal={setShowUpdateModal} inventory={inventory} setInventory={setInventory}/>
-          </div>
+          
         </div>
       </div>
     </div>
