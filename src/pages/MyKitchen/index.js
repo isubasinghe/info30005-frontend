@@ -129,7 +129,7 @@ const itemExpiringSoon = (item) => {
 }
 
 // Only render item if not expired
-const renderNotExpiredItem = (item, index, inventory, setInventory, showUpdateModal, setShowUpdateModal) => {
+const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
@@ -200,22 +200,22 @@ const getSliderResponsive = (device, data, setInventory) => {
 }
 
 // Slider with the user's items
-const getSlider = (data, setInventory, showUpdateModal, setShowUpdateModal) => {
+const getSlider = (data, setInventory) => {
   if(data.length < 2) {
     return (
       <Fragment>
-        {getSliderResponsive('mobile', data, setInventory, showUpdateModal, setShowUpdateModal)}
+        {getSliderResponsive('mobile', data, setInventory)}
       </Fragment>
     );
   }
   return (
     <Fragment>
       <MediaQuery query="(min-width: 1224px)">
-        {getSliderResponsive('desktop', data, setInventory, showUpdateModal, setShowUpdateModal)}
+        {getSliderResponsive('desktop', data, setInventory)}
       </MediaQuery>
       <MediaQuery  query="(max-width: 1224px)">
         <div className="slick-mobile">
-          {getSliderResponsive('mobile', data, setInventory, showUpdateModal, setShowUpdateModal)}
+          {getSliderResponsive('mobile', data, setInventory)}
         </div>
       </MediaQuery>
     </Fragment>
