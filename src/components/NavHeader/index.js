@@ -20,8 +20,8 @@ class NavHeader extends Component {
                    activeClassName="btn btn-active text-dark ">my recipes</NavLink>
           <NavLink exact to="/" type="button" className="btn btn-secondary text-white mt-2"
                    activeClassName="btn btn-active text-dark">my kitchen</NavLink>
-          <NavLink to="/my-account" type="button" className="btn btn-secondary text-white mt-2"
-                   activeClassName="btn btn-active text-dark">my account</NavLink>
+          <NavLink to="/marketplace" type="button" className="btn btn-secondary text-white mt-2"
+                   activeClassName="btn btn-active text-dark">marketplace</NavLink>
 
           <NavLink to="/logout" type="button" className="btn btn-secondary text-white mt-2 btn-logout"
                    activeClassName="btn btn-active text-dark" onClick={this.props.handleLogOut}>logout</NavLink>
