@@ -12,17 +12,26 @@ class IncreaseQuantity extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
 
     }
+    changeQuantity(units){
+        if(units === "piece"){
+            return 1;
+        }
+        else{
+            return 100;
+        }
+    
+    }
 
 	handleSubmit = e => {
 
     let token = getToken();
     console.log(this.props.item._id);
-
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/increaseQuantity',{token: token, id: this.props.item._id})
+    let newQuantity = this.props.item.quantity+ this.changeQuantity(this.props.item.units);
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/updateQuantity',{token: token, quantity: newQuantity, id: this.props.item._id})
     .then (res => {
         console.log(res);
         let item = this.props.item;
-        item.quantity += 1;
+        item.quantity = newQuantity;
         let inventory = this.props.inventory;
         inventory[this.props.index] = item;
         this.props.setInventory(inventory);

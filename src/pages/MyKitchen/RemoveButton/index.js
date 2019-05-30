@@ -16,7 +16,15 @@ class Remove extends Component {
         }
 
     }
-
+    changeQuantity(units){
+        if(units === "piece"){
+            return 1;
+        }
+        else{
+            return 100;
+        }
+    
+    }
     handleConfirm = e => {
         this.setState({showConfirm: true});
     }
