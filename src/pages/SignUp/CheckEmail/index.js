@@ -16,7 +16,7 @@ class CheckEmail extends Component {
 					<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-uppercase bg-blue">Check your email to verify your account</h2>
 					<form onSubmit={this.handleSubmit}>
 						<div className="form-group text-center">
-							<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">Sign In</button>
+							<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">sign in</button>
 						</div>
 					</form>
 				</div>
