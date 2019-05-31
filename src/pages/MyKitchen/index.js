@@ -97,14 +97,19 @@ const isExpired  = (item) => {
   let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
+
   return itemExpiryDate.getTime() < todaysDate.getTime();
 }
 
 // Render a badge on items that are expiring soon
 const renderExpiringSoonBadge = (item) => {
+  let itemExpiryDate = new Date(item.expiry);
+  let todaysDate = new Date();
+  let daysToExpire = itemExpiryDate.getDate()-todaysDate.getDate();
+
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center="true">expiring soon</span>
+      <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
       )
   }
 }
@@ -129,25 +134,22 @@ const renderNotExpiredItem = (item, index, inventory, setInventory) => {
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is expired
-  if (itemExpiryDate.getTime() > todaysDate.getTime()) {
+  if (daysOverdue(item)==0 && monthsOverdue(item)==0 && yearsOverdue(item)==0) {
     // Not expired, render the item
     return (
       <div className="card card-inventory" >
           <div className="card-body">
             <h3 className="card-title text-center">{item.name.toLowerCase()} {renderExpiringSoonBadge(item)}</h3>
             <hr />
-            <h5>{item.category}</h5>
-            <p>expiring on: {itemExpiryDate.toDateString()}</p>
-            <p>quantity: {item.quantity}</p>
-            <p>units: {item.units}</p>
+            <div className="h5 text-center">{item.category}</div>
+            <p><b>expiring on:</b> &emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&ensp; {itemExpiryDate.toDateString()}</p>
             <hr className="hr"/>
             
             <div className="d-flex justify-content-between quantity-group">
               <DecreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></DecreaseQuantity>
-              <p>quantity: {item.quantity}</p>
+              <p>{item.quantity} {item.units}</p>
               <IncreaseQuantity index={index} inventory={inventory} setInventory={setInventory} item={item}></IncreaseQuantity> 
             </div>
-            
           </div>
         </div>
     )
@@ -162,6 +164,7 @@ const SliderFC = (props) => {
   }
 
   return (
+
     <div className="container">
       <div className="row">
         <div className="col d-flex justify-content-center" style={{marginBottom: '10px'}}>
@@ -183,6 +186,7 @@ const SliderFC = (props) => {
       </div>
     </div>
     
+
   );
 }
 
@@ -280,8 +284,8 @@ const getCarousel = (data) => {
     <div className="carousel-item active">
       <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
-        <h5 className="h5-responsive">{data[0].name.toLowerCase()}</h5>
-        <p>expired {daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
+        <h2 className="h2-responsive">{data[0].name.toLowerCase()} expired</h2>
+        <p>{daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
       </div>
     </div>
   );
@@ -306,8 +310,8 @@ const getCarousel = (data) => {
               <div className="carousel-item" key={index}>
                 <img className="d-block w-100" src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
                 <div className="carousel-caption">
-                  <h5 className="h5-responsive">{item.name.toLowerCase()}</h5>
-                  <p>expired {daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
+                  <h2 className="h2-responsive">{item.name.toLowerCase()} expired</h2>
+                  <p>{daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
                 </div>
               </div>
             );
@@ -365,7 +369,7 @@ class MyKitchen extends Component {
     this.state = {
       inventory: [],
       expired: [],
-      showModal: true,
+      showModal: true
     };
 
   }
@@ -381,6 +385,7 @@ class MyKitchen extends Component {
   setShowModal = (show) => {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
+
 
   componentDidMount() {
     let token = getToken();

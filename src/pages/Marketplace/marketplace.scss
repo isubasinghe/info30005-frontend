@@ -1,0 +1,46 @@
+
+@media screen and (min-width: 40em) {
+    .cards {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-around;
+    }
+
+    .card {
+        display: flex;
+        flex: 0 1 calc(30% - 1em);
+        height: 30%;
+    }
+    .input {
+      float: none;
+      display: block;
+      text-align: left;
+      width: 80%;
+      margin: 1%;
+      padding: 14px;
+    }
+}
+
+@media screen and (min-width: 60em) {
+
+    .card {
+        flex: 0 1 calc(25% - 1em);
+        height: 30%;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .input {
+      float: none;
+      display: block;
+      text-align: left;
+      width: 80%;
+      margin: 1%;
+      padding: 14px;
+    }
+  }
+
+.search {
+  margin-top: 20px;
+  justify-content: center;
+}

@@ -5,9 +5,9 @@ import {Button} from 'react-bootstrap';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SweetAlert from "react-bootstrap-sweetalert";
-class DecreaseQuantity extends Component {
+class Remove extends Component {
 
-	constructor (props) {
+    constructor (props) {
         super(props);
         
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -17,15 +17,15 @@ class DecreaseQuantity extends Component {
 
     }
 
-    handleConfirm = () => {
+    handleConfirm = e => {
         this.setState({showConfirm: true});
     }
 
-	handleSubmit = e => {
+    handleSubmit = e => {
     
     let token = getToken();
     console.log(this.props.item._id);
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/decreaseQuantity',{token: token, id: this.props.item._id})
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/removeItem',{token: token, id: this.props.item._id})
     .then (res => {
         console.log(res);
         let item = this.props.item;
@@ -39,39 +39,39 @@ class DecreaseQuantity extends Component {
         
         this.props.setInventory(inventory);
         this.setState({showConfirm: false});
-        toast("Removed quanitity for item " + item.name);
+        toast("Removed item " + item.name);
     })
     .catch(err => {
         toast(err.response.data.msg);
         console.log(err.data);
         console.log(err);
     });
-  }
-  cancelDelete = e =>{
-      this.setState({showConfirm: false});
-  }
+    }
+    cancelDelete = e =>{
+        this.setState({showConfirm: false});
+    }
 
-	render() {
-		return (
+    render() {
+        return (
             <Fragment>
             <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleConfirm}>
-                -
+            ✖
             </button>
-                {this.state.showConfirm && <SweetAlert
-                    warning
-                    showCancel
-                    confirmBtnText="Yes, update it!"
-                    confirmBtnBsStyle="danger"
-                    cancelBtnBsStyle="default"
-                    title="Are you sure?"
-                    onConfirm={this.handleSubmit}
-                    onCancel={this.cancelDelete}
-                >
+            {this.state.showConfirm && <SweetAlert
+            warning
+            showCancel
+            confirmBtnText="Yes, remove it!"
+            confirmBtnBsStyle="danger"
+            cancelBtnBsStyle="default"
+            title="Are you sure?"
+            onConfirm={this.handleSubmit}
+            onCancel={this.cancelDelete}
+            >
             </SweetAlert>}
             </Fragment>
-			
-		)
-	};
+            
+        )
+    };
 }
 
-export default DecreaseQuantity;
+export default Remove;

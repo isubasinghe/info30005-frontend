@@ -6,13 +6,6 @@ import 'react-toastify/dist/ReactToastify.css';
 
 import $ from 'jquery';
 
-
-
-
-
-
-
-
 class AddItem extends Component {
 
   constructor (props) {
@@ -25,7 +18,7 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: '',
+      units: 'piece(s)',
       failed: false,
       errMsg: ''
     };
@@ -45,7 +38,7 @@ class AddItem extends Component {
       expiry: this.state.expiry,
       quantity: parseInt(this.state.quantity, 10),
       // default unit
-      units: 'piece'
+      units: this.state.units
     }
 
     let token = getToken();
@@ -113,11 +106,9 @@ class AddItem extends Component {
           <div className="form-group">
             <label htmlor="item-units" className="col-form-label">units</label>
             <select className="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
-              <option>piece</option>
+              <option>piece(s)</option>
               <option>g</option>
-              <option>kg</option>
               <option>mL</option>
-              <option>L</option>
             </select>
           </div>
           <div className="form-group">
