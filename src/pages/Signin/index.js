@@ -68,29 +68,30 @@ class SignInForm extends Component {
         <div className="d-flex justify-content-center">
 
             <div className="signin-container">
-            <div className="col mt-5 pl-5 pr-5 pt-2 bg-white">
-                <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">sign in </h2>
-                <form onSubmit={this.handleSubmit}>
+              <div className="col mt-5 pl-5 pr-5 pt-2 bg-white">
+                  <h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">sign in </h2>
+                  <form onSubmit={this.handleSubmit}>
 
-                    <div className="form-group pt-4 pl-5 pr-5">
-                        <p className="text-center text-blue font-weight-lighter text-lowercase">email</p>
-                        <input type="email" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="email" placeholder="enter a valid user email" required onChange={this.handleEmailChange}/>
-                        <div className="invalid-tooltip"> </div>
-                    </div>
-                    <div className="form-group pt-4 pl-5 pr-5">
-                        <p className="text-center text-blue font-weight-lighter text-lowercase">password</p>
-                        <input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-                                id="password" placeholder="enter the corresponding password" required onChange={this.handlePasswordChange}/>
-                        <div className="invalid-tooltip"> </div>
-                    </div>
-                    <div className="form-group text-center">
-                        <button type="submit" className="btn text-center btn-white font-weight-light border-white text-dark
-                                  bg-bground m-3 mb-5">sign in</button>
-                        {this.state.valid && <ErrorMessage msg={this.state.msg.toLowerCase()}/>}
-                    </div>
-                </form>
-            </div>
+                      <div className="form-group pt-4 pl-5 pr-5">
+                          <p className="text-center text-blue font-weight-lighter text-lowercase">email*</p>
+                          <input type="email" className="form-control border-primary text-center text-blue font-weight-light"
+                                  id="email" placeholder="enter your email" required onChange={this.handleEmailChange}/>
+                          <div className="invalid-tooltip"> </div>
+                      </div>
+                      <div className="form-group pt-4 pl-5 pr-5">
+                          <p className="text-center text-blue font-weight-lighter text-lowercase">password*</p>
+                          <input type="password" className="form-control border-primary text-center text-blue font-weight-light"
+                                  id="password" placeholder="enter your password" required onChange={this.handlePasswordChange}/>
+                          <div className="invalid-tooltip"> </div>
+                      </div>
+                      <div className="form-group text-center">
+                        <h6 className="text-blue"> <small> * fields are required </small> </h6>
+                          <button type="submit" className="btn text-center btn-white font-weight-light border-white text-dark
+                                    bg-bground m-3 mb-5">sign in</button>
+                          {this.state.valid && <ErrorMessage msg={this.state.msg.toLowerCase()}/>}
+                      </div>
+                  </form>
+              </div>
             </div>
         </div>
       )

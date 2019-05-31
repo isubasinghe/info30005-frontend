@@ -87,31 +87,32 @@ class SignUpForm extends Component {
 						<h2 className="text-center p-3 mt-5 text-white font-weight-lighter text-lowercase bg-blue rounded">sign up </h2>
 						<form onSubmit={this.handleSubmit}>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">Name</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">name*</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
 									id="name" placeholder="enter a name with alphabetic characters" onChange={this.handleName} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">email</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">email*</p>
 								<input type="email" className="form-control border-primary text-center text-blue font-weight-light"
 									id="email" placeholder="enter a valid email" onChange={this.handleEmail} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">password</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">password*</p>
 								<input type="password" className="form-control border-primary text-center text-blue font-weight-light"
-									id="password" placeholder="max 6 char + incl. special char and lower- & uppercase" onChange={this.handlePassword} required />
-									
+									id="password" placeholder="please enter a password" onChange={this.handlePassword} required />
+									<h6 className="p-2 text-center text-blue"> <small>minimum of 6 characters + include a lowercase, uppercase and a special character </small></h6>
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group pt-3 pl-5 pr-5">
-								<p className="text-center text-blue font-weight-lighter text-lowercase">address</p>
+								<p className="text-center text-blue font-weight-lighter text-lowercase">address*</p>
 								<input type="text" className="form-control border-primary text-center text-blue font-weight-light"
 									id="address" placeholder="enter a valid address" onChange={this.handleAddress} required />
 								<div className="invalid-tooltip"> </div>
 							</div>
 							<div className="form-group text-center">
+								<h6 className="text-blue"> <small> * fields are required </small> </h6>
 								<button type="submit" className="btn text-center btn-white font-weight-light border-white bg-bground m-4">sign up</button>
 								{this.state.valid && <ShowErrorMessage msg={this.state.errMsg.toLowerCase()}/>}
 							</div>

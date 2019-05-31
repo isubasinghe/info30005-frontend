@@ -10,10 +10,10 @@ class ShowErrorMessage extends Component {
 			show: true
 		};
 	}
-	
+
 	render () {
 		const handleHide = () => this.setState({show:false});
-		
+
 		return (
 			<div className="d-flex justify-content-center">
 				<Alert show={this.state.show} variant="warning">
@@ -29,7 +29,7 @@ class ShowErrorMessage extends Component {
 
 				{!this.state.show}
 			</div>
-		)	
+		)
 	}
 }
 
