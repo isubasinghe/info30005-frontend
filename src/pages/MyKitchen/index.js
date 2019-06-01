@@ -120,7 +120,6 @@ const itemExpiringSoon = (item) => {
   // Check if item is close to expire
   if ((itemExpiryDate.getDate()-todaysDate.getDate()) <= 2 && itemExpiryDate.getYear()===todaysDate.getYear() 
       && itemExpiryDate.getMonth() === todaysDate.getMonth()) {
-    console.log(itemExpiryDate.getDate()-todaysDate.getDate());
     return true;
   }
   return false;
@@ -394,7 +393,6 @@ class MyKitchen extends Component {
       }
       let inventory = [];
       let expired = [];
-      console.log(res);
       res.data.forEach((item) => {
         if(isExpired(item)) {
           expired.push(item);
@@ -402,12 +400,11 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
-      console.log(inventory.length);
+
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
       // toast(err.response.data.msg);
-      console.log(err);
     });
   }
 

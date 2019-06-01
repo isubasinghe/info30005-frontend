@@ -56,8 +56,6 @@ class SignUpForm extends Component {
 		// Create user in database
 		axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/signup', newUser)
 			.then(res => {
-				console.log(res);
-
 			// Redirect to page where it says to check user's email only if user written in db
 			this.setState({redirect: true});
 			toast("Please check your email");
@@ -66,7 +64,6 @@ class SignUpForm extends Component {
 			// Already a user with the inputted email
 			const valid = this.state.valid;
 			this.setState( { valid : !valid, errMsg: err.response.data.msg } );
-			console.log(err.response);
 		});
 
 

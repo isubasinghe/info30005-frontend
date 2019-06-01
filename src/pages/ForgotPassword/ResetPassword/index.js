@@ -21,19 +21,6 @@ class ResetPWForm extends Component {
 		// Prevent page from reloading
 		e.preventDefault();
 
-		/*const newPassword = {
-			password: this.state.password
-		}*/
-
-
-		// Forgot password
-		/*axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/auth/reset', newPassword)
-			.then(res => {
-				console.log(res.data);
-		})
-			.catch(err => {
-			console.log(err);
-		});*/
 	}
 
 	render() {

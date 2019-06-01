@@ -20,12 +20,10 @@ class AddItem extends Component {
       failed: false,
       errMsg: ''
     };
-    console.log(props);
     
   }
 
   handleSubmit = e => {
-    console.log("handle submit");
     e.preventDefault();
 
     const item = {
@@ -41,7 +39,6 @@ class AddItem extends Component {
 
     let token = getToken();
 
-    console.log(item);
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/addItem', {token: token, item: item})
     .then (res => {
