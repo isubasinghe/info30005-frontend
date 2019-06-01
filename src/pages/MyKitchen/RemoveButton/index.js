@@ -16,18 +16,7 @@ class Remove extends Component {
         }
 
     }
-    changeQuantity(units){
-        if(units === "piece"){
-            return 1;
-        }
-        else{
-            return 100;
-        }
     
-    }
-    handleConfirm = e => {
-        this.setState({showConfirm: true});
-    }
 
     handleSubmit = e => {
     
@@ -36,14 +25,7 @@ class Remove extends Component {
     .then (res => {
         let item = this.props.item;
         item.quantity -= 1;
-        let inventory = this.props.inventory;
-        if(item.quantity == 0) {
-            inventory.splice(this.props.index, 1);
-        }else {
-            inventory[this.props.index] = item;
-        }
-        
-        this.props.setInventory(inventory);
+        window.location ="/";
         this.setState({showConfirm: false});
         toast("Removed item " + item.name);
     })
@@ -51,27 +33,13 @@ class Remove extends Component {
         toast(err.response.data.msg);
     });
     }
-    cancelDelete = e =>{
-        this.setState({showConfirm: false});
-    }
 
     render() {
         return (
             <Fragment>
-            <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleConfirm}>
+            <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleSubmit}>
             ✖
             </button>
-            {this.state.showConfirm && <SweetAlert
-            warning
-            showCancel
-            confirmBtnText="Yes, remove it!"
-            confirmBtnBsStyle="danger"
-            cancelBtnBsStyle="default"
-            title="Are you sure?"
-            onConfirm={this.handleSubmit}
-            onCancel={this.cancelDelete}
-            >
-            </SweetAlert>}
             </Fragment>
             
         )

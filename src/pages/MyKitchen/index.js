@@ -8,6 +8,7 @@ import Preview from './preview.js';
 import AddItem from './AddItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
+import Remove from './RemoveButton';
 
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -107,7 +108,9 @@ const renderExpiringSoonBadge = (item) => {
 
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
+      <div>
+        <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
+      </div>
       )
   }
 }
@@ -280,6 +283,7 @@ const getCarousel = (data) => {
     <div className="carousel-item active">
       <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
+        <Remove item={data[0]}></Remove>
         <h2 className="h2-responsive">{data[0].name.toLowerCase()} expired</h2>
         <p>{daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
       </div>
@@ -403,7 +407,8 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      toast(err.response.data.msg);
+      console.log(err);
+      toast(err.response);
     });
   }
 
