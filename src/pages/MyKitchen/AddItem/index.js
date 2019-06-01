@@ -4,8 +4,6 @@ import { getToken, getLocation } from '../../../helpers/jwtHelper';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import $ from 'jquery';
-
 class AddItem extends Component {
 
   constructor (props) {
