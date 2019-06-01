@@ -128,11 +128,10 @@ const itemExpiringSoon = (item) => {
 
 // Only render item if not expired
 const renderNotExpiredItem = (item, index, inventory, setInventory) => {
-  let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is expired
-  if (daysOverdue(item)==0 && monthsOverdue(item)==0 && yearsOverdue(item)==0) {
+  if (daysOverdue(item)===0 && monthsOverdue(item)===0 && yearsOverdue(item)===0) {
     // Not expired, render the item
     return (
       <div className="card card-inventory" >
