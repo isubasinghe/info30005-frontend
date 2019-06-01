@@ -35,11 +35,6 @@ class AutoSuggest extends Component {
       timer: 0,
       shouldPrint: false,
     }
-    
-  }
-
-  componentDidMount() {
-    console.log(this.props);
   }
   onChange = (e, { newValue }) => {
     this.setState({
@@ -48,8 +43,6 @@ class AutoSuggest extends Component {
   }
 
   onSuggestionsFetchRequested = ({ value }) => {
-    console.log(value);
-    console.log(this.props.inventory);
     let fuse = new Fuse(this.props.inventory, options);
     const results = fuse.search(value);
     if(results.length < 1) {
@@ -68,17 +61,7 @@ class AutoSuggest extends Component {
     
   };
 
-  print = () => {
-    if(this.state.shouldPrint) {
-      console.log(this.props.inventory);
-    }
-    console.log(this.props.inventory);
-  }
-
-
-
   render() {
-    this.print();
     const { value, suggestions} = this.state;
     const inputProps = {
       placeholder: 'Search an item',

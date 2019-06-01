@@ -50,7 +50,6 @@ class SignInForm extends Component {
       .then(res => {
           // Only logged in if user is valid and password match user email
           storeToken(res.data.token);
-          console.log("LOGGED IN, now in my kitchen");
           window.location = "/";
           toast("Signed in");
 

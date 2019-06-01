@@ -38,11 +38,9 @@ class DecreaseQuantity extends Component {
 	handleSubmit = e => {
     
     let token = getToken();
-    console.log(this.props.item._id);
     let newQuantity = this.props.item.quantity-this.changeQuantity(this.props.item.units)
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/updateQuantity',{token: token, quantity: newQuantity, id: this.props.item._id})
     .then (res => {
-        console.log(res);
         let item = this.props.item;
         item.quantity = newQuantity;
         let inventory = this.props.inventory;
@@ -58,9 +56,6 @@ class DecreaseQuantity extends Component {
     })
     .catch(err => {
         toast(err.response.data.msg);
-        console.log(err.response.data.msg);
-        console.log(err.data);
-        console.log(err);
     });
   }
   cancelDelete = e =>{
