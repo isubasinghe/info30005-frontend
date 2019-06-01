@@ -310,6 +310,7 @@ const getCarousel = (data, setExpired) => {
               <div className="carousel-item" key={index}>
                 <img className="d-block w-100" src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
                 <div className="carousel-caption">
+                <Remove index={index} item={data[0]} expiry={data} setExpired={setExpired} ></Remove>
                   <h2 className="h2-responsive">{item.name.toLowerCase()} expired</h2>
                   <p>{daysOverdue(item)} days, {monthsOverdue(item)} months, and {yearsOverdue(item)} years ago</p>
                 </div>
@@ -338,6 +339,7 @@ const getJumbotron = () => {
 
 // Determine if expired items carousel should be displayed or not, and how
 const getBottomRow = (expired, inventory, setExpired) => {
+  console.log(expired.length);
   if(expired.length > 0) {
     return (
       <Fragment>
@@ -390,8 +392,7 @@ class MyKitchen extends Component {
   componentDidMount() {
     this.getData();
   }
-
-  getData =  async () => {
+  getData = async() => {
     let token = getToken();
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
