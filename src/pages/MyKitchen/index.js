@@ -406,7 +406,7 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      // toast(err.response.data.msg);
+      toast(err.res.data.msg);
       console.log(err);
     });
   }

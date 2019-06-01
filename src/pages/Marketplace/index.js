@@ -32,7 +32,7 @@ class Marketplace extends Component {
             this.setState({showConfirmation: true});
         })
         .catch(err => {
-            // toast(err.response.data.msg);
+            toast(err.res.data.msg);
             console.log(email);
             console.log(err);
         });
@@ -54,7 +54,7 @@ class Marketplace extends Component {
             this.addRetrievedItems(users, items);
         })
         .catch(err => {
-            // toast(err.response.data.msg);
+            toast(err.res.data.msg);
             console.log(err.data);
             console.log(err);
         });
