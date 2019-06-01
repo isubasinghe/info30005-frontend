@@ -3,8 +3,6 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 
-import AutSuggest from '../../components/AutoSuggest';
-
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
