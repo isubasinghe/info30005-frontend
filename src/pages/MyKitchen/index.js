@@ -3,8 +3,6 @@ import MediaQuery from 'react-responsive';
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 
-import AutSuggest from '../../components/AutoSuggest';
-
 import Preview from './preview.js';
 
 import AddItem from './AddItem';
@@ -130,11 +128,10 @@ const itemExpiringSoon = (item) => {
 
 // Only render item if not expired
 const renderNotExpiredItem = (item, index, inventory, setInventory) => {
-  let todaysDate = new Date();
   let itemExpiryDate = new Date(item.expiry);
 
   // Check if item is expired
-  if (daysOverdue(item)==0 && monthsOverdue(item)==0 && yearsOverdue(item)==0) {
+  if (daysOverdue(item)===0 && monthsOverdue(item)===0 && yearsOverdue(item)===0) {
     // Not expired, render the item
     return (
       <div className="card card-inventory" >
@@ -228,7 +225,7 @@ const daysOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let daysOverdue = todaysDate.getDate()-itemExpiryDate.getDate();
-    return daysOverdue;
+    return Math.abs(daysOverdue);
   }
   else {
     // Not expired yet, days overdue = 0
@@ -244,7 +241,7 @@ const monthsOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let monthsOverdue = todaysDate.getMonth()-itemExpiryDate.getMonth();
-    return monthsOverdue;
+    return Math.abs(monthsOverdue);
   }
   else {
     // Not expired yet, months overdue = 0
@@ -260,7 +257,7 @@ const yearsOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let yearsOverdue = todaysDate.getYear() - itemExpiryDate.getYear();
-    return yearsOverdue;
+    return Math.abs(yearsOverdue);
   }
   else {
     // Not expired yet, years overdue = 0

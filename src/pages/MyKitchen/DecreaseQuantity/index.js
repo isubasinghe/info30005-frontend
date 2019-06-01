@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import axios from 'axios';
 import { getToken } from '../../../helpers/jwtHelper';
-import {Button} from 'react-bootstrap';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 import SweetAlert from "react-bootstrap-sweetalert";
@@ -47,7 +46,7 @@ class DecreaseQuantity extends Component {
         let item = this.props.item;
         item.quantity = newQuantity;
         let inventory = this.props.inventory;
-        if(item.quantity == 0) {
+        if(item.quantity === 0) {
             inventory.splice(this.props.index, 1);
         }else {
             inventory[this.props.index] = item;

@@ -4,8 +4,6 @@ import { getToken, getLocation } from '../../../helpers/jwtHelper';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
-import $ from 'jquery';
-
 class AddItem extends Component {
 
   constructor (props) {
@@ -74,7 +72,9 @@ class AddItem extends Component {
   }
 
   handleUnitsChange = e => {
-    this.setState({units: e.target.value});
+    let unit = e.target.value;
+    unit = unit.replace("(s)", "");
+    this.setState({units: unit});
   }
   
 	render() {
