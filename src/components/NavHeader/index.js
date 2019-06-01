@@ -6,10 +6,6 @@ import './nav.scss';
 
 class NavHeader extends Component {
 
-  constructor(props) {
-    super(props);
-  }
-
   getRender() {
     if(this.props.loggedIn) {
       return (
