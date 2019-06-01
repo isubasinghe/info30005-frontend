@@ -24,9 +24,10 @@ class Remove extends Component {
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/removeItem',{token: token, id: this.props.item._id})
     .then (res => {
         let item = this.props.item;
-        item.quantity -= 1;
-        window.location ="/";
-        this.setState({showConfirm: false});
+        item.quantity = 0;
+        let expired = this.props.expiry;
+        expired.splice(this.props.index, 1);
+        this.props.setExpired(expired);
         toast("Removed item " + item.name);
     })
     .catch(err => {
