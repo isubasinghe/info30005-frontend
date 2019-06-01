@@ -3,6 +3,8 @@ import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import { Button, Card} from 'react-bootstrap';
 import SweetAlert from "react-bootstrap-sweetalert";
+import { toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import './marketplace.scss';
 class Marketplace extends Component {
 
@@ -30,7 +32,7 @@ class Marketplace extends Component {
             this.setState({showConfirmation: true});
         })
         .catch(err => {
-            // toast(err.response.data.msg);
+            toast(err.response.data.msg);
         });
     }
     handleConfirmation = () => {
@@ -49,7 +51,7 @@ class Marketplace extends Component {
             this.addRetrievedItems(users, items);
         })
         .catch(err => {
-            // toast(err.response.data.msg);
+            toast(err.response.data.msg);
         });
     }
     handleSubmit = e => {
@@ -62,7 +64,7 @@ class Marketplace extends Component {
             this.addRetrievedItems(users, items);
         })
         .catch(err => {
-            // toast(err.response.data.msg);
+            toast(err.response.data.msg);
         });
     }
     
@@ -79,7 +81,7 @@ class Marketplace extends Component {
                 <div className="cards">
                     {this.state.users.map((users, index) => {
                     return (
-                        <Card>
+                        <Card key={index}>
                             <Card.Body>
                             <Card.Title>{users.name}</Card.Title>
                             <Card.Text>Hi there, I have {this.state.items[index].quantity} {this.state.items[index].name}(s) </Card.Text>

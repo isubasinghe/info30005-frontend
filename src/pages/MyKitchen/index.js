@@ -399,11 +399,10 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
-
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      // toast(err.response.data.msg);
+      toast(err.response.data.msg);
     });
   }
 
