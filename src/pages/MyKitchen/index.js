@@ -369,7 +369,8 @@ class MyKitchen extends Component {
     this.state = {
       inventory: [],
       expired: [],
-      showModal: true
+      showModal: true,
+      allData: null
     };
 
   }
@@ -386,8 +387,11 @@ class MyKitchen extends Component {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
-
   componentDidMount() {
+    this.getData();
+  }
+
+  getData =  async () => {
     let token = getToken();
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
@@ -395,8 +399,8 @@ class MyKitchen extends Component {
       if(res.data === null || res.data === undefined) {
         throw new Error("Unable to obtain data.items from fetch call");
       }
-      let inventory = [];
-      let expired = [];
+      const inventory = [];
+      const expired = [];
       res.data.forEach((item) => {
         if(isExpired(item)) {
           expired.push(item);
@@ -404,7 +408,11 @@ class MyKitchen extends Component {
           inventory.push(item);
         }
       });
-      this.setState({inventory: inventory, expired: expired});
+      if(this.state.allData === null) {
+        this.setState({inventory: inventory, expired: expired, allData: res.data});
+      }else {
+        this.setState({inventory: inventory, expired: expired});
+      }
     })
     .catch(err => {
       console.log(err);
@@ -413,7 +421,7 @@ class MyKitchen extends Component {
   }
 
 	render() {
-
+    this.getData();
 		return (
       <Fragment>
       {getButtonToolbar(this.state.inventory, this.setInventory, this.state.showModal, this.setShowModal)}
