@@ -18,7 +18,7 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: 'piece(s)',
+      units: 'piece',
       failed: false,
       errMsg: ''
     };
@@ -106,7 +106,7 @@ class AddItem extends Component {
           <div className="form-group">
             <label htmlor="item-units" className="col-form-label">units</label>
             <select className="form-control text-blue" id="item-units" onChange={this.handleUnitsChange}>
-              <option>piece(s)</option>
+              <option>piece</option>
               <option>g</option>
               <option>mL</option>
             </select>
