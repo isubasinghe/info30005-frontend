@@ -9,6 +9,7 @@ import AddItem from './AddItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
 
+import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
 import Slider from "react-slick";
