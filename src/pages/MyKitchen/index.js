@@ -389,12 +389,13 @@ class MyKitchen extends Component {
     // List items from API 
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/listAllItems',{token: token})
     .then (res => {
-      if(res.data.items === null || res.data.items === undefined) {
+      if(res.data === null || res.data === undefined) {
         throw new Error("Unable to obtain data.items from fetch call");
       }
       let inventory = [];
       let expired = [];
-      res.data.items.forEach((item) => {
+      console.log(res);
+      res.data.forEach((item) => {
         if(isExpired(item)) {
           expired.push(item);
         }else {
@@ -405,7 +406,7 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      toast(err.response.data.msg);
+      // toast(err.response.data.msg);
       console.log(err);
     });
   }
