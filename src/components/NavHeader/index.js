@@ -8,8 +8,6 @@ class NavHeader extends Component {
 
   constructor(props) {
     super(props);
-    console.log(this.state);
-    console.log(this.props);
   }
 
   getRender() {

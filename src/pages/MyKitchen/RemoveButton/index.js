@@ -32,10 +32,8 @@ class Remove extends Component {
     handleSubmit = e => {
     
     let token = getToken();
-    console.log(this.props.item._id);
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/removeItem',{token: token, id: this.props.item._id})
     .then (res => {
-        console.log(res);
         let item = this.props.item;
         item.quantity -= 1;
         let inventory = this.props.inventory;
@@ -51,8 +49,6 @@ class Remove extends Component {
     })
     .catch(err => {
         toast(err.response.data.msg);
-        console.log(err.data);
-        console.log(err);
     });
     }
     cancelDelete = e =>{

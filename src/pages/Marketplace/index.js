@@ -27,14 +27,10 @@ class Marketplace extends Component {
         let token = getToken();
         axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/marketplace/contact',{seller_email: email, token: token})
         .then (res => {
-            
-            console.log(res);
             this.setState({showConfirmation: true});
         })
         .catch(err => {
             // toast(err.response.data.msg);
-            console.log(email);
-            console.log(err);
         });
     }
     handleConfirmation = () => {
@@ -48,15 +44,12 @@ class Marketplace extends Component {
         let token = getToken();
         axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/search',{token: token})
         .then (res => {
-            console.log(res);
             let users = res.data.users;
             let items = res.data.items;
             this.addRetrievedItems(users, items);
         })
         .catch(err => {
             // toast(err.response.data.msg);
-            console.log(err.data);
-            console.log(err);
         });
     }
     handleSubmit = e => {
@@ -70,8 +63,6 @@ class Marketplace extends Component {
         })
         .catch(err => {
             // toast(err.response.data.msg);
-            console.log(err.data);
-            console.log(err);
         });
     }
     

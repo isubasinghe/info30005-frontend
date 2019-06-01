@@ -126,7 +126,6 @@ class MyRecipes extends Component {
     let token = getToken();
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
       .then (res => {
-          console.log(res);
           this.setState({recipes: res.data.recipes});
 
       })
