@@ -46,7 +46,7 @@ class DecreaseQuantity extends Component {
         let item = this.props.item;
         item.quantity = newQuantity;
         let inventory = this.props.inventory;
-        if(item.quantity == 0) {
+        if(item.quantity === 0) {
             inventory.splice(this.props.index, 1);
         }else {
             inventory[this.props.index] = item;
