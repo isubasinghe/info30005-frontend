@@ -18,6 +18,7 @@ class Marketplace extends Component {
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleNameChange = this.handleNameChange.bind(this);
         this.handleTradeCommunication = this.handleTradeCommunication.bind(this);
+        this.showAll();
     }
     handleNameChange = e => {
         this.setState({itemName: e.target.value});
@@ -42,23 +43,30 @@ class Marketplace extends Component {
     addRetrievedItems(users, items){
         this.setState({users: users, items: items});
     }
+    showAll = e => {
+    
+        let token = getToken();
+        axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/search',{token: token})
+        .then (res => {
+            console.log(res);
+            let users = res.data.users;
+            let items = res.data.items;
+            this.addRetrievedItems(users, items);
+        })
+        .catch(err => {
+            // toast(err.response.data.msg);
+            console.log(err.data);
+            console.log(err);
+        });
+    }
     handleSubmit = e => {
     
         let token = getToken();
         axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/search',{token: token, name: this.state.itemName})
         .then (res => {
-            let users = [];
-            let items = [];
-            res.data.forEach((user) => {
-                users.push(user);
-                user.items.forEach((item) =>{
-                    if(item.name === this.state.itemName){
-                        items.push(item);
-                    }
-                })
-            });
+            let users = res.data.users;
+            let items = res.data.items;
             this.addRetrievedItems(users, items);
-            console.log(users);
         })
         .catch(err => {
             // toast(err.response.data.msg);
@@ -71,6 +79,7 @@ class Marketplace extends Component {
     render() {
         return (
             <div>
+
                 <div className="marketplace-search search form-inline">
                     <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter items"></input>
                     <Button className="button" onClick={this.handleSubmit}>search</Button>
