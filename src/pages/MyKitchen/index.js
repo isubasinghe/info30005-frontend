@@ -389,7 +389,6 @@ class MyKitchen extends Component {
     setTimeout(()=> {this.setState({showModal: show})}, 300);
   }
 
-
   componentDidMount() {
     this.getData();
   }
