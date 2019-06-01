@@ -18,18 +18,34 @@ class DecreaseQuantity extends Component {
     }
 
     handleConfirm = () => {
-        this.setState({showConfirm: true});
+        let newQuantity = this.props.item.quantity-this.changeQuantity(this.props.item.units);
+        if(newQuantity > 0){
+            this.handleSubmit();
+        }
+        else{
+            this.setState({showConfirm: true});
+        }
+    }
+    changeQuantity(units){
+        if(units === "piece"){
+            return 1;
+        }
+        else{
+            return 100;
+        }
+    
     }
 
 	handleSubmit = e => {
     
     let token = getToken();
     console.log(this.props.item._id);
-    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/decreaseQuantity',{token: token, id: this.props.item._id})
+    let newQuantity = this.props.item.quantity-this.changeQuantity(this.props.item.units)
+    axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/inventory/updateQuantity',{token: token, quantity: newQuantity, id: this.props.item._id})
     .then (res => {
         console.log(res);
         let item = this.props.item;
-        item.quantity -= 1;
+        item.quantity = newQuantity;
         let inventory = this.props.inventory;
         if(item.quantity == 0) {
             inventory.splice(this.props.index, 1);
@@ -43,6 +59,7 @@ class DecreaseQuantity extends Component {
     })
     .catch(err => {
         toast(err.response.data.msg);
+        console.log(err.response.data.msg);
         console.log(err.data);
         console.log(err);
     });
@@ -57,16 +74,16 @@ class DecreaseQuantity extends Component {
             <button type="button" className="btn btn-danger" style={{backgroundColor: 'transparent',color: 'red'}} onClick={this.handleConfirm}>
                 -
             </button>
-                {this.state.showConfirm && <SweetAlert
-                    warning
-                    showCancel
-                    confirmBtnText="Yes, update it!"
-                    confirmBtnBsStyle="danger"
-                    cancelBtnBsStyle="default"
-                    title="Are you sure?"
-                    onConfirm={this.handleSubmit}
-                    onCancel={this.cancelDelete}
-                >
+            {this.state.showConfirm && <SweetAlert
+            warning
+            showCancel
+            confirmBtnText="Yes, delete it!"
+            confirmBtnBsStyle="danger"
+            cancelBtnBsStyle="default"
+            title="Are you sure?"
+            onConfirm={this.handleSubmit}
+            onCancel={this.cancelDelete}
+            >
             </SweetAlert>}
             </Fragment>
 			
