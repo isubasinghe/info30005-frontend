@@ -8,6 +8,27 @@
 }
 
 
+
+.card-body {
+  height: 30em;
+
+  @media screen and ( max-height: 600px ) and (max-width: 500px){
+    height: 20em;
+  }
+
+  @media screen and ( max-height: 700px ) and (max-width: 700px){
+    height: 26em;
+  }
+
+  @media screen and ( max-height: 900px ) and (max-width: 700px) {
+    height: 37em;
+  }
+  .f2f-img {
+    max-height: 15em;
+    max-width: 100%;
+  }
+}
+
 .slick-mobile {
   .card {
     height: 20em;
