@@ -7,7 +7,6 @@ import './preview.scss';
 class Preview extends Component {
 
 	render() {
-        console.log("RENDERING PREVIEW");
 		return (
 			<div className="jumbotron-container">
                 <div className="jumbotron">

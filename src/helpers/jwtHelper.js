@@ -25,10 +25,8 @@ export const isLoggedIn = () => {
   }
 
   let decoded = jwtDecode(token);
-  console.log(decoded);
   // CONVERT TO SECONDS
   let currentTime = (new Date()).getTime()/1000;
-  console.log(currentTime);
   
   return currentTime < decoded.exp;
 
@@ -41,10 +39,8 @@ export const timeToLive = () => {
   }
 
   let decoded = jwtDecode(token);
-  console.log(decoded);
   // CONVERT TO SECONDS
   let currentTime = (new Date()).getTime()/1000;
-  console.log(currentTime);
   
   return decoded.exp - currentTime;
 

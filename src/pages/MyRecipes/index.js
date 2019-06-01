@@ -72,7 +72,7 @@ const getSliderResponsive = (device, data) => {
               <h7>publisher: {recipe.publisher}</h7>
               <p><a className="button-bground"href={recipe.f2f_url} rel="noopener noreferrer" target="_blank">go to recipe</a></p>
                 <div className="media">
-                  <img className="d-flex bg-bground justify-content-center" src={recipe.image_url} alt="a food recipe" />
+                  <img className="d-flex bg-bground justify-content-center f2f-img" src={recipe.image_url} alt="a food recipe" />
                 </div>
             </div>
           </div>
@@ -126,7 +126,6 @@ class MyRecipes extends Component {
     let token = getToken();
     axios.post('http://foodspan.ap-southeast-1.elasticbeanstalk.com/api/v1/recipe/generate',{token: token})
       .then (res => {
-          console.log(res);
           this.setState({recipes: res.data.recipes});
 
       })
