@@ -16,7 +16,7 @@ class AddItem extends Component {
       expiry: '',
       location: getLocation(),
       quantity: 0,
-      units: 'piece(s)',
+      units: 'piece',
       failed: false,
       errMsg: ''
     };
@@ -72,7 +72,9 @@ class AddItem extends Component {
   }
 
   handleUnitsChange = e => {
-    this.setState({units: e.target.value});
+    let unit = e.target.value;
+    unit = unit.replace("(s)", "");
+    this.setState({units: unit});
   }
   
 	render() {
