@@ -228,7 +228,7 @@ const daysOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let daysOverdue = todaysDate.getDate()-itemExpiryDate.getDate();
-    return daysOverdue;
+    return Math.abs(daysOverdue);
   }
   else {
     // Not expired yet, days overdue = 0
@@ -244,7 +244,7 @@ const monthsOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let monthsOverdue = todaysDate.getMonth()-itemExpiryDate.getMonth();
-    return monthsOverdue;
+    return Math.abs(monthsOverdue);
   }
   else {
     // Not expired yet, months overdue = 0
@@ -260,7 +260,7 @@ const yearsOverdue = (item) => {
   // Double-checking if item is expired
   if (isExpired(item)) {
     let yearsOverdue = todaysDate.getYear() - itemExpiryDate.getYear();
-    return yearsOverdue;
+    return Math.abs(yearsOverdue);
   }
   else {
     // Not expired yet, years overdue = 0
