@@ -8,6 +8,7 @@ import Preview from './preview.js';
 import AddItem from './AddItem';
 import IncreaseQuantity from './IncreaseQuantity';
 import DecreaseQuantity from './DecreaseQuantity';
+import Remove from './RemoveButton';
 
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
@@ -107,7 +108,9 @@ const renderExpiringSoonBadge = (item) => {
 
   if (itemExpiringSoon(item)) {
     return (
-      <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
+      <div>
+        <span className="badge badge-primary badge-pill" text-center="true">expiring in {daysToExpire} day(s)</span>
+      </div>
       )
   }
 }
@@ -265,7 +268,7 @@ const yearsOverdue = (item) => {
 }
 
 // Carousel with items that has expired but has not been used by user
-const getCarousel = (data) => {
+const getCarousel = (data, setExpired) => {
   if(data.length < 1) {
     return (
       <Fragment/>
@@ -280,6 +283,7 @@ const getCarousel = (data) => {
     <div className="carousel-item active">
       <img className="d-block w-100 " src="https://steamuserimages-a.akamaihd.net/ugc/776155680297657535/02F0EABF17FE99701D05F371387381E3DD696C6C/" alt="Slide" />
       <div className="carousel-caption">
+      <Remove index={0} item={data[0]} expiry={data} setExpired={setExpired} ></Remove>
         <h2 className="h2-responsive">{data[0].name.toLowerCase()} expired</h2>
         <p>{daysOverdue(data[0])} days, {monthsOverdue(data[0])} months, and {yearsOverdue(data[0])} years ago</p>
       </div>
@@ -333,12 +337,12 @@ const getJumbotron = () => {
 }
 
 // Determine if expired items carousel should be displayed or not, and how
-const getBottomRow = (expired, inventory) => {
+const getBottomRow = (expired, inventory, setExpired) => {
   if(expired.length > 0) {
     return (
       <Fragment>
         <div className="col-md-6">
-          {getCarousel(expired)}
+          {getCarousel(expired, setExpired)}
         </div>
         {<div className="col-md-6">
           {(inventory.length > 0) && getJumbotron()}
@@ -403,7 +407,8 @@ class MyKitchen extends Component {
       this.setState({inventory: inventory, expired: expired});
     })
     .catch(err => {
-      toast(err.response.data.msg);
+      console.log(err);
+      toast(err.response);
     });
   }
 
@@ -419,7 +424,7 @@ class MyKitchen extends Component {
             </div>
           </div>
           <div className="row bottom-row">
-            {getBottomRow(this.state.expired, this.state.inventory)}
+            {getBottomRow(this.state.expired, this.state.inventory, this.setExpired)}
           </div>
 			</div> 
       </Fragment>
