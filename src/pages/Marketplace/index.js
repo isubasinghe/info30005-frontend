@@ -1,5 +1,4 @@
-import React, { Component, Fragment } from "react";
-import MediaQuery from 'react-responsive';
+import React, { Component } from "react";
 import axios from 'axios';
 import { getToken } from '../../helpers/jwtHelper';
 import { Button, Card} from 'react-bootstrap';

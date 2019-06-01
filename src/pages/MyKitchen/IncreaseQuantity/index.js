@@ -1,7 +1,6 @@
-import React, { Component, Fragment } from "react";
+import React, { Component } from "react";
 import axios from 'axios';
 import { getToken } from '../../../helpers/jwtHelper';
-import {Button} from 'react-bootstrap';
 import { toast } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 class IncreaseQuantity extends Component {

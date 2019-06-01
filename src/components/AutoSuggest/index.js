@@ -56,7 +56,7 @@ class AutoSuggest extends Component {
       return;
     }
     for(let i = 0; i < this.props.inventory.length; i++) {
-      if(this.props.inventory[i]._id == results[0]._id) {
+      if(this.props.inventory[i]._id === results[0]._id) {
         this.props.slider.slickGoTo(i);
         break;
       }
