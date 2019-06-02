@@ -71,7 +71,7 @@ class Marketplace extends Component {
 
     render() {
         return (
-            <div>
+            <div className="container">
 
                 <div className="marketplace-search search form-inline">
                     <input className="input" type="text" onChange={this.handleNameChange} placeholder="Enter items"></input>
