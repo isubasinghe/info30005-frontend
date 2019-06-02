@@ -18,6 +18,9 @@ This allows the user to make a call to the database and return all the expired i
 ## Adding items
 User's are able to add an item, through sending the item name, category (from a defined group), the quantity, units and date of expiry. This will allow users to ensure their is a digital copy of their items at home wich will be later used for tracking items.
 
+## Mykitchen search
+Searches the users current items and displays items that match the search and if none match, shows all items. This allows users who have many items to easily check a particular item's quantity
+
 ## Updating item quantities
 User's can update the quantity of items through dynamically checking the units and changing the quantity approapriately. Depending on the quantity, the system will simply update or remove the item altogether. This allows users to keep track of how much item they have and adjust when they consume the items.
 
