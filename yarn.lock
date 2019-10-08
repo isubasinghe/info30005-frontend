@@ -825,13 +825,12 @@
     "@material/theme" "^1.1.0"
     tslib "^1.9.3"
 
-"@material/react-snackbar@^0.12.0":
-  version "0.12.0"
-  resolved "https://registry.yarnpkg.com/@material/react-snackbar/-/react-snackbar-0.12.0.tgz#d97b6f00d7b1bc8ea61a96b47c1c4f631a314e0a"
+"@material/react-snackbar@^0.15.0":
+  version "0.15.0"
+  resolved "https://registry.yarnpkg.com/@material/react-snackbar/-/react-snackbar-0.15.0.tgz#c4ba848451816e9114d3e6297a9686cbf896b93e"
   dependencies:
     "@material/snackbar" "^1.0.0"
     classnames "^2.2.6"
-    react "^16.4.2"
 
 "@material/ripple@^1.1.0":
   version "1.1.0"
@@ -7772,7 +7771,7 @@ react@15:
     object-assign "^4.1.0"
     prop-types "^15.5.10"
 
-react@^16.4.2, react@^16.8.6:
+react@^16.8.6:
   version "16.8.6"
   resolved "https://registry.yarnpkg.com/react/-/react-16.8.6.tgz#ad6c3a9614fd3a4e9ef51117f54d888da01f2bbe"
   dependencies:
