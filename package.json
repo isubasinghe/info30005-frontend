@@ -8,7 +8,7 @@
     "bootstrap": "^4.3.1",
     "fuse.js": "^3.4.4",
     "html-react-parser": "^0.7.0",
-    "jquery": "^3.4.0",
+    "jquery": "^3.5.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.24.0",
     "moment-timezone": "^0.5.25",
